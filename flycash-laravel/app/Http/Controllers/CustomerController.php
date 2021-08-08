@@ -28,11 +28,11 @@ class CustomerController extends Controller
     }
 // ============================ End Edit ====================================
 
-    public function update(Request $req, Officer $id)
+    public function update(Request $req, $id)
     {
         $users = Officer::find($id);
         
-        $users->name = $req->name;
+        //$users->name = $req->name;
         // if($users->password != $req->password){
         //     $users->password = $req->password;
         // }
