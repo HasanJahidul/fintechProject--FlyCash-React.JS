@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+//=============================Start Officer Class===============================
+
+import Home from './components/officer/Home';
+import CustomerDeatils from './components/officer/customer/CustomerDetails';
+import CustomerEdit from './components/officer/customer/CustomerEdit';
+
+//=============================End Officer Class===============================
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+{/* =============================Start Officer Router=============================== */}
+
+
+        <Route exact path="/" component={Home}/>
+
+        <Route exact path="/show-customer" component={CustomerDeatils}/>
+        <Route exact path="/edit-customer/:id" component={CustomerEdit}/>
+
+
+
+{/* =============================End Officer Router=============================== */}
+      </Switch>
+    </Router>
   );
 }
 

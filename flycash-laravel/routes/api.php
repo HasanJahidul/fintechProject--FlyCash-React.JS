@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Route::post('/emp-register', [CustomerController::class, 'store']);
+Route::get('show-customer', [CustomerController::class, 'show']);
+
+Route::get('edit-customer/{id}', [EmpController::class, 'edit']);
+Route::put('update-customer/{id}', [CustomerController::class, 'update']);
+
+// Route::delete('delete-customer/{id}', [CustomerController::class, 'destroy']);

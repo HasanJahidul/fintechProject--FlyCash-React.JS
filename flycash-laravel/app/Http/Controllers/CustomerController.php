@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Officer;
+use App\Models\Customer;
 use Validator;
 use App\Http\Requests\EditProfileRequest;
 use Illuminate\Support\Facades\DB; //Import query builser 
@@ -12,48 +13,57 @@ class CustomerController extends Controller
 {
     public function show()
     {
-        $users= Officer::all(); //change Officer to (Customer)->tablename
+        $customer= Customer::all(); //change Officer to (Customer)->tablename
 
         //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
 
-        return view('pages.officer.customer.show')->with('users', $users);
+        return response()->json([
+            'status' => 200,
+            'customers' => $customer
+        ]);
     }
     // ============================ End Insert ====================================
 
     public function edit($id){
 
-        $users= Officer::find($id);
+        $customer= Customer::find($id);
 
-        return view('pages.officer.customer.edit')->with('user', $users);
+        if ($customer) {
+            return response()->json([
+                'status' => 200,
+                'customers' => $customer,
+            ]);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => 'No customer Id Found',
+            ]);
+        }
     }
 // ============================ End Edit ====================================
 
     public function update(Request $req, $id)
     {
-        $users = Officer::find($id);
+        $customer = Customer::find($id);
         
-        //$users->name = $req->name;
-        // if($users->password != $req->password){
-        //     $users->password = $req->password;
-        // }
-        $users->phone = $req->phone;
-        $users->nid = $req->nid;
-        $users->dob = $req->dob;
-        $users->type = $req->type;
+        $customer->name = $req->input('name');
+        $customer->phone = $req->input('phone');
+        $customer->nid = $req->input('nid');
+        $customer->type = $req->input('type');
 
-        $users->save();
-        
-        // $results->save();
-        // return response()->json($results);
+        $customer->update();
 
-        return redirect()->route('customer_show');
+        return response()->json([
+            'status' => 200,
+            'message' => 'Customer Update Successfully',
+        ]);
     }
 
     // ============================ End Update ====================================
 
     public function delete($id){
   
-        $users = Officer::find($id); //change model name
+        $users = Customer::find($id); //change model name
         
         return view('pages.officer.customer.delete')->with('user', $users);
     }
@@ -61,7 +71,7 @@ class CustomerController extends Controller
 
     public function destroy($id){
 
-        $users = Officer::find($id);
+        $users = Customer::find($id);
         $users->delete();
 
          return redirect()->route('customer_delete');
@@ -94,7 +104,7 @@ class CustomerController extends Controller
         {
             if ($req->password== $req->password_confirmation)
             {
-                dd($req);
+                //dd($req);
                 $email=$req->session()->get('email');
                 $customer = Customer::where('email',$email)
                 ->first();
