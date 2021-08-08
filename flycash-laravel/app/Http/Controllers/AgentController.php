@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Officer;
+use App\Models\Agentstransactions;
 use App\Models\Agent;
 use Illuminate\Support\Facades\DB; //Import query builser 
 
@@ -11,59 +11,83 @@ class AgentController extends Controller
 {
     public function index()
     {
-        $users= Agent::all(); //change Officer to (Agent)->tablename
+        $agent= Agent::all(); //change Officer to (Agent)->tablename
 
         //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
 
-        return view('pages.officer.agent.index')->with('users', $users);
+        return response()->json([
+            'status' => 200,
+            'agents' => $agent
+        ]);
     }
     // ============================ End Insert ====================================
 
     public function edit($id){
 
-        $users= Agent::find($id);
+        $agent= Agent::find($id);
 
-        return view('pages.officer.agent.edit')->with('user', $users);
+        if ($agent) {
+            return response()->json([
+                'status' => 200,
+                'agents' => $agent,
+            ]);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => 'No agent Id Found',
+            ]);
+        }
     }
 // ============================ End Edit ====================================
 
     public function update(Request $req,$id)
     {
-        $users = Agent::find($id);
+        $agent = Agent::find($id);
         
-        //$users->name = $req->name;
-        // if($users->password != $req->password){
-        //     $users->password = $req->password;
-        // }
-        $users->phone = $req->phone;
-        $users->nid = $req->nid;
-        $users->dob = $req->dob;
-        $users->type = $req->type;
+        $agent->phone = $req->input('phone');
+        $agent->nid = $req->input('nid');
+        $agent->dob = $req->input('dob');
+        $agent->type = $req->input('type');
 
-        $users->save();
-        
-        // $results->save();
-        // return response()->json($results);
+        $agent->update();
 
-        return redirect()->route('agent_index');
+        return response()->json([
+            'status' => 200,
+            'message' => 'Agent Update Successfully',
+        ]);
     }
 
     // ============================ End Update ====================================
 
     public function delete($id){
   
-        $users = Agent::find($id); //change model name
+        $agent = Agent::find($id); //change model name
         
-        return view('pages.officer.agent.delete')->with('user', $users);
+        return view('pages.officer.agent.delete')->with('user', $agent);
     }
 // ============================ End Delete ====================================
 
     public function destroy($id){
 
-        $users = Agent::find($id);
-        $users->delete();
+        $agent = Agent::find($id);
+
+        $agent->delete();
 
          return redirect()->route('agent_delete');
     }
 // ============================ End Destroy ====================================
+
+//===========================Officer get transaction for customer=================================
+
+    public function view()
+    {
+        $agent= Agentstransactions::all(); //change Officer to (Customer)->tablename
+
+        //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
+
+        return response()->json([
+            'status' => 200,
+            'agents' => $agent
+        ]);
+    }
 }

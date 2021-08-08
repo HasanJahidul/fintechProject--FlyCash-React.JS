@@ -13,7 +13,7 @@ class Home extends Component{
                             <div className="card-header">
                                 <h4>Fintech FlyCash Online
                                     <Link to={'show-customer'} className="btn btn-primary btn-sm float-end">Customer</Link>
-                                    <Link to={'emp-login'} className="btn btn-primary btn-sm float-end">Login</Link>
+                                    <Link to={'show-agent'} className="btn btn-primary btn-sm float-end">agent</Link>
                                   
                                 </h4>
                             </div>

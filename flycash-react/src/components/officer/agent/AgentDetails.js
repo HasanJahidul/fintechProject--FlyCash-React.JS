@@ -4,23 +4,23 @@ import axios from 'axios';
 
 //import swal from 'sweetalert';
 
-class CustomerDeatils extends Component{
+class AgentDetails extends Component{
 
     state = {
-        customers: [],
+        agents: [],
         loding: true,
     }
 
     async componentDidMount() {
 
-        const res = await axios.get('http://localhost:8000/api/show-customer');
+        const res = await axios.get('http://localhost:8000/api/show-agent');
 
-        //console.log(res);
+        console.log(res);
 
         if(res.data.status === 200 ){
             
             this.setState({
-                customers: res.data.customers,
+                agents: res.data.agents,
                 loding: false,    
             });
         }
@@ -31,13 +31,13 @@ class CustomerDeatils extends Component{
 
     render(){
 
-        var customer_table = "";
+        var agent_table = "";
 
         if(this.state.loding){
-            customer_table = <tr><td colSpan="11"><h2>loding...</h2></td></tr>
+            agent_table = <tr><td colSpan="11"><h2>loding...</h2></td></tr>
         }else{
-            customer_table = 
-                this.state.customers.map( (item)=> {
+            agent_table = 
+                this.state.agents.map( (item)=> {
                     return (
                         <tr key={item.id}>
                             <td>{item.id}</td>
@@ -51,10 +51,10 @@ class CustomerDeatils extends Component{
                             <td>{item.type}</td>
 
                             <td>
-                                <Link to={`details-customer/${item.id}`} className="btn btn-success btn-sm">View</Link>
+                                <Link to={`details-agent/${item.id}`} className="btn btn-success btn-sm">View</Link>
                             </td>
                             <td>
-                                <Link to={`edit-customer/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
+                                <Link to={`edit-agent/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
                             </td>
                         </tr>
                     );
@@ -67,14 +67,14 @@ class CustomerDeatils extends Component{
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Customer View Page
-                                    <Link to={'/transaction-customer'} className="btn btn-primary btn-sm float-end">All Transaction</Link>
+                                <h4>Agent View Page
+                                    <Link to={'/transaction-agent'} className="btn btn-primary btn-sm float-end">All Transaction</Link>
                                 </h4>
                             </div>
 
                             <div className="card-body">
 
-                                <h2>Customer Data</h2>
+                                <h2>Agent Data</h2>
                                 <table className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -93,7 +93,7 @@ class CustomerDeatils extends Component{
                                     </thead>
             
                                     <tbody>
-                                        {customer_table}
+                                        {agent_table}
                                     </tbody>
                                 </table>
 
@@ -108,4 +108,4 @@ class CustomerDeatils extends Component{
     }
 }
 
-export default CustomerDeatils;
+export default AgentDetails;
