@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::post('/emp-register', [CustomerController::class, 'store']);
 Route::get('show-customer', [CustomerController::class, 'show']);
 
-Route::get('edit-customer/{id}', [EmpController::class, 'edit']);
+Route::get('edit-customer/{id}', [CustomerController::class, 'edit']);
 Route::put('update-customer/{id}', [CustomerController::class, 'update']);
 
 // Route::delete('delete-customer/{id}', [CustomerController::class, 'destroy']);

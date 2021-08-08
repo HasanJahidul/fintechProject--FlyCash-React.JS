@@ -42,11 +42,11 @@ class CustomerEdit extends Component{
                 button: "OK!",
               });
               
-            this.props.history.push('/CustomerDetails');  
+            this.props.history.push('/show-customer');  
         }
     }
 
-    updateEmployee = async (e) =>{
+    updateCustomer = async (e) =>{
         e.preventDefault();
 
         const customer_id = this.props.match.params.id;
@@ -61,7 +61,7 @@ class CustomerEdit extends Component{
             document.getElementById('updatebtn').disable = false;
             document.getElementById('updatebtn').innerText = 'Update';
 
-            this.props.history.push('/CustomerDetails');
+            this.props.history.push('/show-customer');
 
             swal({
                 title: "Updated!",
@@ -79,19 +79,15 @@ class CustomerEdit extends Component{
                     <div className="col-md-6">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Edit Employee
+                                <h4>Edit Customer Page
                                     <Link to={'/show-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
                                 </h4>
                             </div>
 
                             <div className="card-body">
 
-                                <form onSubmit={this.updateEmployee}>
+                                <form onSubmit={this.updateCustomer}>
 
-                                    <div className="form-group mb-3">
-                                        <lebel>Name</lebel>
-                                        <input type="text" name="name" value={this.state.name} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
                                     <div className="form-group mb-3">
                                         <lebel>Phone</lebel>
                                         <input type="text" name="phone" value={this.state.phone} className="form-control"  onChange={this.handleInput}/>
@@ -99,6 +95,10 @@ class CustomerEdit extends Component{
                                     <div className="form-group mb-3">
                                         <lebel>NID</lebel>
                                         <input type="text" name="nid" value={this.state.nid} className="form-control"  onChange={this.handleInput}/>
+                                    </div>
+                                    <div className="form-group mb-3">
+                                        <lebel>DOB</lebel>
+                                        <input type="text" name="dob" value={this.state.dob} className="form-control"  onChange={this.handleInput}/>
                                     </div>
                                     <div className="form-group mb-3">
                                         <lebel>Type</lebel>

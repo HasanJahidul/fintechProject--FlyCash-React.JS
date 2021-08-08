@@ -74,10 +74,10 @@ class CustomerDeatils extends Component{
                             <td>{item.type}</td>
 
                             <td>
-                                <Link to={`edit-customer/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
+                                <Link to={`details-customer/${item.id}`} className="btn btn-success btn-sm">View</Link>
                             </td>
                             <td>
-                                <button type="submit" className="btn btn-danger btn-sm" onClick={(e)=> this.deleteEmployee(e, item.id)}>Delete</button>
+                                <Link to={`edit-customer/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
                             </td>
                         </tr>
                     );

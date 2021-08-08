@@ -46,9 +46,9 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         
-        $customer->name = $req->input('name');
         $customer->phone = $req->input('phone');
         $customer->nid = $req->input('nid');
+        $customer->dob = $req->input('dob');
         $customer->type = $req->input('type');
 
         $customer->update();
