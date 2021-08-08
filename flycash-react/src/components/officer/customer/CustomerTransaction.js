@@ -4,7 +4,7 @@ import axios from 'axios';
 
 //import swal from 'sweetalert';
 
-class CustomerDeatils extends Component{
+class CustomerTransaction extends Component{
 
     state = {
         customers: [],
@@ -13,9 +13,9 @@ class CustomerDeatils extends Component{
 
     async componentDidMount() {
 
-        const res = await axios.get('http://localhost:8000/api/show-customer');
+        const res = await axios.get('http://localhost:8000/api/transaction-customer');
 
-        //console.log(res);
+       // console.log(res);
 
         if(res.data.status === 200 ){
             
@@ -54,30 +54,25 @@ class CustomerDeatils extends Component{
 
     render(){
 
-        var customer_table = "";
+        var customer_transaction_table = "";
 
         if(this.state.loding){
-            customer_table = <tr><td colSpan="9"><h2>loding...</h2></td></tr>
+            customer_transaction_table = <tr><td colSpan="8"><h2>loding...</h2></td></tr>
         }else{
-            customer_table = 
+            customer_transaction_table = 
                 this.state.customers.map( (item)=> {
                     return (
                         <tr key={item.id}>
                             <td>{item.id}</td>
-                            <td>{item.name}</td>
                             <td>{item.email}</td>
                             <td>{item.phone}</td>
-                            <td>{item.nid}</td>
-                            <td>{item.dob}</td>
+                            <td>{item.transaction_type}</td>
+                            <td>{item.amount}</td>
                             <td>{item.balance}</td>
-                            <td>{item.transaction_status}</td>
-                            <td>{item.type}</td>
+                            <td>{item.date}</td>
 
                             <td>
-                                <Link to={`details-customer/${item.id}`} className="btn btn-success btn-sm">View</Link>
-                            </td>
-                            <td>
-                                <Link to={`edit-customer/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
+                                <Link to={`show-customer/${item.id}`} className="btn btn-success btn-sm">download pdf</Link>
                             </td>
                         </tr>
                     );
@@ -90,8 +85,8 @@ class CustomerDeatils extends Component{
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Customer View Page
-                                    <Link to={'/transaction-customer'} className="btn btn-primary btn-sm float-end">All Transaction</Link>
+                                <h4>Customer All Transaction Page
+                                    <Link to={'/show-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
                                 </h4>
                             </div>
 
@@ -102,25 +97,22 @@ class CustomerDeatils extends Component{
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
-                                            <th>NID</th>
-                                            <th>DOB</th>
+                                            <th>Transaction Type</th>
+                                            <th>Amount</th>
                                             <th>Balance</th>
-                                            <th>TS</th>
-                                            <th>Type</th>
+                                            <th>Date</th>
                                             <th>View</th>
-                                            <th>Edit</th>
                                         </tr>
                                     </thead>
             
                                     <tbody>
-                                        {customer_table}
+                                        {customer_transaction_table}
                                     </tbody>
                                 </table>
 
-                                <Link to={'/'} className="btn btn-primary btn-sm float-end">Back</Link>
+                                <Link to={'/show-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
 
                             </div>
                         </div>
@@ -131,4 +123,4 @@ class CustomerDeatils extends Component{
     }
 }
 
-export default CustomerDeatils;
+export default CustomerTransaction;

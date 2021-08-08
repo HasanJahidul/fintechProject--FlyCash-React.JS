@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Officer;
 use App\Models\Customer;
+use App\Models\Customerstransaction;
 use Validator;
 use App\Http\Requests\EditProfileRequest;
 use Illuminate\Support\Facades\DB; //Import query builser 
@@ -78,11 +79,25 @@ class CustomerController extends Controller
     }
 // ============================ End Destroy ====================================
 
+//===========================Officer get transaction for customer=================================
+
+    public function view()
+    {
+        $customer= Customerstransaction::all(); //change Officer to (Customer)->tablename
+
+        //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
+
+        return response()->json([
+            'status' => 200,
+            'customers' => $customer
+        ]);
+    }
+
+//======================================End Officer Function========================================
+
     public function editCustomer(){
 
         return view('profile.edit');
-
-
     }
     public function editCustomerdone(){
 

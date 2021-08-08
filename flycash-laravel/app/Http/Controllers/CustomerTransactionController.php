@@ -32,7 +32,9 @@ class CustomerTransactionController extends Controller
     public function addmoney()
     {
         return view('pages.customer.transaction.addmoney');
-    }public function addmoneydone(TransactionRequest $req)
+    }
+
+    public function addmoneydone(TransactionRequest $req)
     {
         if($req-> amount >97)
         {
@@ -390,6 +392,5 @@ class CustomerTransactionController extends Controller
     {
         return view('pages.customer.transaction.tickets');
     }
-
 
 }

@@ -19,10 +19,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//========================================Officer Router =======================================
+
 //Route::post('/emp-register', [CustomerController::class, 'store']);
 Route::get('show-customer', [CustomerController::class, 'show']);
+Route::get('transaction-customer', [CustomerController::class, 'view']);
 
 Route::get('edit-customer/{id}', [CustomerController::class, 'edit']);
 Route::put('update-customer/{id}', [CustomerController::class, 'update']);
 
 // Route::delete('delete-customer/{id}', [CustomerController::class, 'destroy']);
+
+//=====================================End Officer Router =======================================
