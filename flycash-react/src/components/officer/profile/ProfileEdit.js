@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom'
 
 import swal from 'sweetalert';
 
-class AgentEdit extends Component{
+class ProfileEdit extends Component{
 
     state = {
+        name:'',
+        email:'',
         phone:'',
         nid:'',
         dob:'',
@@ -21,18 +23,20 @@ class AgentEdit extends Component{
 
     async componentDidMount(){
 
-        const agent_id = this.props.match.params.id;
+        const officer_id = this.props.match.params.id;
 
-        const res = await axios.get(`http://localhost:8000/api/edit-agent/${agent_id}`);
+        const res = await axios.get(`http://localhost:8000/api/edit-profile/${officer_id}`);
 
         if(res.data.status === 200){
 
-            //console.log(agent_id);
+            //console.log(officer_id);
             this.setState({
-                phone: res.data.agents.phone,
-                nid: res.data.agents.nid,
-                dob: res.data.agents.dob,
-                type: res.data.agents.type,
+                name: res.data.profiles.name,
+                email: res.data.profiles.email,
+                phone: res.data.profiles.phone,
+                nid: res.data.profiles.nid,
+                dob: res.data.profiles.dob,
+                type: res.data.profiles.type,
             });
         }else{
             swal({
@@ -42,26 +46,26 @@ class AgentEdit extends Component{
                 button: "OK!",
               });
               
-            this.props.history.push('/show-agent');  
+            this.props.history.push('/view-profile');  
         }
     }
 
-    updateAgent = async (e) =>{
+    updateOfficer = async (e) =>{
         e.preventDefault();
 
-        const agent_id = this.props.match.params.id;
+        const officer_id = this.props.match.params.id;
 
         document.getElementById('updatebtn').disable = true;
         document.getElementById('updatebtn').innerText = 'Updating';
 
-        const res = await axios.put(`http://localhost:8000/api/update-agent/${agent_id}`, this.state);
+        const res = await axios.put(`http://localhost:8000/api/update-profile/${officer_id}`, this.state);
         
         if(res.data.status === 200){
 
             document.getElementById('updatebtn').disable = false;
-            document.getElementById('updatebtn').innerText = 'Update';
+            document.getElementById('updatebtn').innerText = 'save';
 
-            this.props.history.push('/show-agent');
+            this.props.history.push('/view-profile');
 
             swal({
                 title: "Updated!",
@@ -79,15 +83,23 @@ class AgentEdit extends Component{
                     <div className="col-md-6">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Edit Agent Page
-                                    <Link to={'/show-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
+                                <h4>Edit Officer Page
+                                    <Link to={'/view-profile'} className="btn btn-primary btn-sm float-end">Back</Link>
                                 </h4>
                             </div>
 
                             <div className="card-body">
 
-                                <form onSubmit={this.updateAgent}>
+                                <form onSubmit={this.updateOfficer}>
 
+                                    <div className="form-group mb-3">
+                                        <lebel>Name</lebel>
+                                        <input type="text" name="name" value={this.state.name} className="form-control"  onChange={this.handleInput}/>
+                                    </div>
+                                    <div className="form-group mb-3">
+                                        <lebel>Email</lebel>
+                                        <input type="text" name="email" value={this.state.email} className="form-control"  onChange={this.handleInput}/>
+                                    </div>
                                     <div className="form-group mb-3">
                                         <lebel>Phone</lebel>
                                         <input type="text" name="phone" value={this.state.phone} className="form-control"  onChange={this.handleInput}/>
@@ -118,4 +130,4 @@ class AgentEdit extends Component{
     }
 }
 
-export default AgentEdit;
+export default ProfileEdit;

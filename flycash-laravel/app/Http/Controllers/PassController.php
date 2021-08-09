@@ -8,25 +8,82 @@ use Illuminate\Http\Request;
 
 class PassController extends Controller
 {
-    public function edit(Officer $email)
-    {
-        $users= Officer::find($email);
+    public function store(Request $req){
 
-        return view('pages.officer.password.password_edit')->with('user', $users);
+        $pass = new Officer;
+
+        if($pass->password == $req->current_password){
+
+            if($pass->new_password == $req->re_password){
+
+                $pass->password = $req->new_password;
+
+                $pass->save();
+
+                return response()->json([
+                    'status'=>200,
+                    'message'=>'Password Updated Successfully',
+                ]);
+            }else{
+                return response()->json([
+                    'status'=>404,
+                    'message'=>'New Password $ Re-Password Mismatch !',
+                ]);
+            }
+        }else{
+
+            return response()->json([
+                'status'=>404,
+                'message'=>'Current Password Not Match !',
+            ]);
+        }
     }
 
-    public function update(Request $req, Officer $email)
+    public function edit($id)
     {
-        $users = Officer::find($email);
-        
-        if($users->password != $req->password){
-            if($req->password==$req->password_confirmation){
-                $users->password = $req->password;
-            }
-        }
-  
-        $users->save();
+        $pass= Officer::find($id);
 
-        return redirect()->route('password_update');
+        if ($pass) {
+            return response()->json([
+                'status' => 200,
+                'officers' => $pass,
+            ]);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => 'No profile Id Found',
+            ]);
+        }
+    }
+
+    public function update(Request $req,$id)
+    {
+        $pass = Officer::find($id);
+        
+        if($pass->password == $req->current_password){
+
+            if($pass->new_password == $req->re_password){
+
+                $pass->password = $req->new_password;
+
+                $pass->update();
+
+                return response()->json([
+                    'status'=>200,
+                    'message'=>'Password Updated Successfully',
+                ]);
+            }else{
+                return response()->json([
+                    'status'=>404,
+                    'message'=>'New Password $ Re-Password Mismatch !',
+                ]);
+            }
+        }else{
+
+            return response()->json([
+                'status'=>404,
+                'message'=>'Current Password Not Match !',
+            ]);
+        }
     }
 }

@@ -13,6 +13,11 @@ import AgentDetails from './components/officer/agent/AgentDetails';
 import AgentEdit from './components/officer/agent/AgentEdit';
 import AgentTransaction from './components/officer/agent/AgentTransaction';
 
+import Profile from './components/officer/profile/Profile';
+import ProfileEdit from './components/officer/profile/ProfileEdit';
+import ChangePassword from './components/officer/profile/ChangePassword';
+
+
 //=============================End Officer Class===============================
 
 function App() {
@@ -32,7 +37,10 @@ function App() {
         <Route exact path="/edit-agent/:id" component={AgentEdit}/>
         <Route exact path="/transaction-agent" component={AgentTransaction}/>
 
+        <Route exact path="/view-profile" component={Profile}/>
+        <Route exact path="/edit-profile/:id" component={ProfileEdit}/>
 
+        <Route exact path="/change-password" component={ChangePassword}/>
 
 {/* =============================End Officer Router=============================== */}
       </Switch>

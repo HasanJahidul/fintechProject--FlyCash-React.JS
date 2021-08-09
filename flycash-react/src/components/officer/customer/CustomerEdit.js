@@ -38,7 +38,7 @@ class CustomerEdit extends Component{
             swal({
                 title: "Warning!",
                 text: res.data.message,
-                icon: "success",
+                icon: "warning",
                 button: "OK!",
               });
               

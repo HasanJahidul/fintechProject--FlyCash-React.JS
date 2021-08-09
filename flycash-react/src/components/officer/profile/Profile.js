@@ -2,25 +2,23 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 
-//import swal from 'sweetalert';
-
-class CustomerTransaction extends Component{
+class ProfileEdit extends Component{
 
     state = {
-        customers: [],
+        profiles: [],
         loding: true,
     }
 
     async componentDidMount() {
 
-        const res = await axios.get('http://localhost:8000/api/transaction-customer');
+        const res = await axios.get('http://localhost:8000/api/view-profile');
 
-       // console.log(res);
+        console.log(res);
 
         if(res.data.status === 200 ){
             
             this.setState({
-                customers: res.data.customers,
+                profiles: res.data.profiles,
                 loding: false,    
             });
         }
@@ -31,25 +29,27 @@ class CustomerTransaction extends Component{
 
     render(){
 
-        var customer_transaction_table = "";
+        var officer_table = "";
 
         if(this.state.loding){
-            customer_transaction_table = <tr><td colSpan="8"><h2>loding...</h2></td></tr>
+            officer_table = <tr><td colSpan="11"><h2>loding...</h2></td></tr>
         }else{
-            customer_transaction_table = 
-                this.state.customers.map( (item)=> {
+            officer_table = 
+                this.state.profiles.map( (item)=> {
                     return (
                         <tr key={item.id}>
-                            <td>{item.id}</td>
+                            <td>{item.name}</td>
                             <td>{item.email}</td>
                             <td>{item.phone}</td>
-                            <td>{item.transaction_type}</td>
-                            <td>{item.amount}</td>
-                            <td>{item.balance}</td>
-                            <td>{item.date}</td>
+                            <td>{item.nid}</td>
+                            <td>{item.dob}</td>
+                            <td>{item.type}</td>
 
                             <td>
-                                <Link to={`show-customer/${item.id}`} className="btn btn-success btn-sm">download pdf</Link>
+                                <Link to={`view-officer/${item.id}`} className="btn btn-success btn-sm">View</Link>
+                            </td>
+                            <td>
+                                <Link to={`edit-profile/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
                             </td>
                         </tr>
                     );
@@ -62,35 +62,32 @@ class CustomerTransaction extends Component{
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Customer All Transaction Page
-                                    <Link to={'/show-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
+                                <h4>Officer View Page
+                                    <Link to={'/'} className="btn btn-primary btn-sm float-end">Back</Link>
                                 </h4>
                             </div>
 
                             <div className="card-body">
 
-                                <h2>Transaction Data</h2>
+                                <h2>Officer Data</h2>
                                 <table className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                            <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
-                                            <th>Transaction Type</th>
-                                            <th>Amount</th>
-                                            <th>Balance</th>
-                                            <th>Date</th>
+                                            <th>NID</th>
+                                            <th>DOB</th>
+                                            <th>Type</th>
                                             <th>View</th>
+                                            <th>Edit</th>
                                         </tr>
                                     </thead>
             
                                     <tbody>
-                                        {customer_transaction_table}
+                                        {officer_table}
                                     </tbody>
                                 </table>
-
-                                <Link to={'/show-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
-
                             </div>
                         </div>
                     </div>
@@ -100,4 +97,4 @@ class CustomerTransaction extends Component{
     }
 }
 
-export default CustomerTransaction;
+export default ProfileEdit;
