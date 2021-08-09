@@ -46,8 +46,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //======================Profile Router======================
 
-    //Route::get('change-password/{id}', [PassController::class, 'edit']);
-    Route::post('change-password', [PassController::class, 'store']);
+   // Route::get('change-password/{id}', [PassController::class, 'edit']);
+    Route::post('update-profile/{id}', [PassController::class, 'update']);
 
     Route::get('view-profile', [ProfileController::class, 'index']);
 

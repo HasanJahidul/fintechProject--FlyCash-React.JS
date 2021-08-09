@@ -8,36 +8,6 @@ use Illuminate\Http\Request;
 
 class PassController extends Controller
 {
-    public function store(Request $req){
-
-        $pass = new Officer;
-
-        if($pass->password == $req->current_password){
-
-            if($pass->new_password == $req->re_password){
-
-                $pass->password = $req->new_password;
-
-                $pass->save();
-
-                return response()->json([
-                    'status'=>200,
-                    'message'=>'Password Updated Successfully',
-                ]);
-            }else{
-                return response()->json([
-                    'status'=>404,
-                    'message'=>'New Password $ Re-Password Mismatch !',
-                ]);
-            }
-        }else{
-
-            return response()->json([
-                'status'=>404,
-                'message'=>'Current Password Not Match !',
-            ]);
-        }
-    }
 
     public function edit($id)
     {
@@ -60,9 +30,9 @@ class PassController extends Controller
     {
         $pass = Officer::find($id);
         
-        if($pass->password == $req->current_password){
+        if($pass->password==$req->current_password){
 
-            if($pass->new_password == $req->re_password){
+            if($req->new_password==$req->re_password){
 
                 $pass->password = $req->new_password;
 
@@ -73,9 +43,10 @@ class PassController extends Controller
                     'message'=>'Password Updated Successfully',
                 ]);
             }else{
+
                 return response()->json([
                     'status'=>404,
-                    'message'=>'New Password $ Re-Password Mismatch !',
+                    'message'=>'New Password & Re-Password Mismatch !',
                 ]);
             }
         }else{

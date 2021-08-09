@@ -40,7 +40,7 @@ function App() {
         <Route exact path="/view-profile" component={Profile}/>
         <Route exact path="/edit-profile/:id" component={ProfileEdit}/>
 
-        <Route exact path="/change-password" component={ChangePassword}/>
+        <Route exact path="/change-password/:id" component={ChangePassword}/>
 
 {/* =============================End Officer Router=============================== */}
       </Switch>

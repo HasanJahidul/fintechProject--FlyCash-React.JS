@@ -32,7 +32,7 @@ class ProfileEdit extends Component{
         var officer_table = "";
 
         if(this.state.loding){
-            officer_table = <tr><td colSpan="11"><h2>loding...</h2></td></tr>
+            officer_table = <tr><td colSpan="9"><h2>loding...</h2></td></tr>
         }else{
             officer_table = 
                 this.state.profiles.map( (item)=> {
@@ -50,6 +50,9 @@ class ProfileEdit extends Component{
                             </td>
                             <td>
                                 <Link to={`edit-profile/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
+                            </td>
+                            <td>
+                                <Link to={`change-password/${item.id}`} className="btn btn-danger btn-sm">Change Password</Link>
                             </td>
                         </tr>
                     );
@@ -81,6 +84,7 @@ class ProfileEdit extends Component{
                                             <th>Type</th>
                                             <th>View</th>
                                             <th>Edit</th>
+                                            <th>Change Password</th>
                                         </tr>
                                     </thead>
             

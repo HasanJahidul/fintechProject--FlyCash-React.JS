@@ -18,43 +18,40 @@ class ChangePassword extends Component{
         });
     }
 
-    // async componentDidMount(){
-
-    //     const officer_id = this.props.match.params.id;
-
-    //     const res = await axios.get(`http://localhost:8000/api/change-password/${officer_id}`);
-
-    //     if(res.data.status === 200){
-
-    //         //console.log(officer_id);
-    //         this.setState({
-    //             name: res.data.profiles.name,
-
-    //         });
-    //     }else{
-    //         swal({
-    //             title: "Warning!",
-    //             text: res.data.message,
-    //             icon: "warning",
-    //             button: "OK!",
-    //           });
-              
-    //         this.props.history.push('/view-profile');  
-    //     }
-    // }
-
-    changePassword = async (e) =>{
+    updatePassword = async (e) =>{
         e.preventDefault();
 
-        const res = await axios.post('http://localhost:8000/api/change-password', this.state);
+        const officer_id = this.props.match.params.id;
+
+        document.getElementById('updatebtn').disable = true;
+        document.getElementById('updatebtn').innerText = 'Updating';
+
+        const res = await axios.post(`http://localhost:8000/api/update-profile/${officer_id}`, this.state);
+        
+        console.log(res);
 
         if(res.data.status === 200){
-            console.log(res.data.message);
-            this.setState({
-                current_password:'',
-                new_password:'',
-                re_password:'',
-            });
+
+            document.getElementById('updatebtn').disable = false;
+            document.getElementById('updatebtn').innerText = 'Save';
+
+            this.props.history.push('/view-profile');
+
+            swal({
+                title: "Updated!",
+                text: res.data.message,
+                icon: "success",
+                button: "OK!",
+              });
+        }else{
+            swal({
+                title: "Warning!",
+                text: res.data.message,
+                icon: "warning",
+                button: "OK!",
+                });
+                
+            //this.props.history.push('/view-profile');  
         }
     }
 
@@ -73,7 +70,7 @@ class ChangePassword extends Component{
 
                             <div className="card-body">
 
-                                <form onSubmit={this.changePassword}>
+                                <form onSubmit={this.updatePassword}>
 
                                     <div className="form-group mb-3">
                                         <lebel>Current Password</lebel>

@@ -28,7 +28,7 @@ class Home extends Component{
                                 <h2>Setting</h2>
                                 <ul>
                                     <li><Link to={'view-profile'} className="btn btn-primary btn-sm">Profile</Link></li>
-                                    <li> <Link to={'change-password'} className="btn btn-primary btn-sm">Change Password</Link></li>
+                                    {/* <li> <Link to={'change-password'} className="btn btn-primary btn-sm">Change Password</Link></li> */}
                                 </ul>
                             </div>
                         </div>
