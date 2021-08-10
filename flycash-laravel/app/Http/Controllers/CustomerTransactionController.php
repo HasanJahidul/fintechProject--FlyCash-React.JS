@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Customerstransaction;
@@ -390,6 +391,23 @@ class CustomerTransactionController extends Controller
     {
         return view('pages.customer.transaction.tickets');
     }
+//**************************************************************************** */
+public function index()
+    {
+        $email='joy@gmail.com';
+        $customer= DB::table('customerstransactions')->where('email', '=', $email)->get();
 
+        return response()->json($customer);
+    }
+    public function index2()
+    {
+        /**
+         * Display a listing of the resource.
+         *
+         * @return \Illuminate\Http\Response
+         */
+        $customer = Customerstransaction::all();
+        return response()->json($customer);
+    }
 
 }
