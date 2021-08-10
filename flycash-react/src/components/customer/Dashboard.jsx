@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SideNav from "../layouts/sidebar/customersSidebar";
 import Navbar from "../layouts/navbars/Navbar";
 import cashinPNG from "../../black/img/icons/cashin.png";
 import sendPNG from "../../black/img/icons/sendmoney.png";
@@ -16,212 +17,216 @@ import comingsoonPNG from "../../black/img/icons/comingsoon.png";
 
 function Dashboard() {
   return (
-    <div>
-      <div className="row">
+    <div className="wrapper">
+      <SideNav />
+      <div className="main-panel ps">
         <Navbar />
-      </div>
-      <div className="row">
-        <div className="col-12">
-          <div className="card card-chart">
-            <div className="card-header ">
-              <div className="row">
-                <div className="col-sm-6 text-left">
-                  <h2 className="card-title">DASHBOARD</h2>
-                  <h4 className="card-title">Balance :5000</h4>
+        <div className="content">
+          <div className="row"></div>
+          <div className="row">
+            <div className="col-12">
+              <div className="card card-chart">
+                <div className="card-header ">
+                  <div className="row">
+                    <div className="col-sm-6 text-left">
+                      <h2 className="card-title">DASHBOARD</h2>
+                      <h4 className="card-title">Balance :5000</h4>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12">
-          <div className="card card-chart">
-            <div className="card-header ">
-              <div className="row">
-                <div className="col-sm-6 text-left">
-                  <h2 className="card-title">Transaction</h2>
-                </div>
-              </div>
-
-              <div className="card-body all-icons"></div>
-              <div className="row">
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="{{ route('customer_addmoney') }}">
-                          <img src={cashinPNG}></img>
-                          <div className="picname">
-                            <h4>Add Money</h4>
-                          </div>
-                        </Link>
-                      </div>
+          <div className="row">
+            <div className="col-12">
+              <div className="card card-chart">
+                <div className="card-header ">
+                  <div className="row">
+                    <div className="col-sm-6 text-left">
+                      <h2 className="card-title">Transaction</h2>
                     </div>
                   </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="{{ route('customer_sendmoney') }}">
-                          <img src={sendPNG}></img>
-                          <div className="picname">
-                            <h4>Send Money</h4>
+                  <div className="card-body all-icons"></div>
+                  <div className="row">
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="{{ route('customer_addmoney') }}">
+                              <img src={cashinPNG}></img>
+                              <div className="picname">
+                                <h4>Add Money</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="{{ route('customer_cashout') }}">
-                          <img src={cashoutPNG}></img>
-                          <div className="picname">
-                            <h4>Cash Out</h4>
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="{{ route('customer_sendmoney') }}">
+                              <img src={sendPNG}></img>
+                              <div className="picname">
+                                <h4>Send Money</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="{{ route('customer_paybill') }}">
-                          <img src={paybillPNG}></img>
-                          <div className="picname">
-                            <h4>Bill Pay</h4>
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="{{ route('customer_cashout') }}">
+                              <img src={cashoutPNG}></img>
+                              <div className="picname">
+                                <h4>Cash Out</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="{{ route('customer_recharge') }}">
-                          <img src={rechargePNG}></img>
-                          <div className="picname">
-                            <h4>Mobile Recharge</h4>
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="{{ route('customer_paybill') }}">
+                              <img src={paybillPNG}></img>
+                              <div className="picname">
+                                <h4>Bill Pay</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="{{ route('customer_transfermoney') }}">
-                          <img src={transferPNG}></img>
-                          <div className="picname">
-                            <h4>Transfer Money</h4>
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="{{ route('customer_recharge') }}">
+                              <img src={rechargePNG}></img>
+                              <div className="picname">
+                                <h4>Mobile Recharge</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="{{ route('customer_sendmoney') }}">
-                          <img src={ticketPNG}></img>
-                          <div className="picname">
-                            <h4>Buy Ticket</h4>
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="{{ route('customer_transfermoney') }}">
+                              <img src={transferPNG}></img>
+                              <div className="picname">
+                                <h4>Transfer Money</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="{{ route('pages.transactionlist') }}">
-                          <img src={statementPNG}></img>
-                          <div className="picname">
-                            <h4>Statement</h4>
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="{{ route('customer_sendmoney') }}">
+                              <img src={ticketPNG}></img>
+                              <div className="picname">
+                                <h4>Buy Ticket</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="{{ route('customer_donation') }}">
-                          <img src={donatePNG}></img>
-                          <div className="picname">
-                            <h4>Donation</h4>
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="{{ route('pages.transactionlist') }}">
+                              <img src={statementPNG}></img>
+                              <div className="picname">
+                                <h4>Statement</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="{{ route('admin_ongoingcampaign') }}">
-                          <img src={campaignPNG}></img>
-
-                          <div className="picname">
-                            <h4>Ongoing Campaign</h4>
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="{{ route('customer_donation') }}">
+                              <img src={donatePNG}></img>
+                              <div className="picname">
+                                <h4>Donation</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="#">
-                          <img src={comingsoonPNG}></img>
-                          <div className="picname">
-                            <h4>Coming Soon</h4>
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="{{ route('admin_ongoingcampaign') }}">
+                              <img src={campaignPNG}></img>
+
+                              <div className="picname">
+                                <h4>Ongoing Campaign</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                  <div className="font-icon-detail">
-                    <div className="d-flex justify-content-center">
-                      <div className="pic">
-                        <Link href="#">
-                          <img src={comingsoonPNG}></img>
-                          <div className="picname">
-                            <h4>Coming Soon</h4>
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="#">
+                              <img src={comingsoonPNG}></img>
+                              <div className="picname">
+                                <h4>Coming Soon</h4>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link href="#">
+                              <img src={comingsoonPNG}></img>
+                              <div className="picname">
+                                <h4>Coming Soon</h4>
+                              </div>
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -1,16 +1,17 @@
 import React from "react";
 import StatementsTableRow from "./StatementsTableRow";
 import "../../../App.css";
-
+import SideNav from "../../layouts/sidebar/customersSidebar";
 import Navbar from "../../layouts/navbars/Navbar";
 
 const TransactionList = ({ list }) => {
   return (
-    <>
-     <div >
+    <div>
+    <div className="wrapper">
+    <SideNav />
+     <div className="main-panel ps" >
         <Navbar />
-      </div>
-      <div >
+      <div className= "content">
         <div class="row" style={{ right: "500px" }}>
           <div class="col-md-12">
             <div class="card ">
@@ -40,7 +41,9 @@ const TransactionList = ({ list }) => {
           </div>
         </div>
       </div>
-    </>
+      </div>
+      </div>
+      </div>
   );
 };
 export default TransactionList;
