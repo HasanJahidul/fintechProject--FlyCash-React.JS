@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import SideNav from "./components/layouts/sidebar/customersSidebar";
 //import './black/css/black-dashboard.css';
 import "./App.css";
-import TransactionList from "./components/customer/transactions/transactionlist";
-import Dashboard from './components/customer/Dashboard';
 import './black/css/nucleo-icons.css';
+import Dashboard from './components/customer/Dashboard';
+import TransactionList from "./components/customer/transactions/transactionlist";
+import SideNav from "./components/layouts/sidebar/customersSidebar";
 
 
 function App() {
@@ -36,8 +36,9 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <TransactionList list={transList} />
-            <SideNav /> >
+           <TransactionList list={transList} />
+           
+            
           </Route>
           <Route exact path="/a">
           <SideNav />

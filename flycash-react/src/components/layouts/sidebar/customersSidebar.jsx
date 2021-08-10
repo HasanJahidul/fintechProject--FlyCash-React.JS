@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 //import "../../../black/css/black-dashboard.css";
 import "../../../App.css";
-import logo from '../../../black/img/flycash.png'
+import logo from "../../../black/img/flycash.png";
 const customersSidebar = () => {
   return (
     <div className="sidebar" data="green">
-      <div className="sidebar-wrapper ps">
+      <div className="sidebar-wrapper ps ps--active-y">
         <div className="logo">
           <img src={logo} alt=""></img>
           <Link to="#" className="simple-text logo-normal">
