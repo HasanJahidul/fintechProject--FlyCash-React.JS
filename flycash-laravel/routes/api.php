@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+//===================================================   CUSTOMER   ===========================================================
+
+
+Route::get('/customer/transactionlist','CustomerTransactionController@index');	
