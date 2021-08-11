@@ -48,12 +48,12 @@ const login = () => {
                     <button type="submit" href="" className="btn btn-primary btn-lg btn-block mb-3">Log in</button>
                     <div className="pull-left">
                         <h6>
-                            <Link href="" className="link footer-link">Create Account</Link>
+                            <Link to="/register" className="link footer-link">Create Account</Link>
                         </h6>
                     </div>
                     <div className="pull-right">
                         <h6>
-                            <Link href="3" className="link footer-link">Forgot password?</Link>
+                            <Link to="3" className="link footer-link">Forgot password?</Link>
                         </h6>
                     </div>
                 </div>

@@ -18,7 +18,7 @@ const CustomersSidebar = () => {
 
         <ul className="nav">
           <li>
-            <Link to="{{ route('customer_home'">
+            <Link to="/customer-dashboard">
               <i className="tim-icons icon-chart-pie-36"></i>
               <p>Dashboard</p>
             </Link>
@@ -81,7 +81,7 @@ const CustomersSidebar = () => {
           </li>
 
           <li>
-            <Link to="/customer/profile">
+            <Link to="/customer-profile">
               <i className="tim-icons icon-single-02"></i>
               <p>User Profile</p>
             </Link>

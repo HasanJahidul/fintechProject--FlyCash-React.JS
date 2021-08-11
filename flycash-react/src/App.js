@@ -10,6 +10,7 @@ import sendPNG from "./black/img/icons/sendmoney.png";
 import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 import Dashboard from "./components/customer/Dashboard";
+import Profile from "./components/customer/profile";
 import Addmoney from "./components/customer/transactions/addMoney";
 import TransactionList from "./components/customer/transactions/transactionlist";
 import Welcome from "./components/welcome";
@@ -55,6 +56,9 @@ function App() {
           </Route>
           <Route exact path="/customer-dashboard">
             <Dashboard />
+          </Route>
+          <Route exact path="/customer-profile">
+            <Profile />
           </Route>
 
           <Route

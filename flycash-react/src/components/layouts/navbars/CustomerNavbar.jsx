@@ -1,6 +1,7 @@
 // nodejs library that concatenates classes
 import classNames from "classnames";
 import React from "react";
+import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Button,
@@ -143,9 +144,13 @@ function CustomerNavbar(props) {
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
                   <NavLink tag="li">
-                    <DropdownItem className="nav-item">Profile</DropdownItem>
+                  <Link to="/customer-profile">
+                  <DropdownItem className="nav-item">Profile</DropdownItem>
+                    </Link>
+                    
                   </NavLink>
                   <NavLink tag="li">
+                   
                     <DropdownItem className="nav-item">Settings</DropdownItem>
                   </NavLink>
                   <DropdownItem divider tag="li" />
