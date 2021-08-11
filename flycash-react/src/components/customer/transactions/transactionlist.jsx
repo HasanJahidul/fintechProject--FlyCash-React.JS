@@ -2,7 +2,7 @@ import React from "react";
 import StatementsTableRow from "./StatementsTableRow";
 import "../../../App.css";
 import SideNav from "../../layouts/sidebar/customersSidebar";
-import Navbar from "../../layouts/navbars/Navbar";
+import Navbar from "../../layouts/navbars/CustomerNavbar";
 
 const TransactionList = ({ list }) => {
   return (

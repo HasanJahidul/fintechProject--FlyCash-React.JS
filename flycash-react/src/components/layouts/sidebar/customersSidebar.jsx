@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 //import "../../../black/css/black-dashboard.css";
 import "../../../App.css";
 import logo from "../../../black/img/flycash.png";
-const customersSidebar = () => {
+
+const CustomersSidebar = () => {
+  const [method, setMethod] = useState(["add"]);
   return (
     <div className="sidebar" data="green">
       <div className="sidebar-wrapper ps ps--active-y">
         <div className="logo">
           <img src={logo} alt=""></img>
-          <Link to="#" className="simple-text logo-normal">
+          <Link to="/customer-dashboard" className="simple-text logo-normal">
             Dashboard
           </Link>
         </div>
@@ -30,39 +33,39 @@ const customersSidebar = () => {
             <div className="collapse show">
               <ul className="nav pl-4">
                 <li>
-                  <Link to="#">
+                  <Link to="/customer/add-money">
                     <i className="tim-icons icon-coins"></i>
 
                     <p>Add Money</p>
                   </Link>
                 </li>
                 <li>
-                  <Link to="{{ route('customer_sendmoney'">
+                  <Link to="/customer/send-money">
                     <i className="tim-icons icon-send"></i>
                     <p>Send Money</p>
                   </Link>
                 </li>
                 <li>
-                  <Link to="{{ route('customer_cashout'">
+                  <Link to="/customer/cash-out">
                     <i className="tim-icons icon-money-coins"></i>
                     <p>Cash out</p>
                   </Link>
                 </li>
                 <li>
-                  <Link to="{{ route('customer_paybill'">
+                  <Link to="/customer/payment">
                     <i className="tim-icons icon-credit-card"></i>
-                    <p>Bill pay</p>
+                    <p>Payment</p>
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="{{ route('customer_recharge'">
+                  <Link to="/customer/mobile-recharge">
                     <i className="tim-icons icon-mobile"></i>
                     <p>Mobile Recharge</p>
                   </Link>
                 </li>
                 <li>
-                  <Link to="{{ route('customer_transfermoney'">
+                  <Link to="/customer/transfer-money">
                     <i className="tim-icons icon-bank"></i>
                     <p>Transfer Money</p>
                   </Link>
@@ -78,47 +81,15 @@ const customersSidebar = () => {
           </li>
 
           <li>
-            <Link to="{{ route('customer_profile_edit')  }}">
+            <Link to="/customer/profile">
               <i className="tim-icons icon-single-02"></i>
               <p>User Profile</p>
             </Link>
           </li>
-
           <li>
-            <Link to="{{ route('pages.icons'">
-              <i className="tim-icons icon-atom"></i>
-              <p>Icons</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="{{ route('pages.maps'">
-              <i className="tim-icons icon-pin"></i>
-              <p>Maps</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="{{ route('pages.notifications'">
-              <i className="tim-icons icon-bell-55"></i>
-              <p>Notifications</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="{{ route('pages.transactionlist'">
+            <Link to="/customer/statement">
               <i className="tim-icons icon-notes"></i>
               <p>Transaction List</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="{{ route('pages.typography'">
-              <i className="tim-icons icon-align-center"></i>
-              <p>Typography</p>
-            </Link>
-          </li>
-
-          <li className=" ">
-            <Link to="{{ route('pages.upgrade'">
-              <i className="tim-icons icon-spaceship"></i>
-              <p>Upgrade to PRO</p>
             </Link>
           </li>
         </ul>
@@ -126,4 +97,4 @@ const customersSidebar = () => {
     </div>
   );
 };
-export default customersSidebar;
+export default CustomersSidebar;

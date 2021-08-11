@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SideNav from "../layouts/sidebar/customersSidebar";
-import Navbar from "../layouts/navbars/Navbar";
+import Navbar from "../layouts/navbars/CustomerNavbar";
 import cashinPNG from "../../black/img/icons/cashin.png";
 import sendPNG from "../../black/img/icons/sendmoney.png";
 import paybillPNG from "../../black/img/paybill.png";
@@ -17,13 +17,17 @@ import comingsoonPNG from "../../black/img/icons/comingsoon.png";
 
 function Dashboard() {
   return (
-    <div className="wrapper">
-      <SideNav />
+    
+      
       <div className="main-panel ps">
-        <Navbar />
+      <SideNav />
+      <Navbar />
+      
         <div className="content">
           <div className="row"></div>
           <div className="row">
+          
+        
             <div className="col-12">
               <div className="card card-chart">
                 <div className="card-header ">
@@ -99,9 +103,9 @@ function Dashboard() {
                         <div className="d-flex justify-content-center">
                           <div className="pic">
                             <Link href="{{ route('customer_paybill') }}">
-                              <img src={paybillPNG}></img>
+                              <img src={paymentPNG}></img>
                               <div className="picname">
-                                <h4>Bill Pay</h4>
+                                <h4>Payment</h4>
                               </div>
                             </Link>
                           </div>
@@ -236,7 +240,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 }
 
