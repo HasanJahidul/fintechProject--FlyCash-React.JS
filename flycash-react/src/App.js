@@ -14,6 +14,9 @@ import Addmoney from "./components/customer/transactions/addMoney";
 import TransactionList from "./components/customer/transactions/transactionlist";
 import Welcome from "./components/welcome";
 
+//admin
+import AdminDashboard from "./components/admin/AdminDashboard";
+
 
 function App() {
   //========================= CUSTOMER ===========================================
@@ -57,6 +60,10 @@ function App() {
             <Dashboard />
           </Route>
 
+          <Route exact path="/admin-dashboard">
+            <AdminDashboard />
+          </Route>
+
           <Route
             exact
             path="/customer/add-money"
@@ -88,6 +95,7 @@ function App() {
       </Router>
     </>
   );
+
 }
 
 export default App;
