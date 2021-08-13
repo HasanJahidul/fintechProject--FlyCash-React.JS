@@ -71,7 +71,7 @@ const CustomersSidebar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="#">
+                  <Link to="/customer/buy-tickets">
                     <i className="tim-icons icon-bus-front-12"></i>
                     <p>buy tickets</p>
                   </Link>
@@ -89,7 +89,7 @@ const CustomersSidebar = () => {
           <li>
             <Link to="/customer/statement">
               <i className="tim-icons icon-notes"></i>
-              <p>Transaction List</p>
+              <p>Statement</p>
             </Link>
           </li>
         </ul>

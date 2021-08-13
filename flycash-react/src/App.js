@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //import './black/css/black-dashboard.css';
 import "./App.css";
@@ -6,6 +6,7 @@ import "./black/css/nucleo-icons.css";
 import cashinPNG from "./black/img/icons/cashin.png";
 import cashoutPNG from "./black/img/icons/cashout.png";
 import paymentPNG from "./black/img/icons/payment.png";
+import rechargePNG from "./black/img/icons/recharge.png";
 import sendPNG from "./black/img/icons/sendmoney.png";
 import Register from "./components/auth/register";
 import Login from "./components/auth/login";
@@ -14,36 +15,18 @@ import Profile from "./components/customer/profile";
 import Addmoney from "./components/customer/transactions/addMoney";
 import TransactionList from "./components/customer/transactions/transactionlist";
 import Welcome from "./components/welcome";
+import ErrorPage from './components/Error404';
 
 
 function App() {
   //========================= CUSTOMER ===========================================
-  const getTransactionList = () => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
-      (response) => {
-        response.json().then((result) => {
-          setTransactionList(result);
-        });
-      }
-    );
-  };
-  const [transList, setTransactionList] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
-      (response) => {
-        response.json().then((result) => {
-          setTransactionList(result);
-        });
-      }
-    );
-  }, []);
+  
   return (
     <>
-      {console.log(transList)}
       <Router>
         <Switch>
           <Route exact path="/customer/statement">
-            <TransactionList list={transList} />
+            <TransactionList  />
           </Route>
           <Route exact path="/">
             <Welcome />
@@ -60,7 +43,6 @@ function App() {
           <Route exact path="/customer-profile">
             <Profile />
           </Route>
-
           <Route
             exact
             path="/customer/add-money"
@@ -84,10 +66,12 @@ function App() {
           <Route
             exact
             path="/customer/mobile-recharge"
-            children={<Addmoney status="Mobile Recharge" imgpath={paymentPNG}  numberType='Merchant'/>}
+            children={<Addmoney status="Recharge" imgpath={rechargePNG}  numberType='Mobile'/>}
           ></Route>
 
-          <Route path="*">404 not found</Route>
+          <Route path="*">
+            <ErrorPage/>
+          </Route>
         </Switch>
       </Router>
     </>

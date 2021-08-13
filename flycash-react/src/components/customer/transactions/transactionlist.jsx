@@ -1,10 +1,31 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import StatementsTableRow from "./StatementsTableRow";
 import "../../../App.css";
 import SideNav from "../../layouts/sidebar/customersSidebar";
 import Navbar from "../../layouts/navbars/CustomerNavbar";
 
-const TransactionList = ({ list }) => {
+const TransactionList = () => {
+  
+  const getTransactionList = () => {
+    fetch("http://localhost:8000/api/customer/transactionlist").then(
+      (response) => {
+        response.json().then((result) => {
+          setTransactionList(result);
+        });
+      }
+    );
+  };
+  const [transList, setTransactionList] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8000/api/customer/transactionlist").then(
+      (response) => {
+        response.json().then((result) => {
+          setTransactionList(result);
+        });
+      }
+    );
+  }, []);
   return (
     <div>
     <div className="wrapper">
@@ -31,7 +52,7 @@ const TransactionList = ({ list }) => {
                       </tr>
                     </thead>
 
-                    {list.map((u) => {
+                    {transList.map((u) => {
                       return <StatementsTableRow key={u.id} {...u} />;
                     })}
                   </table>
