@@ -16,7 +16,8 @@ import Welcome from "./components/welcome";
 
 //admin
 import AdminDashboard from "./components/admin/AdminDashboard";
-
+import campaignPNG from "./black/img/admin/campaign.png";
+import addCampaign from "./components/admin/campaign/addCampaign";
 
 function App() {
   //========================= CUSTOMER ===========================================
@@ -64,38 +65,82 @@ function App() {
             <AdminDashboard />
           </Route>
 
+          <Route exact path="/admin-addCampaign">
+            <addCampaign />
+          </Route>
+
           <Route
             exact
             path="/customer/add-money"
-            children={<Addmoney status="Add Money" imgpath={cashinPNG}  numberType='Bank Account'/>}
+            children={
+              <Addmoney
+                status="Add Money"
+                imgpath={cashinPNG}
+                numberType="Bank Account"
+              />
+            }
           ></Route>
           <Route
             exact
             path="/customer/send-money"
-            children={<Addmoney status="Send Money" imgpath={sendPNG} numberType='FlyCash ' />}
+            children={
+              <Addmoney
+                status="Send Money"
+                imgpath={sendPNG}
+                numberType="FlyCash "
+              />
+            }
           ></Route>
           <Route
             exact
             path="/customer/cash-out"
-            children={<Addmoney status="Cash out" imgpath={cashoutPNG}  numberType='Agent'/>}
+            children={
+              <Addmoney
+                status="Cash out"
+                imgpath={cashoutPNG}
+                numberType="Agent"
+              />
+            }
           ></Route>
           <Route
             exact
             path="/customer/payment"
-            children={<Addmoney status="Payment" imgpath={paymentPNG}  numberType='Merchant'/>}
+            children={
+              <Addmoney
+                status="Payment"
+                imgpath={paymentPNG}
+                numberType="Merchant"
+              />
+            }
           ></Route>
           <Route
             exact
             path="/customer/mobile-recharge"
-            children={<Addmoney status="Mobile Recharge" imgpath={paymentPNG}  numberType='Merchant'/>}
+            children={
+              <Addmoney
+                status="Mobile Recharge"
+                imgpath={paymentPNG}
+                numberType="Merchant"
+              />
+            }
           ></Route>
+          {/* <Route
+            exact
+            path="/admin/campaign/add-campaign"
+            children={
+              <addCampaign
+                status="Add Campaign"
+                imgpath={campaignPNG}
+                numberType="Merchant"
+              />
+            }
+          ></Route> */}
 
           <Route path="*">404 not found</Route>
         </Switch>
       </Router>
     </>
   );
-
 }
 
 export default App;
