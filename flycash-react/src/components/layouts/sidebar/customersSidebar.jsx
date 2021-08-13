@@ -8,7 +8,7 @@ const CustomersSidebar = () => {
   const [method, setMethod] = useState(["add"]);
   return (
     <div className="sidebar" data="green">
-      <div className="sidebar-wrapper ps ps--active-y">
+      <div className="sidebar-wrapper ps">
         <div className="logo">
           <img src={logo} alt=""></img>
           <Link to="/customer-dashboard" className="simple-text logo-normal">

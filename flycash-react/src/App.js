@@ -9,6 +9,7 @@ import transferPNG from "./black/img/icons/money.png";
 import paymentPNG from "./black/img/icons/payment.png";
 import rechargePNG from "./black/img/icons/recharge.png";
 import sendPNG from "./black/img/icons/sendmoney.png";
+import donatePNG from "./black/img/icons/donate.png";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import Dashboard from "./components/customer/Dashboard";
@@ -18,6 +19,8 @@ import Addmoney from "./components/customer/transactions/addMoney";
 import TransactionList from "./components/customer/transactions/transactionlist";
 import ErrorPage from './components/Error404';
 import Welcome from "./components/welcome";
+import Donate from "./components/customer/transactions/Donate";
+import PrintStatement from "./components/customer/transactions/ComponentToPrint";
 
 
 function App() {
@@ -78,7 +81,14 @@ function App() {
             path="/customer/transfer-money"
             children={<Addmoney status="Transfer money" imgpath={transferPNG} buttonName="Transfer"  numberType='Bank Account'/>}
           ></Route>
-
+          <Route
+            exact
+            path="/customer/donate"
+            children={<Donate status="Donation" imgpath={donatePNG} buttonName="Transfer"  numberType="Select NGO's"/>}
+          ></Route>
+ <Route path="/state">
+            <PrintStatement/>
+          </Route> 
 
           <Route path="*">
             <ErrorPage/>

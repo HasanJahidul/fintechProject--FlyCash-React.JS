@@ -1,9 +1,9 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import StatementsTableRow from "./StatementsTableRow";
+import React, { useEffect, useState } from "react";
 import "../../../App.css";
-import SideNav from "../../layouts/sidebar/customersSidebar";
 import Navbar from "../../layouts/navbars/CustomerNavbar";
+import SideNav from "../../layouts/sidebar/customersSidebar";
+import StatementsTableRow from "./StatementsTableRow";
+import { Link } from "react-router-dom";
 
 const TransactionList = () => {
   
@@ -33,11 +33,12 @@ const TransactionList = () => {
      <div className="main-panel ps" >
         <Navbar />
       <div className= "content">
-        <div class="row" style={{ right: "500px" }}>
+        <div class="row" style={{right: "500px"}}>
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header">
                 <h3 class="card-title"> Translation List</h3>
+                <Link to='/state' align="center" type="submit" class="btn btn-fill btn-primary"> Print</Link>
               </div>
               <div class="card-body">
                 <div class="table-responsive-lg">

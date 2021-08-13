@@ -24,7 +24,6 @@ function Dashboard() {
       <Navbar />
       
         <div className="content">
-          <div className="row"></div>
           <div className="row">
           
         
@@ -162,7 +161,7 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="{{ route('customer_donation') }}">
+                            <Link to="/customer/donate">
                               <img src={donatePNG}></img>
                               <div className="picname">
                                 <h4>Donation</h4>
