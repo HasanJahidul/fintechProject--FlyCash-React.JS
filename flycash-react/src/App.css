@@ -20003,6 +20003,24 @@ select.form-control option {
   margin-left: -5px;
   z-index: 1;
 }
+.photo{
+  display:none;
+}
+@media print {
+  .photo {
+    height: 200px;
+    width: 500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .sidebar{
+    display:none;
+  }
+.btn{
+  display:none;
+}
+  }
 
 
 /*# sourceMappingURL=black-dashboard-react.css.map */

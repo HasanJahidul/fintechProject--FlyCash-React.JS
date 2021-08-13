@@ -20,7 +20,7 @@ import TransactionList from "./components/customer/transactions/transactionlist"
 import ErrorPage from './components/Error404';
 import Welcome from "./components/welcome";
 import Donate from "./components/customer/transactions/Donate";
-import PrintStatement from "./components/customer/transactions/ComponentToPrint";
+import PrintStatement from "./components/customer/transactions/StatementPdfDownload";
 
 
 function App() {
