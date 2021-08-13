@@ -4,60 +4,12 @@ import Footer from "../../layouts/footer";
 import NavBar from "../../layouts/navbars/CustomerNavbar";
 import Sidebar from "../../layouts/sidebar/customersSidebar";
 import { useHistory } from "react-router-dom";
-const AddMoney = (props) => {
+
+const Donate = (props) => {
+    
   let history = useHistory();
-  const addmoney = () => {
-    var email = "joy@gmail.com";
-    fetch("http://localhost:8000/api/customer/addmoney/" + email, {
-      method: "Post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    }).then((result) => {
-      result.json().then((resp) => {
-        alert(props.status + "success");
-        getTransactionList();
-      });
-    });
-  };
-  const getTransactionList = () => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
-      (response) => {
-        response.json().then((result) => {
-          setTransactionList(result);
-        });
-      }
-    );
-  };
-  const [transList, setTransactionList] = useState([]);
-
-  const makeTransaction = () => {
-    var email = "joy@gmail.com";
-    fetch("http://localhost:8000/customer/transaction/" + email, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    }).then((result) => {
-      result.json().then((resp) => {
-        alert(props.status + "success");
-        getTransactionList();
-      });
-    });
-  };
-
-  useEffect(() => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then((response) => {
-      response.json().then((result) => {
-        getTransactionList(result);
-      });
-    });
-  }, []);
-
-  return (
-    <div className="wrapper">
+    return (
+        <div className="wrapper">
       <Sidebar />
       <div className="main-panel ps">
         <NavBar />
@@ -81,23 +33,27 @@ const AddMoney = (props) => {
                         ></img>
                       </a>
                       <h3>{props.status}</h3>
+                      <h5>Donate with Flycash and contribute to help underprivileged people</h5>
                     </div>
                     
                   </p>
                   <form
                     onSubmit={(event) => {
                       event.preventDefault();
-                      addmoney();
+                      Donate();
                       history.push("/customer/statement");
                     }}
                   ></form>
-                  <label>{props.numberType} Number</label>
-                  <input
-                    type="text"
-                    name="phone"
-                    className="form-control"
-                    placeholder="+8801*********"
-                  ></input>
+                  <label>{props.numberType}</label>
+                  <select  type="text" name="billtype" class="form-control">
+
+                            <option value="Brac" name= "brac">Brac </option>
+                            <option value="Ek Takay Ahar" name= "1takayahar">Ek Takay Ahar</option>
+                            <option value="Esho Shobai" name= "eshoShobai">Esho Shobai </option>
+                            <option value="MASTUL Foundation" name= "mastul">MASTUL Foundation </option>
+                            <option value="Alter Youth" name= "alter youth">Alter Youth </option>
+                            <option value="Sajida Foundation" name= "sajida">Sajida Foundation</option>
+                            </select>
 
                   <label>Amount</label>
                   <input
@@ -128,7 +84,7 @@ const AddMoney = (props) => {
         <Footer />
       </div>
     </div>
-  );
+    );
 };
 
-export default AddMoney;
+export default Donate;

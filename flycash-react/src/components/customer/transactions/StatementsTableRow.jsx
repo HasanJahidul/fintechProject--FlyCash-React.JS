@@ -2,6 +2,7 @@
 import '../../../App.css';
 
 const StatementsTableRow = ({phone,transaction_type,date,amount,balance})=>{
+  
     return (
 
         <tbody>

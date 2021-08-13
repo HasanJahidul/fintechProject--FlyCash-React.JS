@@ -1,10 +1,31 @@
-import React from "react";
-import StatementsTableRow from "./StatementsTableRow";
+import React, { useEffect, useState } from "react";
 import "../../../App.css";
-import SideNav from "../../layouts/sidebar/customersSidebar";
 import Navbar from "../../layouts/navbars/CustomerNavbar";
+import SideNav from "../../layouts/sidebar/customersSidebar";
+import StatementsTableRow from "./StatementsTableRow";
+import { Link } from "react-router-dom";
 
-const TransactionList = ({ list }) => {
+const TransactionList = () => {
+  
+  const getTransactionList = () => {
+    fetch("http://localhost:8000/api/customer/transactionlist").then(
+      (response) => {
+        response.json().then((result) => {
+          setTransactionList(result);
+        });
+      }
+    );
+  };
+  const [transList, setTransactionList] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8000/api/customer/transactionlist").then(
+      (response) => {
+        response.json().then((result) => {
+          setTransactionList(result);
+        });
+      }
+    );
+  }, []);
   return (
     <div>
     <div className="wrapper">
@@ -12,11 +33,12 @@ const TransactionList = ({ list }) => {
      <div className="main-panel ps" >
         <Navbar />
       <div className= "content">
-        <div class="row" style={{ right: "500px" }}>
+        <div class="row" style={{right: "500px"}}>
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header">
                 <h3 class="card-title"> Translation List</h3>
+                <Link to='/state' align="center" type="submit" class="btn btn-fill btn-primary"> Print</Link>
               </div>
               <div class="card-body">
                 <div class="table-responsive-lg">
@@ -31,7 +53,7 @@ const TransactionList = ({ list }) => {
                       </tr>
                     </thead>
 
-                    {list.map((u) => {
+                    {transList.map((u) => {
                       return <StatementsTableRow key={u.id} {...u} />;
                     })}
                   </table>
