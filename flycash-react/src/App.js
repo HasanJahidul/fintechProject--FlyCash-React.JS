@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //import './black/css/black-dashboard.css';
 import "./App.css";
@@ -18,16 +17,12 @@ import Profile from "./components/customer/profile";
 import Addmoney from "./components/customer/transactions/addMoney";
 import TransactionList from "./components/customer/transactions/transactionlist";
 
-import ErrorPage from './components/Error404';
+import ErrorPage from "./components/Error404";
 import Welcome from "./components/welcome";
 import Donate from "./components/customer/transactions/Donate";
 import PrintStatement from "./components/customer/transactions/StatementPdfDownload";
 
-
-
-  //========================= CUSTOMER ===========================================
-  
-
+//========================= CUSTOMER ===========================================
 
 function App() {
   //========================= CUSTOMER ===========================================
@@ -37,10 +32,8 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/customer/statement">
-
-            <TransactionList  />
-    <TransactionList />
-
+            <TransactionList />
+            <TransactionList />
           </Route>
           <Route exact path="/">
             <Welcome />
@@ -63,9 +56,6 @@ function App() {
           <Route
             exact
             path="/customer/add-money"
-
-            children={<Addmoney status="Add Money" imgpath={cashinPNG}  buttonName="Add Money" numberType='Bank Account'/>}
-=======
             children={
               <Addmoney
                 status="Add Money"
@@ -74,14 +64,18 @@ function App() {
                 numberType="Bank Account"
               />
             }
-
+            children={
+              <Addmoney
+                status="Add Money"
+                imgpath={cashinPNG}
+                buttonName="Add Money"
+                numberType="Bank Account"
+              />
+            }
           ></Route>
           <Route
             exact
             path="/customer/send-money"
-
-            children={<Addmoney status="Send Money" imgpath={sendPNG} buttonName="Send Money" numberType='FlyCash ' />}
-
             children={
               <Addmoney
                 status="Send Money"
@@ -90,13 +84,18 @@ function App() {
                 numberType="FlyCash "
               />
             }
-
+            children={
+              <Addmoney
+                status="Send Money"
+                imgpath={sendPNG}
+                buttonName="Send Money"
+                numberType="FlyCash "
+              />
+            }
           ></Route>
           <Route
             exact
             path="/customer/cash-out"
-
-
             children={
               <Addmoney
                 status="Cash out"
@@ -109,9 +108,14 @@ function App() {
           <Route
             exact
             path="/customer/payment"
-
-            children={<Addmoney status="Payment" imgpath={paymentPNG}  buttonName="Pay" numberType='Merchant'/>}
-
+            children={
+              <Addmoney
+                status="Payment"
+                imgpath={paymentPNG}
+                buttonName="Pay"
+                numberType="Merchant"
+              />
+            }
             children={
               <Addmoney
                 status="Payment"
@@ -124,8 +128,14 @@ function App() {
           <Route
             exact
             path="/customer/mobile-recharge"
-            children={<Addmoney status="Mobile Recharge" imgpath={rechargePNG}  buttonName="Recharge" numberType='Mobile'/>}
-
+            children={
+              <Addmoney
+                status="Mobile Recharge"
+                imgpath={rechargePNG}
+                buttonName="Recharge"
+                numberType="Mobile"
+              />
+            }
             children={
               <Addmoney
                 status="Mobile Recharge"
@@ -138,8 +148,14 @@ function App() {
           <Route
             exact
             path="/customer/transfer-money"
-            children={<Addmoney status="Transfer money" imgpath={transferPNG} buttonName="Transfer"  numberType='Bank Account'/>}
-=======
+            children={
+              <Addmoney
+                status="Transfer money"
+                imgpath={transferPNG}
+                buttonName="Transfer"
+                numberType="Bank Account"
+              />
+            }
             children={
               <Addmoney
                 status="Transfer money"
@@ -152,15 +168,6 @@ function App() {
           <Route
             exact
             path="/customer/donate"
-
-            children={<Donate status="Donation" imgpath={donatePNG} buttonName="Transfer"  numberType="Select NGO's"/>}
-          ></Route>
- <Route path="/state">
-            <PrintStatement/>
-          </Route> 
-
-          <Route path="*">
-            <ErrorPage/>
             children={
               <Donate
                 status="Donation"
@@ -170,6 +177,22 @@ function App() {
               />
             }
           ></Route>
+          <Route path="/state">
+            <PrintStatement />
+          </Route>
+
+          <Route path="*">
+            <ErrorPage />
+            children=
+            {
+              <Donate
+                status="Donation"
+                imgpath={donatePNG}
+                buttonName="Transfer"
+                numberType="Select NGO's"
+              />
+            }
+          </Route>
           <Route path="/state">
             <PrintStatement />
           </Route>
