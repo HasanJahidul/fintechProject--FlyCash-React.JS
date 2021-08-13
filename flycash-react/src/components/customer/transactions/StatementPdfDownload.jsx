@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "../../../App.css";
-import Navbar from "../../layouts/navbars/CustomerNavbar";
-import SideNav from "../../layouts/sidebar/customersSidebar";
 import StatementsTableRow from "./StatementsTableRow";
-import { Link } from "react-router-dom";
+import logo from "../../../black/img/flycash.png";
+import moment from "moment";
 
-const TransactionList = () => {
- const print =()=>{
-    window.print();
-  }
+const StatementPdfDownload = () => {
+  let email = "Joy#gmail.com";
+  let today = new Date();
+
+  let date =
+    today.getDate() +
+    "-" +
+    parseInt(today.getMonth() + 1) +
+    "-" +
+    today.getFullYear();
+
   const getTransactionList = () => {
     fetch("http://localhost:8000/api/customer/transactionlist").then(
       (response) => {
@@ -28,21 +34,25 @@ const TransactionList = () => {
       }
     );
   }, []);
+  const print = () => {
+    window.print();
+  };
   return (
     <div>
-    <div className="wrapper">
-    <SideNav />
-     <div className="main-panel ps" >
-        <Navbar />
-      <div className= "content">
-     
-        <div class="row" style={{right: "500px"}}>
+      <div className="content">
+        <div className="row photo">
+          <div className="col-md-12" >
+            Print Date: {date}
+            </div>
+        </div>
+        <div className="row">
+          <img className="photo" src={logo}></img>
+        </div>
+        <div class="row" style={{ right: "500px" }}>
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title"> Translation List</h3>
-                <Link to='/state' align="center" type="submit" class="btn btn-fill btn-primary"> Print</Link>
-                <button onClick={() => window.print()} align="center" type="submit" class="btn btn-fill btn-primary"> Print</button>
+                <h3 class="card-title">Statement</h3>
               </div>
               <div class="card-body">
                 <div class="table-responsive-lg">
@@ -63,13 +73,20 @@ const TransactionList = () => {
                   </table>
                 </div>
               </div>
+              <button
+                onClick={() => window.print()}
+                align="center"
+                type="submit"
+                class="btn btn-fill btn-primary"
+              >
+                {" "}
+                Print
+              </button>
             </div>
           </div>
         </div>
       </div>
-      </div>
-      </div>
-      </div>
+    </div>
   );
 };
-export default TransactionList;
+export default StatementPdfDownload;
