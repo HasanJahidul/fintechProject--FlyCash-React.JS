@@ -118,7 +118,7 @@ const AddMoney = (props) => {
 
                 <div class="card-footer">
                   <button type="submit" className="btn btn-fill btn-primary">
-                    {props.status}
+                    {props.buttonName}
                   </button>
                 </div>
               </div>
