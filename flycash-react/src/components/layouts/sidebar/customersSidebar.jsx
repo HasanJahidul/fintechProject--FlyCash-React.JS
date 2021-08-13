@@ -8,7 +8,7 @@ const CustomersSidebar = () => {
   const [method, setMethod] = useState(["add"]);
   return (
     <div className="sidebar" data="green">
-      <div className="sidebar-wrapper ps ps--active-y">
+      <div className="sidebar-wrapper ps">
         <div className="logo">
           <img src={logo} alt=""></img>
           <Link to="/customer-dashboard" className="simple-text logo-normal">
@@ -18,7 +18,7 @@ const CustomersSidebar = () => {
 
         <ul className="nav">
           <li>
-            <Link to="{{ route('customer_home'">
+            <Link to="/customer-dashboard">
               <i className="tim-icons icon-chart-pie-36"></i>
               <p>Dashboard</p>
             </Link>
@@ -71,7 +71,7 @@ const CustomersSidebar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="#">
+                  <Link to="/customer/buy-tickets">
                     <i className="tim-icons icon-bus-front-12"></i>
                     <p>buy tickets</p>
                   </Link>
@@ -81,7 +81,7 @@ const CustomersSidebar = () => {
           </li>
 
           <li>
-            <Link to="/customer/profile">
+            <Link to="/customer-profile">
               <i className="tim-icons icon-single-02"></i>
               <p>User Profile</p>
             </Link>
@@ -89,7 +89,7 @@ const CustomersSidebar = () => {
           <li>
             <Link to="/customer/statement">
               <i className="tim-icons icon-notes"></i>
-              <p>Transaction List</p>
+              <p>Statement</p>
             </Link>
           </li>
         </ul>
