@@ -150,6 +150,12 @@ function CustomerNavbar(props) {
                     
                   </NavLink>
                   <NavLink tag="li">
+                  <Link to="/customer-change-password">
+                  <DropdownItem className="nav-item">Change Password</DropdownItem>
+                    </Link>
+                    
+                  </NavLink>
+                  <NavLink tag="li">
                    
                     <DropdownItem className="nav-item">Settings</DropdownItem>
                   </NavLink>

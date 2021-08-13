@@ -16,6 +16,7 @@ import Addmoney from "./components/customer/transactions/addMoney";
 import TransactionList from "./components/customer/transactions/transactionlist";
 import Welcome from "./components/welcome";
 import ErrorPage from './components/Error404';
+import Password from "./components/customer/Password"
 
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
           </Route>
           <Route exact path="/customer-profile">
             <Profile />
+          </Route>
+          <Route exact path="/customer-change-password">
+            <Password />
           </Route>
           <Route
             exact
