@@ -11,69 +11,63 @@ const AdminsSidebar = () => {
       <div className="sidebar-wrapper ps ps--active-y">
         <div className="logo">
           <img src={logo} alt=""></img>
-          <Link to="/admin-dashboard" className="simple-text logo-normal">
+          <Link to="/customer-dashboard" className="simple-text logo-normal">
             Dashboard
           </Link>
         </div>
 
         <ul className="nav">
           <li>
-            <Link to="{{ route('admin_home'">
+            <Link to="{{ route('customer_home'">
               <i className="tim-icons icon-chart-pie-36"></i>
               <p>Dashboard</p>
             </Link>
           </li>
           <li>
-            <Link data-toggle="collapse" aria-expanded="true">
-              <i className="fab fa-laravel"></i>
-              <span className="nav-link-text">Transactions</span>
-              <b className="caret mt-1"></b>
-            </Link>
-
             <div className="collapse show">
               <ul className="nav pl-4">
                 <li>
                   <Link to="/customer/add-money">
                     <i className="tim-icons icon-coins"></i>
 
-                    <p>Add Money</p>
+                    <p>Add User</p>
                   </Link>
                 </li>
                 <li>
                   <Link to="/customer/send-money">
                     <i className="tim-icons icon-send"></i>
-                    <p>Send Money</p>
+                    <p>Add Campaign</p>
                   </Link>
                 </li>
                 <li>
                   <Link to="/customer/cash-out">
                     <i className="tim-icons icon-money-coins"></i>
-                    <p>Cash out</p>
+                    <p>Add Officer</p>
                   </Link>
                 </li>
                 <li>
                   <Link to="/customer/payment">
                     <i className="tim-icons icon-credit-card"></i>
-                    <p>Payment</p>
+                    <p>Add Money</p>
                   </Link>
                 </li>
 
                 <li>
                   <Link to="/customer/mobile-recharge">
                     <i className="tim-icons icon-mobile"></i>
-                    <p>Mobile Recharge</p>
+                    <p>Chat</p>
                   </Link>
                 </li>
                 <li>
                   <Link to="/customer/transfer-money">
                     <i className="tim-icons icon-bank"></i>
-                    <p>Transfer Money</p>
+                    <p>Discount Code</p>
                   </Link>
                 </li>
                 <li>
                   <Link to="#">
                     <i className="tim-icons icon-bus-front-12"></i>
-                    <p>buy tickets</p>
+                    <p>Block User</p>
                   </Link>
                 </li>
               </ul>
@@ -97,4 +91,4 @@ const AdminsSidebar = () => {
     </div>
   );
 };
-export default CustomersSidebar;
+export default AdminsSidebar;
