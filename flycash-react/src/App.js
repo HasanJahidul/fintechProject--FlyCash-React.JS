@@ -19,8 +19,8 @@ import Welcome from "./components/welcome";
 //=======================Start Officer Import File==============================
 
 import OfficerDashboard from './components/officer/OfficerDashboard';
-import PublicRoute from './PublicRoute';
-import PrivateRoute from './PrivateRoute';
+import PublicRoute from './components/auth/checkroute/PublicRoute';
+import PrivateRoute from './components/auth/checkroute/PrivateRoute';
 
 //=======================End Officer Import File================================
 

@@ -1,5 +1,5 @@
 import { Redirect , Route } from "react-router-dom";
-import { getEmail } from "./components/auth/connect/getSession";
+import { getEmail } from "../connect/getSession";
 
 const PublicRoute = ({component: Component, ...rest}) => {
     return (
