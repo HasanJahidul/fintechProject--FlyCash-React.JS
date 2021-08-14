@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios';
+import axios from 'axios'
 
 //import swal from 'sweetalert';
 
@@ -49,7 +49,7 @@ class CustomerTransaction extends Component{
                             <td>{item.date}</td>
 
                             <td>
-                                <Link to={`show-customer/${item.id}`} className="btn btn-success btn-sm">download pdf</Link>
+                                <Link to={`customer-invoice`} className="btn btn-success btn-sm">pdf</Link>
                             </td>
                         </tr>
                     );
@@ -80,7 +80,8 @@ class CustomerTransaction extends Component{
                                             <th>Amount</th>
                                             <th>Balance</th>
                                             <th>Date</th>
-                                            <th>View</th>
+                                            <th>Print</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
             
@@ -88,9 +89,6 @@ class CustomerTransaction extends Component{
                                         {customer_transaction_table}
                                     </tbody>
                                 </table>
-
-                                <Link to={'/show-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
-
                             </div>
                         </div>
                     </div>

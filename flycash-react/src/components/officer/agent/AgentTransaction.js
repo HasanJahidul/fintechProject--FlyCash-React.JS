@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios';
+import axios from 'axios'
 
 //import swal from 'sweetalert';
 
@@ -38,6 +38,13 @@ class AgentTransaction extends Component{
         }else{
             agent_transaction_table = 
                 this.state.agents.map( (item)=> {
+                    
+                    // if(item.data.transaction_status=="blocked"){
+                    //     <Link to={`agent-blocked/${item.id}`} className="btn btn-success btn-sm">Block</Link>
+                    // }else{
+                    //     <Link to={`agent-blocked/${item.id}`} className="btn btn-success btn-sm">Unblock</Link>
+                    // }
+
                     return (
                         <tr key={item.id}>
                             <td>{item.id}</td>
@@ -49,7 +56,11 @@ class AgentTransaction extends Component{
                             <td>{item.date}</td>
 
                             <td>
-                                <Link to={`show-agent/${item.id}`} className="btn btn-success btn-sm">download pdf</Link>
+                                <Link to={`agent-invoice`} className="btn btn-success btn-sm">pdf</Link>
+                            </td>
+                            <td>
+                                
+                                
                             </td>
                         </tr>
                     );
@@ -80,7 +91,8 @@ class AgentTransaction extends Component{
                                             <th>Amount</th>
                                             <th>Balance</th>
                                             <th>Date</th>
-                                            <th>View</th>
+                                            <th>Print</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
             
@@ -88,9 +100,6 @@ class AgentTransaction extends Component{
                                         {agent_transaction_table}
                                     </tbody>
                                 </table>
-
-                                <Link to={'/show-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
-
                             </div>
                         </div>
                     </div>

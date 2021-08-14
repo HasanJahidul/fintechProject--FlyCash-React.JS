@@ -1,52 +1,114 @@
 import React from 'react';
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-//=============================Start Officer Class===============================
-
-import Home from './components/officer/Home';
-
-import CustomerDeatils from './components/officer/customer/CustomerDetails';
-import CustomerEdit from './components/officer/customer/CustomerEdit';
-import CustomerTransaction from './components/officer/customer/CustomerTransaction';
-
-import AgentDetails from './components/officer/agent/AgentDetails';
-import AgentEdit from './components/officer/agent/AgentEdit';
-import AgentTransaction from './components/officer/agent/AgentTransaction';
-
-import Profile from './components/officer/profile/Profile';
-import ProfileEdit from './components/officer/profile/ProfileEdit';
-import ChangePassword from './components/officer/profile/ChangePassword';
+import './black/css/black-dashboard.css';
+import "./App.css";
+import "./black/css/nucleo-icons.css";
+import cashinPNG from "./black/img/icons/cashin.png";
+import cashoutPNG from "./black/img/icons/cashout.png";
+import paymentPNG from "./black/img/icons/payment.png";
+import sendPNG from "./black/img/icons/sendmoney.png";
+import Register from "./components/auth/register";
+import Login from "./components/auth/login";
+import Dashboard from "./components/customer/Dashboard";
+import Addmoney from "./components/customer/transactions/addMoney";
+import TransactionList from "./components/customer/transactions/transactionlist";
+import Welcome from "./components/welcome";
 
 
-//=============================End Officer Class===============================
+//=======================Start Officer Import File==============================
+
+import OfficerDashboard from './components/officer/OfficerDashboard';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
+
+//=======================End Officer Import File================================
+
 
 function App() {
+  //========================= CUSTOMER ===========================================
+  const getTransactionList = () => {
+    fetch("http://localhost:8000/api/customer/transactionlist").then(
+      (response) => {
+        response.json().then((result) => {
+          setTransactionList(result);
+        });
+      }
+    );
+  };
+  const [transList, setTransactionList] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8000/api/customer/transactionlist").then(
+      (response) => {
+        response.json().then((result) => {
+          setTransactionList(result);
+        });
+      }
+    );
+  }, []);
   return (
-    <div>
+    <>
+      {console.log(transList)}
+      
       <Router>
         <Switch>
-{/* =============================Start Officer Router=============================== */}
+          <Route exact path="/customer/statement">
+            <TransactionList list={transList} />
+          </Route>
+
+          <PublicRoute exact path="/">
+            <Welcome />
+          </PublicRoute>
+          <PublicRoute exact path="/register">
+            <Register />
+          </PublicRoute>
+          <PublicRoute exact path="/login">
+            <Login />
+          </PublicRoute>
 
 
-          <Route exact path="/" component={Home}/>
+          <PrivateRoute exact path="/customer-dashboard" component={Dashboard}/>
 
-          <Route exact path="/show-customer" component={CustomerDeatils}/>
-          <Route exact path="/edit-customer/:id" component={CustomerEdit}/>
-          <Route exact path="/transaction-customer" component={CustomerTransaction}/>
+          <Route
+            exact
+            path="/customer/add-money"
+            children={<Addmoney status="Add Money" imgpath={cashinPNG}  numberType='Bank Account'/>}
+          ></Route>
+          <Route
+            exact
+            path="/customer/send-money"
+            children={<Addmoney status="Send Money" imgpath={sendPNG} numberType='FlyCash ' />}
+          ></Route>
+          <Route
+            exact
+            path="/customer/cash-out"
+            children={<Addmoney status="Cash out" imgpath={cashoutPNG}  numberType='Agent'/>}
+          ></Route>
+          <Route
+            exact
+            path="/customer/payment"
+            children={<Addmoney status="Payment" imgpath={paymentPNG}  numberType='Merchant'/>}
+          ></Route>
+          <Route
+            exact
+            path="/customer/mobile-recharge"
+            children={<Addmoney status="Mobile Recharge" imgpath={paymentPNG}  numberType='Merchant'/>}
+          ></Route>
 
-          <Route exact path="/show-agent" component={AgentDetails}/>
-          <Route exact path="/edit-agent/:id" component={AgentEdit}/>
-          <Route exact path="/transaction-agent" component={AgentTransaction}/>
+{/* ===========================================End Customer======================================= */}
 
-          <Route exact path="/view-profile" component={Profile}/>
-          <Route exact path="/edit-profile/:id" component={ProfileEdit}/>
 
-          <Route exact path="/change-password/:id" component={ChangePassword}/>
+{/* ===========================================Start Officer Route======================================= */}
 
-{/* =============================End Officer Router=============================== */}
+          <PrivateRoute exact path="/officer-dashboard" component={OfficerDashboard}/> 
+
+{/* ===========================================End Officer Route======================================= */}
+          
+
+          <Route path="*">404 not found</Route>
         </Switch>
       </Router>
-    </div>
+    </>
   );
 }
 
