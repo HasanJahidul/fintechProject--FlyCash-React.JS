@@ -20003,16 +20003,25 @@ select.form-control option {
   margin-left: -5px;
   z-index: 1;
 }
+.btn{
+  display:block;
+  margin-left: auto;
+    position: relative;
+}
 .photo{
   display:none;
 }
+.details{
+  display:none;
+}
 @media print {
+  
   .photo {
-    height: 200px;
-    width: 500px;
+    height: 100px;
+    width: 250px;
     display: block;
     margin-left: auto;
-    margin-right: auto;
+    position: relative;
   }
   .sidebar{
     display:none;
@@ -20020,6 +20029,27 @@ select.form-control option {
 .btn{
   display:none;
 }
+.pdf th,h3,h4 {
+  color: black !important;
+  
+}
+.details{
+  margin-left: 30px;
+  display: block;
+}
+.pdf table{
+  border-collapse: collapse;
+  border-style: solid black;
+  border-bottom: 2px solid black ;
+  border: solid black ;
+  
+}
+.tablesorter td, th {
+  border-style:solid black;
+  padding: 0.5rem;
+  text-align: left;
+}
+
   }
 
 
