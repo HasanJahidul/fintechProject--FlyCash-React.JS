@@ -20,7 +20,6 @@ import TransactionList from "./components/customer/transactions/transactionlist"
 import ErrorPage from './components/Error404';
 import Welcome from "./components/welcome";
 import Donate from "./components/customer/transactions/Donate";
-import PrintStatement from "./components/customer/transactions/StatementPdfDownload";
 
 
 function App() {
@@ -86,9 +85,6 @@ function App() {
             path="/customer/donate"
             children={<Donate status="Donation" imgpath={donatePNG} buttonName="Transfer"  numberType="Select NGO's"/>}
           ></Route>
- <Route path="/state">
-            <PrintStatement/>
-          </Route> 
 
           <Route path="*">
             <ErrorPage/>

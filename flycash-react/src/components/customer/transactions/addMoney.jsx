@@ -4,57 +4,65 @@ import Footer from "../../layouts/footer";
 import NavBar from "../../layouts/navbars/CustomerNavbar";
 import Sidebar from "../../layouts/sidebar/customersSidebar";
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
 const AddMoney = (props) => {
-  let history = useHistory();
-  const addmoney = () => {
-    var email = "joy@gmail.com";
-    fetch("http://localhost:8000/api/customer/addmoney/" + email, {
-      method: "Post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    }).then((result) => {
-      result.json().then((resp) => {
-        alert(props.status + "success");
-        getTransactionList();
-      });
-    });
-  };
-  const getTransactionList = () => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
-      (response) => {
-        response.json().then((result) => {
-          setTransactionList(result);
-        });
-      }
-    );
-  };
-  const [transList, setTransactionList] = useState([]);
+  //let history = useHistory();
 
-  const makeTransaction = () => {
     var email = "joy@gmail.com";
-    fetch("http://localhost:8000/customer/transaction/" + email, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    }).then((result) => {
-      result.json().then((resp) => {
-        alert(props.status + "success");
-        getTransactionList();
-      });
-    });
-  };
+    var transaction_type = props.status;
 
-  useEffect(() => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then((response) => {
-      response.json().then((result) => {
-        getTransactionList(result);
-      });
+    const history = useHistory();
+    const [customersTransaction, setcustomersTransaction] = useState({
+        transaction_type: '',
+        amount: '',
+        password: '',
+        phone: ''
     });
-  }, []);
+    const [msg, setMsg] = useState(" ");
+    const handleInput = (e) => {
+        const transaction_type = e.target.transaction_type;
+        const email = e.target.email;
+        
+        setcustomersTransaction({  ...customersTransaction,[transaction_type]: [email]})
+        console.log(transaction_type, email);
+        
+    }
+    const transaction = async (e) => {
+        e.preventDefault();
+        const transaction_type = customersTransaction.transaction_type.toString();
+        const amount =customersTransaction.amount.toString();
+        const password =customersTransaction.password.toString();
+        const phone =customersTransaction.phone.toString();
+        const res = await axios.post('http://localhost:8000/api/customer/transaction', 
+        {transaction_type: transaction_type,amount: amount,password: password,phone: phone});
+        if (res.data.status === 200) {
+            console.log(res.data.message);
+            setMsg(res.data.message);
+            setcustomersTransaction({ transaction_type: '',
+        amount: '',
+        password: '',
+        phone: '' })
+            setTimeout(() => { history.push('/customer/statement'); }, 3000);
+            // 
+        }
+        else if (res.data.status === 240) {
+            setMsg(res.data.message);
+            setcustomersTransaction({ transaction_type: '',
+        amount: '',
+        password: '',
+        phone: ''})
+        }
+        else {
+            setMsg(res.data.message);
+            setcustomersTransaction({Ftransaction_type: '',
+        amount: '',
+        password: '',
+        phone: ''})
+        }
+
+    
+  };
+    
 
   return (
     <div className="wrapper">
@@ -80,16 +88,12 @@ const AddMoney = (props) => {
                           alt="sendmoney"
                         ></img>
                       </a>
-                      <h3>{props.status}</h3>
+                      <h3>{transaction_type}</h3>
                     </div>
                     
                   </p>
                   <form
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      addmoney();
-                      history.push("/customer/statement");
-                    }}
+                   onSubmit={transaction}
                   ></form>
                   <label>{props.numberType} Number</label>
                   <input
@@ -97,6 +101,7 @@ const AddMoney = (props) => {
                     name="phone"
                     className="form-control"
                     placeholder="+8801*********"
+                    onChange={handleInput}
                   ></input>
 
                   <label>Amount</label>
@@ -105,6 +110,7 @@ const AddMoney = (props) => {
                     name="amount"
                     className="form-control"
                     placeholder="0.00"
+                    onChange={handleInput}
                   ></input>
 
                   <label>Password</label>
@@ -113,6 +119,7 @@ const AddMoney = (props) => {
                     name="password"
                     className="form-control"
                     placeholder="******"
+                    onChange={handleInput}
                   ></input>
                 </div>
 
