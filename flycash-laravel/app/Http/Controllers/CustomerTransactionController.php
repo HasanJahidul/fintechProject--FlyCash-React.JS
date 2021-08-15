@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Customerstransaction;
 use App\Models\Customer;
@@ -399,15 +399,54 @@ public function index()
 
         return response()->json($customer);
     }
-    public function index2()
-    {
-        /**
-         * Display a listing of the resource.
-         *
+    /** 
+         *@param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response
          */
-        $customer = Customerstransaction::all();
-        return response()->json($customer);
+    public function transaction(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            'transaction_type' =>'required|min:3|max:30',
+            'amount' =>'required',
+            'password' =>'required',
+            'phone'=>'required|min:11|max:15',
+            'email'=>'required'
+
+            
+            ]);
+             if($validator->fails()) {
+                return response()->json([
+                 'status' => 240,
+                'message' => 'Validation Error'
+                 ]);
+            }
+    
+              else{   // $eventName = $req->input('event_name');
+                $data=array();
+                $data['transaction_type']=$req->transaction_type;
+                $data['amount']=$req->amount;
+                $data['phone']=$req->phone;
+                $data['password']=$req->password;
+                $data['email']=$req->email;
+                $data['balance']='5000';
+                $data->date = now();
+                
+    
+                $insert_status = DB::table('customerstransactions')->insert($data);
+                if($insert_status){
+                   return response()->json([
+                            'status' => 200,
+                            'event'=> $insert_status,
+                            'message' => 'User Added Successfully'
+                                 ]);
+                }else{
+                    response()->json([
+                            'status' => 202,
+                            'message' => 'Something went Wrong'
+                                 ]);
+                }
+                
+            }
     }
 
 }

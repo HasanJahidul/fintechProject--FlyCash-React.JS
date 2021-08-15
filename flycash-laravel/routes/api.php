@@ -21,4 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/customer/transactionlist','CustomerTransactionController@index');	
-Route::get('/customer/addmoney/{email}','CustomerTransactionController@index');	
+Route::get('/customer/transaction','CustomerTransactionController@transaction');	
