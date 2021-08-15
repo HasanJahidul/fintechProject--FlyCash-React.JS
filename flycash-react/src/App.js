@@ -19,8 +19,8 @@ import Welcome from "./components/welcome";
 //=======================Start Officer Import File==============================
 
 import OfficerDashboard from './components/officer/OfficerDashboard';
-import PublicRoute from './components/auth/checkroute/PublicRoute';
-import PrivateRoute from './components/auth/checkroute/PrivateRoute';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
 
 //=======================End Officer Import File================================
 
@@ -56,16 +56,9 @@ function App() {
             <TransactionList list={transList} />
           </Route>
 
-          <PublicRoute exact path="/">
-            <Welcome />
-          </PublicRoute>
-          <PublicRoute exact path="/register">
-            <Register />
-          </PublicRoute>
-          <PublicRoute exact path="/login">
-            <Login />
-          </PublicRoute>
-
+          <PublicRoute exact path="/" component={Welcome}/>
+          <PublicRoute path="/register" component={Register}/>
+          <PublicRoute path="/login" component={Login}/>
 
           <PrivateRoute exact path="/customer-dashboard" component={Dashboard}/>
 

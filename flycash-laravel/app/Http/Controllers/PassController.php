@@ -8,53 +8,25 @@ use Illuminate\Http\Request;
 
 class PassController extends Controller
 {
-
-    public function edit($id)
+    public function edit(Officer $email)
     {
-        $pass= Officer::find($id);
+        $users= Officer::find($email);
 
-        if ($pass) {
-            return response()->json([
-                'status' => 200,
-                'officers' => $pass,
-            ]);
-        }else{
-            return response()->json([
-                'status' => 404,
-                'message' => 'No profile Id Found',
-            ]);
-        }
+        return view('pages.officer.password.password_edit')->with('user', $users);
     }
 
-    public function update(Request $req,$id)
+    public function update(Request $req, Officer $email)
     {
-        $pass = Officer::find($id);
+        $users = Officer::find($email);
         
-        if($pass->password==$req->current_password){
-
-            if($req->new_password==$req->re_password){
-
-                $pass->password = $req->new_password;
-
-                $pass->update();
-
-                return response()->json([
-                    'status'=>200,
-                    'message'=>'Password Updated Successfully',
-                ]);
-            }else{
-
-                return response()->json([
-                    'status'=>404,
-                    'message'=>'New Password & Re-Password Mismatch !',
-                ]);
+        if($users->password != $req->password){
+            if($req->password==$req->password_confirmation){
+                $users->password = $req->password;
             }
-        }else{
-
-            return response()->json([
-                'status'=>404,
-                'message'=>'Current Password Not Match !',
-            ]);
         }
+  
+        $users->save();
+
+        return redirect()->route('password_update');
     }
 }

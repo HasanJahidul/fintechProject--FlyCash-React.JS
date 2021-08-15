@@ -24,5 +24,9 @@ class HomeController extends Controller
     {
         return view('officerDashboard');
     }
+    public function index()
+    {
+        return view('auth.register');
+    }
 
 }

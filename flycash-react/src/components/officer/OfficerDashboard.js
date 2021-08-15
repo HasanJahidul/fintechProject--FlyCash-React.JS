@@ -1,4 +1,4 @@
-//import React from "react";
+import React from "react";
 import SideNav from "../layouts/sidebar/customersSidebar";
 import Navbar from "../layouts/navbars/CustomerNavbar";
 import cashinPNG from "../../black/img/icons/cashin.png";
@@ -7,15 +7,14 @@ import paymentPNG from "../../black/img/icons/payment.png";
 import cashoutPNG from "../../black/img/icons/cashout.png";
 //import React, { Component } from 'react'
 import { Link, useHistory } from "react-router-dom";
-import { removeUserSession } from "../auth/connect/getSession";
-import { getEmail } from '../auth/connect/getSession';
+import { getUser, removeUserSession } from "../auth/connect/getSession";
 
 
 //class OfficerDashboard extends Component {
 function OfficerDashboard() {
 
     let history = useHistory();
-    //const user = getEmail();
+    const user = getUser();
     
     const handleLogout = () => {
         removeUserSession();
@@ -40,7 +39,7 @@ function OfficerDashboard() {
                             <div className="col-sm-6 text-left">
                             <h2 className="card-title">DASHBOARD</h2>
                             <h4 className="card-title">Welcome to communication officer</h4>
-                            {/* <h5>{user}</h5> */}
+                            <h5>{user.email}</h5>
                             <input type="button" value="Logout" onClick={handleLogout}/>
                             </div>
                         </div>
