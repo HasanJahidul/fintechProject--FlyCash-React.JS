@@ -30,7 +30,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/customer/statement">
-            <TransactionList  />
+            <TransactionList />
           </Route>
           <Route exact path="/">
             <Welcome />
