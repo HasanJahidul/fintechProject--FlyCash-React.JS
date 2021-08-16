@@ -3,9 +3,18 @@ import "../../../App.css";
 import Footer from "../../layouts/footer";
 import NavBar from "../../layouts/navbars/CustomerNavbar";
 import AdminsSidebar from "../../layouts/sidebar/adminsSidebar";
+import TableRow from "../TableRow";
 
-import removePNG from "../../../black/img/admin/remove.png";
-const RemoveCampaign = () => {
+const BlockOfficer = () => {
+  const [officerList, setAllOfficer] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8000/api/admin/officerList").then((response) => {
+      response.json().then((result) => {
+        setAllOfficer(result);
+      });
+    });
+  }, []);
+
   return (
     <div>
       <div className="wrapper">
@@ -17,15 +26,9 @@ const RemoveCampaign = () => {
               <div class="col-md-12">
                 <div class="card ">
                   <div class="card-header">
-                    <img
-                      align="center"
-                      className="avatar"
-                      src={removePNG}
-                      alt="Campaign"
-                    ></img>
                     <h1 class="card-title" align="center">
                       {" "}
-                      Remove Campaign
+                      Officer List
                     </h1>
                   </div>
                   <div class="card-body">
@@ -33,12 +36,17 @@ const RemoveCampaign = () => {
                       <table class="table tablesorter " id="">
                         <thead class=" text-primary">
                           <tr>
-                            <th>Campaign ID</th>
-                            <th class="text-center">Campaign Name</th>
-                            <th class="text-center">Portfolio</th>
+                            <th class="text-center">name</th>
+                            <th class="text-center">Email</th>
+
+                            <th class="text-center">Phone </th>
+                            <th class="text-center">Nid</th>
                             <th class="text-center">Action</th>
                           </tr>
                         </thead>
+                        {officerList.map((u) => {
+                          return <TableRow key={u.id} {...u} />;
+                        })}
                       </table>
                     </div>
                   </div>
@@ -47,8 +55,9 @@ const RemoveCampaign = () => {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </div>
   );
 };
-export default RemoveCampaign;
+export default BlockOfficer;

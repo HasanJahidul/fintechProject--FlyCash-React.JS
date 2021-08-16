@@ -3,6 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Officer;
+
+use App\Models\Customer;
+use App\Models\Campaign;
+
+
+use Validator;
+use App\Http\Requests\EditProfileRequest;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -41,10 +50,10 @@ class AdminController extends Controller
     {
         return view('pages.admin.campaign.addcampaign');
     }
-    public function ongoingcampaign()
-    {
-        return view('pages.admin.campaign.ongoingcampaign');
-    }
+    // public function ongoingcampaign()
+    // {
+    //     return view('pages.admin.campaign.ongoingcampaign');
+    // }
     
     public function removecampaign()
     {
@@ -82,4 +91,15 @@ class AdminController extends Controller
     {
         return view('pages.admin.user.blockuser');
     }
+
+
+    public function ongoingCampaign()
+    {
+
+        $Campaign= DB::table('Campaigns')->get();
+        return response()->json($Campaign);
+       
+    }
+
+   
 }

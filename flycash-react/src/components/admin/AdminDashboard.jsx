@@ -12,6 +12,7 @@ import editUserPNG from "../../black/img/admin/edit-info.png";
 import userListPNG from "../../black/img/admin/userList.png";
 import blockUserPNG from "../../black/img/admin/blockUser.png";
 import discountCodePNG from "../../black/img/admin/discount-code.png";
+import transactionHistoyPNG from "../../black/img/admin/transaction-history.png";
 
 import agentPNG from "../../black/img/admin/agent.png";
 import editAgentPNG from "../../black/img/admin/edit-info.png";
@@ -62,7 +63,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('add-campaign') }}">
+                          <Link to="/admin-addCampaign">
                             <img src={campaignPNG}></img>
                             <div className="picname">
                               <h4>Add Campaign</h4>
@@ -77,7 +78,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('ongoing-campaign') }}">
+                          <Link to="/admin-ongoingCampaign">
                             <img src={ongoingCampaignPNG}></img>
                             <div className="picname">
                               <h4>Ongoing Campaign</h4>
@@ -92,7 +93,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('remove-campaign') }}">
+                          <Link to="/admin-removeCampaign">
                             <img src={removePNG}></img>
                             <div className="picname">
                               <h4>Remove Campaign</h4>
@@ -128,7 +129,7 @@ function AdminDashboard() {
               <div className="card-header ">
                 <div className="row">
                   <div className="col-sm-6 text-left">
-                    <h2 className="card-title">User</h2>
+                    <h2 className="card-title">Customer</h2>
                   </div>
                 </div>
 
@@ -138,10 +139,10 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('add-user') }}">
+                          <Link to="/admin-addUser">
                             <img src={addUserPNG}></img>
                             <div className="picname">
-                              <h4>Add User</h4>
+                              <h4>Add Customer</h4>
                             </div>
                           </Link>
                         </div>
@@ -153,10 +154,10 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('block-user') }}">
+                          <Link to="/admin-blockCustomer">
                             <img src={blockUserPNG}></img>
                             <div className="picname">
-                              <h4>Block User</h4>
+                              <h4>Block Customer</h4>
                             </div>
                           </Link>
                         </div>
@@ -168,10 +169,10 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('edit-user') }}">
+                          <Link to="/admin-blockCustomer">
                             <img src={editUserPNG}></img>
                             <div className="picname">
-                              <h4>Edit User</h4>
+                              <h4>Edit Customer</h4>
                             </div>
                           </Link>
                         </div>
@@ -183,10 +184,10 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('user-list') }}">
+                          <Link to="/admin-blockCustomer">
                             <img src={userListPNG}></img>
                             <div className="picname">
-                              <h4>User List</h4>
+                              <h4>Customer List</h4>
                             </div>
                           </Link>
                         </div>
@@ -202,6 +203,21 @@ function AdminDashboard() {
                             <img src={discountCodePNG}></img>
                             <div className="picname">
                               <h4>Discount Code</h4>
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                    <div className="font-icon-detail">
+                      <div className="d-flex justify-content-center">
+                        <div className="pic">
+                          <Link href="{{ route('discount-code') }}">
+                            <img src={transactionHistoyPNG}></img>
+                            <div className="picname">
+                              <h4>Transaction List</h4>
                             </div>
                           </Link>
                         </div>
@@ -229,7 +245,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('add-agent') }}">
+                          <Link to="/admin-addAgent">
                             <img src={agentPNG}></img>
                             <div className="picname">
                               <h4>Add Agent</h4>
@@ -244,7 +260,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('edit-agent') }}">
+                          <Link to="/admin-blockAgent">
                             <img src={editAgentPNG}></img>
                             <div className="picname">
                               <h4>Edit Agent</h4>
@@ -259,7 +275,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('block-agent') }}">
+                          <Link to="/admin-blockAgent">
                             <img src={blockAgentPNG}></img>
                             <div className="picname">
                               <h4>Block Agent</h4>
@@ -289,7 +305,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('addAgent-money') }}">
+                          <Link to="/admin-addMoney">
                             <img src={addMoneyPNG}></img>
                             <div className="picname">
                               <h4>Add MOney</h4>
@@ -321,7 +337,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('add-officer') }}">
+                          <Link to="/admin-addOfficer">
                             <img src={officerPNG}></img>
                             <div className="picname">
                               <h4>Add officer</h4>
@@ -336,10 +352,10 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('block-officer') }}">
+                          <Link to="/admin-blockOfficer">
                             <img src={blockOfficerPNG}></img>
                             <div className="picname">
-                              <h4>Block User</h4>
+                              <h4>Block Officer</h4>
                             </div>
                           </Link>
                         </div>
@@ -351,10 +367,10 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('edit-officer') }}">
+                          <Link to="/admin-blockOfficer">
                             <img src={editOfficerPNG}></img>
                             <div className="picname">
-                              <h4>Edit User</h4>
+                              <h4>Edit Officer</h4>
                             </div>
                           </Link>
                         </div>

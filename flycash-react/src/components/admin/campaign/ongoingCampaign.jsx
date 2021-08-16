@@ -1,25 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "../../../App.css";
-import Navbar from "../../layouts/navbars/CustomerNavbar";
+import Footer from "../../layouts/footer";
+import NavBar from "../../layouts/navbars/CustomerNavbar";
 import AdminsSidebar from "../../layouts/sidebar/adminsSidebar";
-import { Link } from "react-router-dom";
+import CampaignTable from "./campaignTable";
 
 const OngoingCampaign = () => {
-  const getTransactionList = () => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
-      (response) => {
-        response.json().then((result) => {
-          setTransactionList(result);
-        });
-      }
-    );
-  };
-  const [transList, setTransactionList] = useState([]);
+  const [campaignList, setAllCampaign] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
+    fetch("http://localhost:8000/api/admin/ongoingCampaign").then(
       (response) => {
         response.json().then((result) => {
-          setTransactionList(result);
+          setAllCampaign(result);
         });
       }
     );
@@ -29,38 +21,32 @@ const OngoingCampaign = () => {
       <div className="wrapper">
         <AdminsSidebar />
         <div className="main-panel ps">
-          <Navbar />
+          <NavBar />
           <div className="content">
             <div class="row" style={{ right: "500px" }}>
               <div class="col-md-12">
                 <div class="card ">
                   <div class="card-header">
-                    <h3 class="card-title"> Translation List</h3>
-                    <Link
-                      to="/state"
-                      align="center"
-                      type="submit"
-                      class="btn btn-fill btn-primary"
-                    >
+                    <h1 class="card-title" align="center">
                       {" "}
-                      Print
-                    </Link>
+                      Ongoing Campaign
+                    </h1>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive-lg">
                       <table class="table tablesorter " id="">
                         <thead class=" text-primary">
                           <tr>
-                            <th>Account Number</th>
-                            <th>Transaction Type</th>
-                            <th class="text-center">Transaction Amount</th>
-                            <th class="text-center">Current Balance</th>
-                            <th class="text-center">Date</th>
+                            <th class="text-center"> Campaign Title</th>
+                            <th class="text-center">Released Date</th>
+                            <th class="text-center">End Date </th>
+                            <th class="text-center">Portfolio</th>
+                            <th class="text-center">Action</th>
                           </tr>
                         </thead>
 
-                        {transList.map((u) => {
-                          return <StatementsTableRow key={u.id} {...u} />;
+                        {campaignList.map((u) => {
+                          return <CampaignTable key={u.id} {...u} />;
                         })}
                       </table>
                     </div>
@@ -70,6 +56,7 @@ const OngoingCampaign = () => {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </div>
   );

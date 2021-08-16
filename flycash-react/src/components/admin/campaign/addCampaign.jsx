@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import "../../../App.css";
 import Footer from "../../layouts/footer";
 import NavBar from "../../layouts/navbars/CustomerNavbar";
-import AdminDashboard from "../../layouts/sidebar/adminsSidebar";
+import AdminsSidebar from "../../layouts/sidebar/adminsSidebar";
 
 import campaignPNG from "../../../black/img/admin/campaign.png";
 
 const AddCampaign = (props) => {
   return (
     <div className="wrapper">
-      <AdminDashboard />
+      <AdminsSidebar />
       <div className="main-panel ps">
         <NavBar />
         <div className="content">

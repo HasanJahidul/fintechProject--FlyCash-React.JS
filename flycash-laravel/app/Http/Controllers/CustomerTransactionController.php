@@ -399,15 +399,6 @@ public function index()
 
         return response()->json($customer);
     }
-    public function index2()
-    {
-        /**
-         * Display a listing of the resource.
-         *
-         * @return \Illuminate\Http\Response
-         */
-        $customer = Customerstransaction::all();
-        return response()->json($customer);
-    }
+    
 
 }

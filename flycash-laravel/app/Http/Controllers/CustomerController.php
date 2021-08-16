@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Officer;
+
+use App\Models\Customer;
+
 use Validator;
 use App\Http\Requests\EditProfileRequest;
 use Illuminate\Support\Facades\DB; //Import query builser 
@@ -112,4 +115,34 @@ class CustomerController extends Controller
         }
 
     }
+
+        //+++++++++++Admin+++++++++++
+        public function getAllCustomer()
+    {
+        $customer= DB::table('customers')->get();
+
+        return response()->json($customer);
+    }
+    
+    public function getAllOfficer()
+    {
+        $officer= DB::table('officers')->get();
+
+        return response()->json($officer);
+    }
+
+
+    public function getAllAgent()
+    {
+        $Agent= DB::table('Agents')->get();
+
+        return response()->json($Agent);
+    }
+    
+    
+
+
+
+
+
 }

@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 //import './black/css/black-dashboard.css';
 import "./App.css";
 import "./black/css/nucleo-icons.css";
@@ -24,12 +26,40 @@ import PrintStatement from "./components/customer/transactions/StatementPdfDownl
 import AdminDashboard from "./components/admin/AdminDashboard";
 import AddCampaign from "./components/admin/campaign/addCampaign";
 import OngoingCampaign from "./components/admin/campaign/ongoingCampaign";
+import RemoveCampaign from "./components/admin/campaign/removeCampaign";
 
 import AdminRegister from "./components/admin/addComponent";
+
+import AdminAddMoney from "./components/admin/agent/addMoney";
+
+import BlockAgent from "./components/admin/agent/blockAgent";
+import BlockCustomer from "./components/admin/user/blockCustomer";
+import BlockOfficer from "./components/admin/officer/blockOfficer";
+
+import CustomerTransactionList from "./components/admin/user/customerTransactionList";
 
 function App() {
   //========================= CUSTOMER ===========================================
 
+  const getTransactionList = () => {
+    fetch("http://localhost:8000/api/customer/transactionlist").then(
+      (response) => {
+        response.json().then((result) => {
+          setTransactionList(result);
+        });
+      }
+    );
+  };
+  const [transList, setTransactionList] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8000/api/customer/transactionlist").then(
+      (response) => {
+        response.json().then((result) => {
+          setTransactionList(result);
+        });
+      }
+    );
+  }, []);
   return (
     <>
       <Router>
@@ -155,6 +185,30 @@ function App() {
 
           <Route exact path="/admin-ongoingCampaign">
             <OngoingCampaign />
+          </Route>
+
+          <Route exact path="/admin-removeCampaign">
+            <RemoveCampaign />
+          </Route>
+
+          <Route exact path="/admin-addMoney">
+            <AdminAddMoney />
+          </Route>
+
+          <Route exact path="/admin-blockAgent">
+            <BlockAgent />
+          </Route>
+
+          <Route exact path="/admin-blockCustomer">
+            <BlockCustomer />
+          </Route>
+
+          <Route exact path="/admin-blockOfficer">
+            <BlockOfficer />
+          </Route>
+
+          <Route exact path="/admin-userTransactionList">
+            <CustomerTransactionList />
           </Route>
 
           <Route

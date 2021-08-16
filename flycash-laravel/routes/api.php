@@ -22,3 +22,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/customer/transactionlist','CustomerTransactionController@index');	
 Route::get('/customer/addmoney/{email}','CustomerTransactionController@index');	
+
+
+
+
+//===================================================   Admin   ===========================================================
+
+
+Route::get('/admin/customerList','CustomerController@getAllCustomer');	
+Route::get('/admin/officerList','CustomerController@getAllOfficer');	
+Route::get('/admin/agentList','CustomerController@getAllAgent');
+
+Route::get('/admin/ongoingCampaign','AdminController@getAllAgent');
