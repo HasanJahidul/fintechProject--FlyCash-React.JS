@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //import './black/css/black-dashboard.css';
 import "./App.css";
@@ -17,13 +16,16 @@ import Password from "./components/customer/Password";
 import Profile from "./components/customer/profile";
 import Addmoney from "./components/customer/transactions/addMoney";
 import TransactionList from "./components/customer/transactions/transactionlist";
-import ErrorPage from './components/Error404';
+
+import ErrorPage from "./components/Error404";
 import Welcome from "./components/welcome";
 import Donate from "./components/customer/transactions/Donate";
 
+//========================= CUSTOMER ===========================================
 
 function App() {
   //========================= CUSTOMER ===========================================
+<<<<<<< HEAD
   
   return (
     <>
@@ -85,13 +87,11 @@ function App() {
             path="/customer/donate"
             children={<Donate status="Donation" imgpath={donatePNG} buttonName="Transfer"  numberType="Select NGO's"/>}
           ></Route>
+=======
+>>>>>>> b2d3f3e5a11fa2d9c93f97ef56b1ecc24111537d
 
-          <Route path="*">
-            <ErrorPage/>
-          </Route>
-        </Switch>
-      </Router>
-    </>
+  return (
+    
   );
 }
 
