@@ -5,8 +5,8 @@ import NavBar from "../../layouts/navbars/CustomerNavbar";
 import Sidebar from "../../layouts/sidebar/customersSidebar";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-
 import {setUserSession} from "../../auth/connect/getSession";
+
 const AddMoney = (props) => {
   //let history = useHistory();
 
