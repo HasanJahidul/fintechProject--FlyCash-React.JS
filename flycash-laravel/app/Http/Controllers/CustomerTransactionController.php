@@ -1,395 +1,142 @@
 <?php
 
 namespace App\Http\Controllers;
-use Validator;
+
 use App\Http\Requests\TransactionRequest;
-use App\Models\Customerstransaction;
-use App\Models\Customer;
 use App\Models\Agent;
+use App\Models\Customer;
+use App\Models\Customerstransaction;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerTransactionController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
-
-     
     
-    //========================================Add Money=========================================
-    
-    public function addmoney()
+//**************************************************************************** */
+    public function index()
     {
-        return view('pages.customer.transaction.addmoney');
-    }public function addmoneydone(TransactionRequest $req)
-    {
-        if($req-> amount >97)
-        {
-            if ($req->session()->get('password')==$req-> password){
+        $email = 'joy@gmail.com';
+        $customer = DB::table('customerstransactions')->where('email', '=', $email)->get();
 
-                $email=$req->session()->get('email');
-                $balance=$req->session()->get('balance');
-                $customer = Customer::where('email',$email)
-                ->first();
-                $newbalance=$balance+$req-> amount;
-                $balance=$newbalance;
-            
-
-                $req->session()->put('balance', $balance);
-
-                $customer->balance = $balance;
-                $customer->save();
-                $transaction=new Customerstransaction();
-                $transaction->phone=$req->phone;
-                $transaction->email=$email;
-                $transaction->transaction_type="Add Money";
-                $transaction->amount=$req->amount;
-                $transaction->balance = $balance;
-                $transaction->date = now();
-                $transaction->save();
-
-
-
-                return back()->with('msg','Addmoney Successfull') ;
-
-            }else{
-                
-                return back()->with('err','Incorrect Password') ;
-            }
-            
-
-        }else{
-            return back()->with('err','Add money Unsuccessfull') ;
-        }
-        
+        return response()->json($customer);
     }
-
-    
-    //========================================Send Money=========================================
-    
-    public function sendmoney()
+    public function test(Request $req)
     {
-        return view('pages.customer.transaction.sendmoney');
+        $a = $req->phone;
+        return response()->json([
+            'status' => 240,
+            'message' => $a,
+        ]);
     }
-    public function sendmoneydone(TransactionRequest $req)
+    //********************************Transaction******************************************** */
+    public function makeTransaction(Request $req)
     {
-        if($req-> amount >100)
-        {
-            if ($req->session()->get('password')==$req-> password){
 
-                $email=$req->session()->get('email');
-                $balance=$req->session()->get('balance');
-                $customer = Customer::where('email',$email)
-                ->first();
-                $newbalance=$balance-$req-> amount;
-                $balance=$newbalance;
-            
-
-                $req->session()->put('balance', $balance);
-
-                $customer->balance = $balance;
-                $customer->save();
-                $transaction=new Customerstransaction();
-                $transaction->phone=$req->phone;
-                $transaction->email=$email;
-                $transaction->transaction_type="Send Money";
-                $transaction->amount=$req->amount;
-                $transaction->balance = $balance;
-                $transaction->date = now();
-                $transaction->save();
-
-
-
-                return back()->with('msg','Send Money Successfull') ;
-
-            }else{
-                return back()->with('err','Incorrect Password') ;
-            }
-            
-
-        }else{
-            return back()->with('err','Send Money Unsuccessfull') ;
-        
-    }
-}
-
-    //========================================Cashout=========================================
-
-    public function cashout()
-    {
-        return view('pages.customer.transaction.cashout');
-    }
-   
-    public function cashoutdone(TransactionRequest $req)
-    {
-        if($req-> amount >100)
-        {
-            $status = Agent::where('phone',$req->phone)
+        $status = Customer::where('email', $req->email)
+            ->where('password', $req->password)
             ->first();
-            //dd($status);
-            
+        $transaction_type = $req->transaction_type;
+        $email = $req->email;
+        $phone = $req->phone;
 
-                if ($req->session()->get('password')==$req-> password){
-                    if($status){
+        $balance = $status->balance;
+        $amount = $req->amount;
 
-                    $email=$req->session()->get('email');
-                    $balance=$req->session()->get('balance');
-                    $customer = Customer::where('email',$email)
+        if ($status) {
+            if ($transaction_type == "Add Money") {
+
+                $customer = Customer::where('email', $email)
                     ->first();
-                    $newbalance=$balance-$req-> amount;
-                    $balance=$newbalance;
-                
-    
-                    $req->session()->put('balance', $balance);
-    
-                    $customer->balance = $balance;
-                    $customer->save();
-                    $transaction=new Customerstransaction();
-                    $transaction->phone=$req->phone;
-                    $transaction->email=$email;
-                    $transaction->transaction_type="Cash out";
-                    $transaction->amount=$req->amount;
-                    $transaction->balance = $balance;
-                    $transaction->date = now();
-                    $transaction->save();
-    
-    
-    
-                    return back()->with('msg','Cashout Successfull') ;
+                $newbalance = $balance + $req->amount;
+                $balance = $newbalance;
 
-                }else{
-                    return back()->with('err','Incorrect Agent Number') ;
-    
+                $customer->balance = $balance;
+                $customer->save();
+
+                $transaction = new Customerstransaction();
+                $transaction->phone = $phone;
+                $transaction->email = $email;
+                $transaction->transaction_type = $transaction_type;
+                $transaction->amount = $amount;
+                $transaction->balance = $balance;
+                $transaction->date = now();
+                $transaction->save();
+                if ($transaction) {
+                    $customer = Customer::where('email', $email)
+                        ->first();
+                    return response()->json([
+                        'status' => 240,
+                        'user_status' => $customer,
+                        'message' => "Transaction Successfull",
+
+                    ]);
+
+                } else {
+
+                    return response()->json([
+                        'status' => 240,
+                        "balance" => $balance,
+                        'message' => "Transaction Unuccessfull",
+                    ]);
+
                 }
-    
-                }else{
-                    return back()->with('err','Incorrect Password') ;
-                }
 
-            
-        }else{
-            return back()->with('err','Minimum Cashout amount 100 Taka') ;
-        }
-    }
+            } elseif ($transaction_type == "Cash out" || $transaction_type == "Payment" || $transaction_type == "Donate" || $transaction_type == "Mobile Recharge" || $transaction_type == "Send Money" || $transaction_type == "Transfer money" ||$transaction_type == "Buy Tickets") {
 
-
-    //========================================Pay BILl=========================================
-
-
-    public function paybill()
-    {
-        return view('pages.customer.transaction.paybill');
-    }
-    public function paybilldone(TransactionRequest $req)
-    {
-        if($req-> amount >1)
-        {
-            
-
-                if ($req->session()->get('password')==$req-> password){
-                   
-
-                    $email=$req->session()->get('email');
-                    $balance=$req->session()->get('balance');
-                    $customer = Customer::where('email',$email)
+                $customer = Customer::where('email', $email)
                     ->first();
-                    $newbalance=$balance-$req-> amount;
-                    $balance=$newbalance;
-                
-    
-                    $req->session()->put('balance', $balance);
-    
-                    $customer->balance = $balance;
-                    $customer->save();
-                    $transaction=new Customerstransaction();
-                    $transaction->phone=$req->phone;
-                    $transaction->email=$email;
-                    $transaction->transaction_type="Payment";
-                    $transaction->amount=$req->amount;
-                    $transaction->balance = $balance;
-                    $transaction->date = now();
-                    $transaction->save();
-    
-    
-    
-                    return back()->with('msg','Payment Successfull') ;
+                $newbalance = $balance - $req->amount;
+                $balance = $newbalance;
 
-               
-    
-                }else{
-                    return back()->with('err','Incorrect Password') ;
+                $customer->balance = $balance;
+                $customer->save();
+
+                $transaction = new Customerstransaction();
+                $transaction->phone = $phone;
+                $transaction->email = $email;
+                $transaction->transaction_type = $transaction_type;
+                $transaction->amount = $amount;
+                $transaction->balance = $balance;
+                $transaction->date = now();
+                $transaction->save();
+                if ($transaction) {
+                    $customer = Customer::where('email', $email)
+                        ->first();
+                    return response()->json([
+                        'status' => 240,
+                        'user_status' => $customer,
+                        'message' => "Transaction Successfull",
+
+                    ]);
+
+                } else {
+
+                    return response()->json([
+                        'status' => 240,
+                        "balance" => $balance,
+                        'message' => "Transaction Unuccessfull",
+                    ]);
+
                 }
 
-            
-        }else{
-            return back()->with('err','Minimum Payment amount 1 Taka') ;
-        }
+            }else{
+                return response()->json([
+                    'status' => 240,
+                    'message' => "unknown error",
+                ]);
 
-    }
-
-    //========================================recharge=========================================
-    public function recharge()
-    {
-        return view('pages.customer.transaction.recharge');
-    } 
-    public function rechargedone(TransactionRequest $req)
-    {
-        if($req-> amount >9)
-        {
-                if ($req->session()->get('password')==$req-> password){
-                   
-
-                    $email=$req->session()->get('email');
-                    $balance=$req->session()->get('balance');
-                    $customer = Customer::where('email',$email)
-                    ->first();
-                    $newbalance=$balance-$req-> amount;
-                    $balance=$newbalance;
-                
-    
-                    $req->session()->put('balance', $balance);
-    
-                    $customer->balance = $balance;
-                    $customer->save();
-                    $transaction=new Customerstransaction();
-                    $transaction->phone=$req->phone;
-                    $transaction->email=$email;
-                    $transaction->transaction_type="Mobile Recharge";
-                    $transaction->amount=$req->amount;
-                    $transaction->balance = $balance;
-                    $transaction->date = now();
-                    $transaction->save();
-    
-    
-    
-                    return back()->with('msg','Mobile Recharge Successfull') ;
-
-                
-    
-                }else{
-                    return back()->with('err','Incorrect Password') ;
-                }
+            }
 
             
-        }else{
-            return back()->with('err','Minimum Payment amount 10 Taka') ;
-        }
-    }
-    //========================================TransferMoney=========================================
-    public function transfermoney()
-    {
-        return view('pages.customer.transaction.transfermoney');
-    }
-    public function transfermoneydone(TransactionRequest $req)
-    {
-        if($req-> amount >1000)
-        {
-                if ($req->session()->get('password')==$req-> password){
-                   
 
-                    $email=$req->session()->get('email');
-                    $balance=$req->session()->get('balance');
-                    $customer = Customer::where('email',$email)
-                    ->first();
-                    $newbalance=$balance-$req-> amount;
-                    $balance=$newbalance;
-                
-    
-                    $req->session()->put('balance', $balance);
-    
-                    $customer->balance = $balance;
-                    $customer->save();
-                    $transaction=new Customerstransaction();
-                    $transaction->phone=$req->phone;
-                    $transaction->email=$email;
-                    $transaction->transaction_type="Money Transfer";
-                    $transaction->amount=$req->amount;
-                    $transaction->balance = $balance;
-                    $transaction->date = now();
-                    $transaction->save();
-    
-    
-    
-                    return back()->with('msg','Money Transfer Successfull') ;
+        } else {
 
-                
-    
-                }else{
-                    return back()->with('err','Incorrect Password') ;
-                }
+            return response()->json([
+                'status' => 240,
+                'message' => "password does not match",
+            ]);
 
-            
-        }else{
-            return back()->with('err','Minimum Money Transfer amount 1000 Taka') ;
-        }
-    }
-    public function donate()
-    {
-        return view('pages.customer.transaction.donate');
-    }
-    public function donatedone(TransactionRequest $req)
-    {
-        if($req-> amount >1)
-        {
-            
-
-                if ($req->session()->get('password')==$req-> password){
-                   
-
-                    $email=$req->session()->get('email');
-                    $balance=$req->session()->get('balance');
-                    $customer = Customer::where('email',$email)
-                    ->first();
-                    $newbalance=$balance-$req-> amount;
-                    $balance=$newbalance;
-                
-    
-                    $req->session()->put('balance', $balance);
-    
-                    $customer->balance = $balance;
-                    $customer->save();
-                    $transaction=new Customerstransaction();
-                    $transaction->phone=$req->billtype;
-                    $transaction->email=$email;
-                    $transaction->transaction_type="Donate";
-                    $transaction->amount=$req->amount;
-                    $transaction->balance = $balance;
-                    $transaction->date = now();
-                    $transaction->save();
-    
-    
-    
-                    return back()->with('msg','Donation Successfull') ;
-
-               
-    
-                }else{
-                    return back()->with('err','Incorrect Password') ;
-                }
-
-            
-        }else{
-            return back()->with('err','Minimum Donation amount 1 Taka') ;
         }
 
     }
-
-
-    public function ticket()
-    {
-        return view('pages.customer.transaction.tickets');
-    }
-
-
 }
