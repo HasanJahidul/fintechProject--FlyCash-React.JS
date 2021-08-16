@@ -17198,6 +17198,7 @@ hr {
   margin-right: 12px;
   line-height: 30px;
   width: 34px;
+<<<<<<< HEAD
   text-align: center;
   color: rgba(255, 255, 255, 0.8);
   position: relative;
@@ -17214,6 +17215,24 @@ hr {
   float: left;
   width: 34px;
   text-align: center;
+=======
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+.sidebar .logo,
+.off-canvas-sidebar .logo {
+  position: relative;
+  padding: 0.5rem 0.7rem;
+  z-index: 4;
+}
+.sidebar .logo a.logo-mini,
+.off-canvas-sidebar .logo a.logo-mini {
+  opacity: 1;
+  float: left;
+  width: 34px;
+  text-align: center;
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
   margin-left: 12px;
   margin-right: 12px;
 }
@@ -18695,6 +18714,7 @@ textarea.form-control {
   padding: 10px 10px 0 0;
   resize: none;
   line-height: 2;
+<<<<<<< HEAD
 }
 
 .has-success.form-group .form-control,
@@ -18715,6 +18735,28 @@ textarea.form-control {
   padding: 0 12px;
 }
 
+=======
+}
+
+.has-success.form-group .form-control,
+.has-success.form-group.no-border .form-control,
+.has-danger.form-group .form-control,
+.has-danger.form-group.no-border .form-control {
+  padding-right: 40px;
+}
+
+.form.form-newsletter .form-group {
+  float: left;
+  width: 78%;
+  margin-right: 2%;
+  margin-top: 9px;
+}
+
+.input-group .input-group-btn {
+  padding: 0 12px;
+}
+
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
 .form-group input[type="file"] {
   opacity: 0;
   position: absolute;
@@ -18821,12 +18863,21 @@ textarea.form-control {
 }
 .modal-search .modal-dialog .form-control::placeholder {
   color: #222a42;
+<<<<<<< HEAD
 }
 
 .input-group-prepend {
   margin-right: 0;
 }
 
+=======
+}
+
+.input-group-prepend {
+  margin-right: 0;
+}
+
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
 .input-group-prepend .tim-icons,
 .input-group-append .tim-icons {
   font-size: 1rem;
@@ -20128,7 +20179,10 @@ select.form-control option {
   th {
     border-style: solid black;
     padding: 0.5rem;
-    text-align: left;
+    text-align: center;
+  }
+  .card-title{
+    text-align: center;
   }
 }
 

@@ -5,6 +5,8 @@ import NavBar from "../../layouts/navbars/CustomerNavbar";
 import Sidebar from "../../layouts/sidebar/customersSidebar";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+
+import {setUserSession} from "../../auth/connect/getSession";
 const AddMoney = (props) => {
   //let history = useHistory();
 
@@ -12,58 +14,56 @@ const AddMoney = (props) => {
     var transaction_type = props.status;
 
     const history = useHistory();
-    const [customersTransaction, setcustomersTransaction] = useState({
-        transaction_type: '',
-        amount: '',
-        password: '',
-        phone: ''
+    const [transaction, setTransaction] = useState({
+        
+        phone:'',
+        amount:'',
+        password:''
     });
     const [msg, setMsg] = useState(" ");
-    const handleInput = (e) => {
-        const transaction_type = e.target.transaction_type;
-        const email = e.target.email;
-        
-        setcustomersTransaction({  ...customersTransaction,[transaction_type]: [email]})
-        console.log(transaction_type, email);
+    const handleInputChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setTransaction({  ...transaction,[name]: [value]})
+        console.log(name, value);
         
     }
-    const transaction = async (e) => {
-        e.preventDefault();
-        const transaction_type = customersTransaction.transaction_type.toString();
-        const amount =customersTransaction.amount.toString();
-        const password =customersTransaction.password.toString();
-        const phone =customersTransaction.phone.toString();
-        const res = await axios.post('http://localhost:8000/api/customer/transaction', 
-        {transaction_type: transaction_type,amount: amount,password: password,phone: phone});
-        if (res.data.status === 200) {
-            console.log(res.data.message);
-            setMsg(res.data.message);
-            setcustomersTransaction({ transaction_type: '',
-        amount: '',
-        password: '',
-        phone: '' })
-            setTimeout(() => { history.push('/customer/statement'); }, 3000);
-            // 
+        const maketransaction = async (e) => {
+            e.preventDefault();
+            const phone =transaction.phone.toString();
+            const amount =transaction.amount.toString();
+            const password =transaction.password.toString();
+            const res = await axios.post('http://localhost:8000/api/transaction', { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email});
+            // { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email}
+            if (res.data.status === 200) {
+                console.log(res.data.message);
+                setMsg(res.data.message);
+                setTransaction({ event_name: '',
+                phone:'',
+                amount:'',
+                password:'' })
+                
+                setTimeout(() => { history.push('/customer/transactionlist'); }, 3000);
+                 
+            }
+            else if (res.data.status === 240) {
+                setMsg(res.data.message);
+                setTransaction({ transaction_type: '',
+                phone:'',
+                amount:'',
+                password:'' })
+                setUserSession(email,res.data.user_status);
+            }
+            else {
+                setMsg(res.data.message);
+                setTransaction({transaction_type: '',
+                phone:'',
+                amount:'',
+                password:''})
+            }
+            e.stopPropagation();
+        
         }
-        else if (res.data.status === 240) {
-            setMsg(res.data.message);
-            setcustomersTransaction({ transaction_type: '',
-        amount: '',
-        password: '',
-        phone: ''})
-        }
-        else {
-            setMsg(res.data.message);
-            setcustomersTransaction({Ftransaction_type: '',
-        amount: '',
-        password: '',
-        phone: ''})
-        }
-
-    
-  };
-    
-
   return (
     <div className="wrapper">
       <Sidebar />
@@ -73,6 +73,7 @@ const AddMoney = (props) => {
           <div className="d-flex justify-content-center">
             <div className="col-md-4">
               <div className="card card-user">
+              <form onSubmit={maketransaction} >
                 <div className="card-body">
                   <p className="card-text">
                     <div className="author">
@@ -89,19 +90,19 @@ const AddMoney = (props) => {
                         ></img>
                       </a>
                       <h3>{transaction_type}</h3>
+                      <div class="alert alert-success" role="alert">
+                            {msg}
+                        </div>
                     </div>
-                    
                   </p>
-                  <form
-                   onSubmit={transaction}
-                  ></form>
                   <label>{props.numberType} Number</label>
                   <input
                     type="text"
                     name="phone"
                     className="form-control"
+                    value={transaction.phone}
                     placeholder="+8801*********"
-                    onChange={handleInput}
+                   onChange={handleInputChange}
                   ></input>
 
                   <label>Amount</label>
@@ -110,7 +111,8 @@ const AddMoney = (props) => {
                     name="amount"
                     className="form-control"
                     placeholder="0.00"
-                    onChange={handleInput}
+                    value={transaction.amount}
+                   onChange={handleInputChange}
                   ></input>
 
                   <label>Password</label>
@@ -119,16 +121,20 @@ const AddMoney = (props) => {
                     name="password"
                     className="form-control"
                     placeholder="******"
-                    onChange={handleInput}
+                    value={transaction.password}
+                   onChange={handleInputChange}
                   ></input>
                 </div>
 
-                <div class="card-footer">
-                  <button type="submit" className="btn btn-fill btn-primary">
+                <div className="card-footer">
+                  <button  className="btn btn-fill btn-primary"  >
                     {props.buttonName}
                   </button>
+                  
                 </div>
+                </form>
               </div>
+              
             </div>
           </div>
         </div>
