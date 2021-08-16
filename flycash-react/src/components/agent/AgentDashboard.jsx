@@ -1,27 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SideNav from "../layouts/sidebar/customersSidebar";
-import Navbar from "../layouts/navbars/CustomerNavbar";
-import cashinPNG from "../../black/img/icons/cashin.png";
-import sendPNG from "../../black/img/icons/sendmoney.png";
-import paybillPNG from "../../black/img/paybill.png";
-import rechargePNG from "../../black/img/icons/recharge.png";
-import transferPNG from "../../black/img/icons/money.png";
-import ticketPNG from "../../black/img/icons/ticket.png";
-import statementPNG from "../../black/img/icons/statement.png";
-import donatePNG from "../../black/img/icons/donate.png";
-import paymentPNG from "../../black/img/icons/payment.png";
-import cashoutPNG from "../../black/img/icons/cashout.png";
-import campaignPNG from "../../black/img/icons/campaign.png";
-import comingsoonPNG from "../../black/img/icons/comingsoon.png";
+import AgentSideNav from "../layouts/sidebar/agentsSidebar";
+import AgentNavbar from "../layouts/navbars/AgentNavbar";
 
-function Dashboard() {
+import takainAGN from "../../black/img/agent/takain.png";
+import takaoutAGN from "../../black/img/agent/takaout.png";
+import adduserAGN from "../../black/img/agent/adduser.png";
+import requestmoneyAGN from "../../black/img/agent/reqMoney.png";
+import paybillAGN from "../../black/img/agent/paybill.png";
+import transactionlistAGN from "../../black/img/agent/transaction.png";
+import rechargeAGN from "../../black/img/agent/recharge.png";
+import upcomingAGN from "../../black/img/agent/comingsoon.png";
+
+import { getUser, removeUserSession } from "../auth/connect/getSession";
+
+
+
+function AgentDashboard() {
   return (
     
       
       <div className="main-panel ps">
-      <SideNav />
-      <Navbar />
+      <AgentSideNav />
+      <AgentNavbar />
       
         <div className="content">
           <div className="row">
@@ -33,7 +34,7 @@ function Dashboard() {
                   <div className="row">
                     <div className="col-sm-6 text-left">
                       <h2 className="card-title">DASHBOARD</h2>
-                      <h4 className="card-title">Balance :5000</h4>
+                      <h4 className="card-title">Balance : 5000</h4>
                     </div>
                   </div>
                 </div>
@@ -46,7 +47,6 @@ function Dashboard() {
                 <div className="card-header ">
                   <div className="row">
                     <div className="col-sm-6 text-left">
-                      <h2 className="card-title">Transaction</h2>
                     </div>
                   </div>
 
@@ -56,10 +56,10 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="/customer/add-money">
-                              <img src={cashinPNG}></img>
+                            <Link to="/agent/agent-cash-in">
+                              <img src={takainAGN}></img>
                               <div className="picname">
-                                <h4>Add Money</h4>
+                                <h4>CASH IN</h4>
                               </div>
                             </Link>
                           </div>
@@ -71,10 +71,10 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="/customer/send-money">
-                              <img src={sendPNG}></img>
+                            <Link to="/agent/agent-cash-out">
+                              <img src={takaoutAGN}></img>
                               <div className="picname">
-                                <h4>Send Money</h4>
+                                <h4>CASH OUT</h4>
                               </div>
                             </Link>
                           </div>
@@ -86,10 +86,10 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="/customer/cash-out">
-                              <img src={cashoutPNG}></img>
+                          <Link to="/agent-agentadduser">
+                              <img src={adduserAGN}></img>
                               <div className="picname">
-                                <h4>Cash Out</h4>
+                                <h4>ADD USER</h4>
                               </div>
                             </Link>
                           </div>
@@ -101,10 +101,10 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="/customer/payment">
-                              <img src={paymentPNG}></img>
+                            <Link to="/agent/agent-requestmoney">
+                              <img src={requestmoneyAGN}></img>
                               <div className="picname">
-                                <h4>Payment</h4>
+                                <h4>REQUEST MONEY</h4>
                               </div>
                             </Link>
                           </div>
@@ -116,10 +116,10 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="/customer/mobile-recharge">
-                              <img src={rechargePNG}></img>
+                            <Link to="/agent/agent-paybill">
+                              <img src={paybillAGN}></img>
                               <div className="picname">
-                                <h4>Mobile Recharge</h4>
+                                <h4>PAY BILL</h4>
                               </div>
                             </Link>
                           </div>
@@ -131,10 +131,10 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="/customer/transfer-money">
-                              <img src={transferPNG}></img>
+                            <Link to="/agent/agent-transactionlist">
+                              <img src={transactionlistAGN}></img>
                               <div className="picname">
-                                <h4>Transfer Money</h4>
+                                <h4>TRANSACTION LIST</h4>
                               </div>
                             </Link>
                           </div>
@@ -146,10 +146,10 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="/customer/buy-tickets">
-                              <img src={ticketPNG}></img>
+                            <Link to="/agent/agent-recharge">
+                              <img src={rechargeAGN}></img>
                               <div className="picname">
-                                <h4>Buy Ticket</h4>
+                                <h4>RECHARGE</h4>
                               </div>
                             </Link>
                           </div>
@@ -161,77 +161,80 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="/customer/donate">
-                              <img src={donatePNG}></img>
+                            <Link to="#">
+                              <img src={upcomingAGN}></img>
                               <div className="picname">
-                                <h4>Donation</h4>
+                                <h4>UPCOMING FEATURE</h4>
                               </div>
                             </Link>
                           </div>
                         </div>
                       </div>
                     </div>
+
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link to="#">
+                              <img src={upcomingAGN}></img>
+                              <div className="picname">
+                                <h4>UPCOMING FEATURE</h4>
+                              </div>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link to="#">
+                              <img src={upcomingAGN}></img>
+                              <div className="picname">
+                                <h4>UPCOMING FEATURE</h4>
+                              </div>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link to="#">
+                              <img src={upcomingAGN}></img>
+                              <div className="picname">
+                                <h4>UPCOMING FEATURE</h4>
+                              </div>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                      <div className="font-icon-detail">
+                        <div className="d-flex justify-content-center">
+                          <div className="pic">
+                            <Link to="#">
+                              <img src={upcomingAGN}></img>
+                              <div className="picname">
+                                <h4>UPCOMING FEATURE</h4>
+                              </div>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
                     
-                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                      <div className="font-icon-detail">
-                        <div className="d-flex justify-content-center">
-                          <div className="pic">
-                            <Link to="/customer/statement">
-                              <img src={statementPNG}></img>
-                              <div className="picname">
-                                <h4>Statement</h4>
-                              </div>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                      <div className="font-icon-detail">
-                        <div className="d-flex justify-content-center">
-                          <div className="pic">
-                            <Link to="/customer/champaign">
-                              <img src={campaignPNG}></img>
-
-                              <div className="picname">
-                                <h4>Ongoing Campaign</h4>
-                              </div>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                      <div className="font-icon-detail">
-                        <div className="d-flex justify-content-center">
-                          <div className="pic">
-                            <Link to="#">
-                              <img src={comingsoonPNG}></img>
-                              <div className="picname">
-                                <h4>Coming Soon</h4>
-                              </div>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                      <div className="font-icon-detail">
-                        <div className="d-flex justify-content-center">
-                          <div className="pic">
-                            <Link to="#">
-                              <img src={comingsoonPNG}></img>
-                              <div className="picname">
-                                <h4>Coming Soon</h4>
-                              </div>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -243,4 +246,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default AgentDashboard;

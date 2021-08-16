@@ -1,66 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "../../../App.css";
-import Footer from "../../layouts/footer";
-import NavBar from "../../layouts/navbars/CustomerNavbar";
-import Sidebar from "../../layouts/sidebar/customersSidebar";
+// import Footer from "../../layouts/footer";
+import AgentNavbar from "../../layouts/navbars/AgentNavbar";
+import AgentSideNav from "../../layouts/sidebar/agentsSidebar";
 import { useHistory } from "react-router-dom";
-const AddMoney = (props) => {
+
+
+
+const AgentAddmoneyCard = (props) => {
+    
   let history = useHistory();
-  const addmoney = () => {
-    var email = "joy@gmail.com";
-    fetch("http://localhost:8000/api/customer/addmoney/" + email, {
-      method: "Post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    }).then((result) => {
-      result.json().then((resp) => {
-        alert(props.status + "success");
-        getTransactionList();
-      });
-    });
-  };
-  const getTransactionList = () => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
-      (response) => {
-        response.json().then((result) => {
-          setTransactionList(result);
-        });
-      }
-    );
-  };
-  const [transList, setTransactionList] = useState([]);
-
-  const makeTransaction = () => {
-    var email = "joy@gmail.com";
-    fetch("http://localhost:8000/customer/transaction/" + email, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    }).then((result) => {
-      result.json().then((resp) => {
-        alert(props.status + "success");
-        getTransactionList();
-      });
-    });
-  };
-
-  useEffect(() => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then((response) => {
-      response.json().then((result) => {
-        getTransactionList(result);
-      });
-    });
-  }, []);
-
-  return (
-    <div className="wrapper">
-      <Sidebar />
+    return (
+        <div className="wrapper">
+      <AgentSideNav />
       <div className="main-panel ps">
-        <NavBar />
+        <AgentNavbar />
         <div className="content">
           <div className="d-flex justify-content-center">
             <div className="col-md-4">
@@ -77,7 +31,7 @@ const AddMoney = (props) => {
                         <img
                           className="avatar"
                           src={props.imgpath}
-                          alt="sendmoney"
+                          alt="paybill"
                         ></img>
                       </a>
                       <h3>{props.status}</h3>
@@ -87,24 +41,49 @@ const AddMoney = (props) => {
                   <form
                     onSubmit={(event) => {
                       event.preventDefault();
-                      addmoney();
+                      AgentAddmoneyCard();
                       history.push("/customer/statement");
                     }}
                   ></form>
-                  <label>{props.numberType} Number</label>
+                  
+                  <label>Card Number</label>
                   <input
                     type="text"
-                    name="phone"
+                    name="cardNumber"
                     className="form-control"
-                    placeholder="+8801*********"
+                    placeholder="587496585841"
+                  ></input>
+                  <label>Valid Till</label> 
+                  <input
+                    type="text"
+                    name="billNumber"
+                    className="form-control"
+                    placeholder="21/25"
                   ></input>
 
+                  <label>CVC/CCV</label> 
+                  <input
+                    type="text"
+                    name="ccvNumber"
+                    className="form-control"
+                    placeholder="656"
+                  ></input>
+                  
                   <label>Amount</label>
                   <input
                     type="text"
                     name="amount"
                     className="form-control"
                     placeholder="0.00"
+                  ></input>
+
+                  <label>{props.numberType}</label>
+                  
+                            <input
+                    type="text"
+                    name="mobileNumber"
+                    className="form-control"
+                    placeholder="+8801*********"
                   ></input>
 
                   <label>Password</label>
@@ -125,10 +104,10 @@ const AddMoney = (props) => {
             </div>
           </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
-  );
+    );
 };
 
-export default AddMoney;
+export default AgentAddmoneyCard;

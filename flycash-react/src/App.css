@@ -19852,27 +19852,11 @@ textarea.form-control {
 }
 .card-user .author .block.block-one {
   background: rgb(45, 206, 137, 0.6);
-
-  background: -webkit-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: -o-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: -moz-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
+ 
+  background: -webkit-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: -o-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: -moz-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
   -webkit-transform: rotate(150deg);
   -moz-transform: rotate(150deg);
@@ -19884,26 +19868,10 @@ textarea.form-control {
 }
 .card-user .author .block.block-two {
   background: rgb(45, 206, 137, 0.6);
-  background: -webkit-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: -o-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: -moz-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
+  background: -webkit-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: -o-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: -moz-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
   -moz-transform: rotate(30deg);
   -ms-transform: rotate(30deg);
@@ -19914,26 +19882,10 @@ textarea.form-control {
 }
 .card-user .author .block.block-three {
   background: rgb(45, 206, 137, 0.6);
-  background: -webkit-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: -o-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: -moz-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
+  background: -webkit-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: -o-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: -moz-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
   -webkit-transform: rotate(170deg);
   -moz-transform: rotate(170deg);
@@ -19945,26 +19897,10 @@ textarea.form-control {
 }
 .card-user .author .block.block-four {
   background: rgb(45, 206, 137, 0.6);
-  background: -webkit-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: -o-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: -moz-linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
-  background: linear-gradient(
-    to right,
-    rgb(45, 206, 137, 0.6) 0%,
-    rgba(17, 205, 239) 100%
-  );
+  background: -webkit-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: -o-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: -moz-linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
+  background: linear-gradient(to right, rgb(45, 206,137, 0.6) 0%, rgba(17, 205, 239) 100%);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
   -webkit-transform: rotate(150deg);
   -moz-transform: rotate(150deg);
@@ -20037,7 +19973,7 @@ textarea.form-control {
 select.form-control option {
   color: #888;
 }
-.full-page > .content {
+.full-page>.content {
   padding-bottom: 150px;
   padding-top: 150px;
 }
@@ -20067,16 +20003,21 @@ select.form-control option {
   margin-left: -5px;
   z-index: 1;
 }
-.btn {
-  display: block;
+
+
+/*# sourceMappingURL=black-dashboard-react.css.map */
+
+
+.btn{
+  display:block;
   margin-left: auto;
-  position: relative;
+    position: relative;
 }
-.photo {
-  display: none;
+.photo{
+  display:none;
 }
-.details {
-  display: none;
+.details{
+  display:none;
 }
 @media print {
   .sidebar {
@@ -20128,11 +20069,7 @@ select.form-control option {
   th {
     border-style: solid black;
     padding: 0.5rem;
-    text-align: center;
-  }
-  .card-title{
-    text-align: center;
+    text-align: left;
   }
 }
 
-/*# sourceMappingURL=black-dashboard-react.css.map */

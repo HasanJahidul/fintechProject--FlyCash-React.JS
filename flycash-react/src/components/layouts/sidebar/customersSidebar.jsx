@@ -3,24 +3,16 @@ import { Link } from "react-router-dom";
 //import "../../../black/css/black-dashboard.css";
 import "../../../App.css";
 import logo from "../../../black/img/flycash.png";
-import { useHistory } from "react-router-dom";
-import { removeUserSession } from "../../auth/connect/getSession"
 
 const CustomersSidebar = () => {
   const [method, setMethod] = useState(["add"]);
-  let history = useHistory();
-  const handleLogout = () => {
-    removeUserSession();
-     history.push('/login');
-}
-
   return (
     <div className="sidebar" data="green">
       <div className="sidebar-wrapper ps">
         <div className="logo">
           <img src={logo} alt=""></img>
           <Link to="/customer-dashboard" className="simple-text logo-normal">
-            Dashboard
+          <p>Dashboard</p>
           </Link>
         </div>
 
@@ -98,12 +90,6 @@ const CustomersSidebar = () => {
             <Link to="/customer/statement">
               <i className="tim-icons icon-notes"></i>
               <p>Statement</p>
-            </Link>
-          </li>
-          <li>
-            <Link onClick={handleLogout}>
-              <i className="tim-icons icon-notes"></i>
-              <p>Log out</p>
             </Link>
           </li>
         </ul>

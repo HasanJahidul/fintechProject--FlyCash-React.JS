@@ -22,7 +22,7 @@ import {
   UncontrolledDropdown,
 } from "reactstrap";
 
-function CustomerNavbar(props) {
+function AgentNavbar(props) {
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
@@ -144,20 +144,16 @@ function CustomerNavbar(props) {
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
                   <NavLink tag="li">
-                  <Link to="/customer-profile">
+                  <Link to="/agent-agentprofileview">
                   <DropdownItem className="nav-item">Profile</DropdownItem>
                     </Link>
                     
                   </NavLink>
                   <NavLink tag="li">
-                  <Link to="/customer-change-password">
+                  <Link to="/agent-change-password">
                   <DropdownItem className="nav-item">Change Password</DropdownItem>
                     </Link>
                     
-                  </NavLink>
-                  <NavLink tag="li">
-                   
-                    <DropdownItem className="nav-item">Settings</DropdownItem>
                   </NavLink>
                   <DropdownItem divider tag="li" />
                   <NavLink tag="li">
@@ -190,4 +186,4 @@ function CustomerNavbar(props) {
   );
 }
 
-export default CustomerNavbar;
+export default AgentNavbar;
