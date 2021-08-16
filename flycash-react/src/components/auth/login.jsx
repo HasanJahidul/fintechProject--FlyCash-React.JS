@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 import logo from "../../black/img/flycash.png";
 import Footer from "../layouts/footer";
@@ -57,15 +58,33 @@ const Login  =() => {
         });
     }
 
+=======
+import React from 'react';
+import logo from "../../black/img/flycash.png";
+import Footer from "../layouts/footer";
+import GuestNav from "../layouts/navbars/guestNav";
+import { Link } from "react-router-dom";
+
+
+const login = () => {
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
     return (
         <div>
             <GuestNav/>
     <div className="wrapper wrapper-full-page">
+<<<<<<< HEAD
     <div className="full-page login-page ">
         <div className="content">
         <div className=" container">
 
         <div className="col-lg-4 col-md-6 ml-auto mr-auto">
+=======
+      <div className="full-page login-page ">
+        <div className="content">
+          <div className=" container">
+
+          <div className="col-lg-4 col-md-6 ml-auto mr-auto">
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
         <form className="form" method="post" >
             
 
@@ -74,8 +93,11 @@ const Login  =() => {
                 <img src={logo} alt=""></img>
                     <h1 align="center" className="card-title">Log in</h1>
                 </div>
+<<<<<<< HEAD
 
                 {error && <div className="error">{error}</div>}
+=======
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
                 
                 <div className="card-body">
                     <div className="input-group">
@@ -84,7 +106,11 @@ const Login  =() => {
                                 <i className="tim-icons icon-email-85"></i>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <input type="email" name="email" className="form-control" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)}/>
+=======
+                        <input type="email" name="email" className="form-control" placeholder="Email"></input>
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
                     
                     </div>
                     <div className="input-group">
@@ -93,6 +119,7 @@ const Login  =() => {
                                 <i className="tim-icons icon-lock-circle"></i>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <input type="password" placeholder="Password" name="password" className="form-control" value={password} onChange={e=>setPassword(e.target.value)}/>
                     
                     </div>
@@ -103,11 +130,26 @@ const Login  =() => {
                     <div className="pull-left">
                         <h6>
                             <Link href="" className="link footer-link">Create Account</Link>
+=======
+                        <input type="password" placeholder="Password" name="password" className="form-control"></input>
+                      
+                    </div>
+                </div>
+                <div className="card-footer">
+                    <button type="submit" href="" className="btn btn-primary btn-lg btn-block mb-3">Log in</button>
+                    <div className="pull-left">
+                        <h6>
+                            <Link to="/register" className="link footer-link">Create Account</Link>
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
                         </h6>
                     </div>
                     <div className="pull-right">
                         <h6>
+<<<<<<< HEAD
                             <Link href="3" className="link footer-link">Forgot password?</Link>
+=======
+                            <Link to="3" className="link footer-link">Forgot password?</Link>
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
                         </h6>
                     </div>
                 </div>
@@ -117,13 +159,23 @@ const Login  =() => {
 
 
 
+<<<<<<< HEAD
         </div>
         <Footer/>
         </div></div></div>
+=======
+          </div>
+          <Footer/>
+          </div></div></div>
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
 
             
         </div>
     );
 };
 
+<<<<<<< HEAD
 export default Login;
+=======
+export default login;
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509

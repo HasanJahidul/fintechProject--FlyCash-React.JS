@@ -50,9 +50,15 @@ let date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+today.getFullY
           <div className ="details">
                   <h3> Print Date :{date}</h3>
   
+<<<<<<< HEAD
                   <h4>Name :{user.name}</h4>
                   <h4>Email :{user.email}</h4>
                   <h4>Phone :{user.phone}</h4>
+=======
+                  <h4>Name :Jahidul Hasan</h4>
+                  <h4>Email :joy@gmail.com</h4>
+                  <h4>Phone :01631124587</h4>
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
   
                 </div>
           <img className='photo' src={logo}></img>

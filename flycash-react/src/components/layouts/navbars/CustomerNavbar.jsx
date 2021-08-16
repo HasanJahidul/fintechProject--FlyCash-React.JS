@@ -171,7 +171,11 @@ function CustomerNavbar(props) {
                   </NavLink>
                   <DropdownItem divider tag="li" />
                   <NavLink tag="li">
+<<<<<<< HEAD
                     <DropdownItem className="nav-item" onClick={handleLogout} >Log out</DropdownItem>
+=======
+                    <DropdownItem className="nav-item">Log out</DropdownItem>
+>>>>>>> f32235bcaad032b943d4af7d8a8ad0c7a95e8509
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>
