@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,5 +35,10 @@ Route::get('/customer/addmoney/{email}','CustomerTransactionController@index');
 Route::get('/admin/customerList','CustomerController@getAllCustomer');	
 Route::get('/admin/officerList','CustomerController@getAllOfficer');	
 Route::get('/admin/agentList','CustomerController@getAllAgent');
+Route::get('/admin/ongoingCampaign','AdminController@ongoingCampaign');
 
-Route::get('/admin/ongoingCampaign','AdminController@getAllAgent');
+Route::post('/admin/addCampaign','AdminController@addCampaign');
+
+Route::post('/addmoneytoagent','AdminController@agentAddMoney');
+
+

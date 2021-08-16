@@ -7,6 +7,30 @@ import AdminsSidebar from "../../layouts/sidebar/adminsSidebar";
 import campaignPNG from "../../../black/img/admin/campaign.png";
 
 const AddCampaign = (props) => {
+  const [title, setTitle] = useState("");
+  const [sdate, setSdate] = useState("");
+  const [edate, setEdate] = useState("");
+  const [image, setImage] = useState("");
+
+  async function addCampaign() {
+    console.warn(title, image, sdate, edate);
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", title);
+
+    formData.append("sdate", sdate);
+
+    formData.append("edate", edate);
+    let result = await fetch("http://localhost:8000/api/admin/addCampaign", {
+      method: "POST",
+      body: formData,
+    });
+    // alert(result.message);
+
+    console.log(result.message);
+    console.log(result.status);
+  }
+
   return (
     <div className="wrapper">
       <AdminsSidebar />
@@ -38,7 +62,8 @@ const AddCampaign = (props) => {
                   <label>{props.numberType} Campaign Title</label>
                   <input
                     type="text"
-                    name="phone"
+                    onChange={(e) => setTitle(e.target.value)}
+                    name="title"
                     className="form-control"
                   ></input>
 
@@ -52,6 +77,7 @@ const AddCampaign = (props) => {
                     </div>
                     <input
                       type="date"
+                      onChange={(e) => setSdate(e.target.value)}
                       name="sdate"
                       class="form-control"
                       placeholder="Start Date"
@@ -68,6 +94,7 @@ const AddCampaign = (props) => {
                     </div>
                     <input
                       type="date"
+                      onChange={(e) => setEdate(e.target.value)}
                       name="edate"
                       class="form-control"
                       placeholder="End Date"
@@ -75,11 +102,19 @@ const AddCampaign = (props) => {
                   </div>
 
                   <label>Add Image File</label>
-                  <input type="file" className="form-control"></input>
+                  <input
+                    type="file"
+                    onChange={(e) => setImage(e.target.image)}
+                    className="form-control"
+                  ></input>
                 </div>
 
                 <div class="card-footer">
-                  <button type="submit" className="btn btn-fill btn-primary">
+                  <button
+                    onClick={addCampaign}
+                    type="submit"
+                    className="btn btn-fill btn-primary"
+                  >
                     Add
                   </button>
                 </div>

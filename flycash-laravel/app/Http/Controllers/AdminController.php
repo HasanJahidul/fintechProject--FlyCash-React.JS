@@ -7,98 +7,106 @@ use App\Models\Officer;
 
 use App\Models\Customer;
 use App\Models\Campaign;
+use App\Models\Agentstransactions;
+
 
 
 use Validator;
 use App\Http\Requests\EditProfileRequest;
+use App\Models\Admin;
+use App\Models\Agent;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the users
-     *
-     * @param  \App\Models\User  $model
-     * @return \Illuminate\View\View
-     */
-    public function addagent()
-    {
-        return view('pages.admin.agent.addagent');
-    }
-    public function editagent()
-    {
-        return view('pages.admin.agent.editagent');
-    }
-    public function agenttransaction()
-    {
-        return view('pages.admin.agent.agenttransaction');
-    }
-    public function chatagent()
-    {
-        return view('pages.admin.agent.chatagent');
-    }
-    public function blockagent()
-    {
-        return view('pages.admin.agent.blockagent');
-    }
-    public function addagentmoney()
-    {
-        return view('pages.admin.agent.addagentmoney');
-    }
-   
-    public function addcampaign()
-    {
-        return view('pages.admin.campaign.addcampaign');
-    }
-    // public function ongoingcampaign()
-    // {
-    //     return view('pages.admin.campaign.ongoingcampaign');
-    // }
-    
-    public function removecampaign()
-    {
-        return view('pages.admin.campaign.removecampaign');
-    }
-    public function addofficer()
-    {
-        return view('pages.admin.officer.addofficer');
-    }
-    public function editofficer()
-    {
-        return view('pages.admin.officer.editofficer');
-    }
-    public function chatofficer()
-    {
-        return view('pages.admin.officer.chatofficer');
-    }
-    public function adduser()
-    {
-        return view('pages.admin.user.adduser');
-    }
-    public function edituser()
-    {
-        return view('pages.admin.user.edituser');
-    }
-    public function transaction()
-    {
-        return view('pages.admin.user.transaction');
-    }
-    public function discount()
-    {
-        return view('pages.admin.user.discount');
-    }
-    public function blockuser()
-    {
-        return view('pages.admin.user.blockuser');
-    }
-
-
     public function ongoingCampaign()
     {
 
-        $Campaign= DB::table('Campaigns')->get();
+        $Campaign= DB::table('campaigns')->get();
         return response()->json($Campaign);
        
+    }
+
+    public function addCampaign()
+    {
+        $title='project';
+        $campaign=   Campaign:: where ('title',$title)->get();
+        // $campaign->title=$req-> input('title');
+        // $campaign->sdate=$req-> input('sdate');
+
+        // $campaign->edate=$req-> input('edate');
+
+        // $campaign->image=$req-> file('image')->store('campaigns');
+
+        // return $campaign;
+
+        return response()-> json([
+
+            "message"=>$campaign,
+            "status"=>'200'
+
+        ]);
+
+
+
+
+    }
+
+    public function agentAddMoney(Request $req){
+
+        $validity_status = Admin::where('email', $req->email)
+        ->where('password', $req->password)
+        ->first();
+        if ($validity_status){
+            $checkAgent = Agent::where('phone', $req->phone)
+            ->first();
+            $balance=$checkAgent->balance;
+            if($checkAgent){
+                $newbalance= $balance+ $req->amount;
+                $balance=$newbalance;
+                $checkAgent->balance=$balance;
+               $checkAgent->save();
+
+               $transaction = new Agentstransactions();
+               $transaction->phone = $req->phone;
+               $transaction->email = $req->email;
+               $transaction->transaction_type = $req->transaction_type;
+               $transaction->amount = $req->amount;
+               $transaction->balance = $balance;
+               $transaction->date = now();
+               $transaction->save();
+               if ($transaction) {
+                
+                return response()->json([
+                    'status' => 240,
+                    'message' => "Transaction Successfull"
+                ]);
+
+            } else {
+
+                return response()->json([
+                    'status' => 240,
+                    'message' => "Transaction Unuccessfull",
+                ]);
+
+            }
+
+            }else{
+                return response()->json([
+                    'status' => 240,
+                    'message' => "server error "
+                ]);
+            }
+
+
+        }else{
+            return response()->json([
+                'status' => 240,
+                'message' => "password invalid",
+
+            ]);
+        }
+
     }
 
    

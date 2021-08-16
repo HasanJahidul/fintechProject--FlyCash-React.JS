@@ -3,62 +3,66 @@ import "../../../App.css";
 import Footer from "../../layouts/footer";
 import NavBar from "../../layouts/navbars/CustomerNavbar";
 import AdminsSidebar from "../../layouts/sidebar/adminsSidebar";
-
+import axios from "axios";
 import addMoneyPNG from "../../../black/img/admin/addMoney.png";
+
 import { useHistory } from "react-router-dom";
+
 const AdminAddMoney = (props) => {
+  //let history = useHistory();
+  var email = "shahrearfaiyaz@gmail.com";
+  var transaction_type = props.status;
+
   let history = useHistory();
-  const addmoney = () => {
-    var email = "joy@gmail.com";
-    fetch("http://localhost:8000/api/customer/addmoney/" + email, {
-      method: "Post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    }).then((result) => {
-      result.json().then((resp) => {
-        alert(props.status + "success");
-        getTransactionList();
-      });
+  const [transaction, setTransaction] = useState({
+    phone: "",
+    amount: "",
+    password: "",
+  });
+  const [msg, setMsg] = useState(" ");
+  const handleInputChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setTransaction({ ...transaction, [name]: [value] });
+    console.log(name, value);
+  };
+  const addMoney = async (e) => {
+    e.preventDefault();
+    const phone = transaction.phone.toString();
+    const amount = transaction.amount.toString();
+    const password = transaction.password.toString();
+    const res = await axios.post("http://localhost:8000/api/addmoneytoagent", {
+      transaction_type: transaction_type,
+      phone: phone,
+      amount: amount,
+      password: password,
+      email: email,
     });
-  };
-  const getTransactionList = () => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
-      (response) => {
-        response.json().then((result) => {
-          setTransactionList(result);
-        });
-      }
-    );
-  };
-  const [transList, setTransactionList] = useState([]);
-
-  const makeTransaction = () => {
-    var email = "joy@gmail.com";
-    fetch("http://localhost:8000/customer/transaction/" + email, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    }).then((result) => {
-      result.json().then((resp) => {
-        alert(props.status + "success");
-        getTransactionList();
+    // { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email}
+    if (res.data.status === 200) {
+      console.log(res.data.message);
+      setMsg(res.data.message);
+      setTransaction({ event_name: "", phone: "", amount: "", password: "" });
+    } else if (res.data.status === 240) {
+      alert(res.data.message);
+      setTransaction({
+        transaction_type: "",
+        phone: "",
+        amount: "",
+        password: "",
       });
-    });
+      //setUserSession(email,res.data.user_status);
+    } else {
+      setMsg(res.data.message);
+      setTransaction({
+        transaction_type: "",
+        phone: "",
+        amount: "",
+        password: "",
+      });
+    }
+    e.stopPropagation();
   };
-
-  useEffect(() => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
-      (response) => {
-        response.json().then((result) => {
-          getTransactionList(result);
-        });
-      }
-    );
-  }, []);
 
   return (
     <div className="wrapper">
@@ -69,61 +73,59 @@ const AdminAddMoney = (props) => {
           <div className="d-flex justify-content-center">
             <div className="col-md-4">
               <div className="card card-user">
-                <div className="card-body">
-                  <p className="card-text">
-                    <div className="author">
-                      <div className="block block-one"></div>
-                      <div className="block block-two"></div>
-                      <div className="block block-three"></div>
-                      <div className="block block-four"></div>
+                <form onSubmit={addMoney}>
+                  <div className="card-body">
+                    <p className="card-text">
+                      <div className="author">
+                        <div className="block block-one"></div>
+                        <div className="block block-two"></div>
+                        <div className="block block-three"></div>
+                        <div className="block block-four"></div>
 
-                      <a href="#">
-                        <img
-                          className="avatar"
-                          src={addMoneyPNG}
-                          alt="Campaign"
-                        ></img>
-                      </a>
-                      <h3>{props.status}</h3>
-                    </div>
-                  </p>
-                  <form
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      addmoney();
-                      history.push("/customer/statement");
-                    }}
-                  ></form>
-                  <label>{props.numberType} Number</label>
-                  <input
-                    type="text"
-                    name="phone"
-                    className="form-control"
-                    placeholder="+8801*********"
-                  ></input>
+                        <a href="#">
+                          <img
+                            className="avatar"
+                            src={addMoneyPNG}
+                            alt="Campaign"
+                          ></img>
+                        </a>
+                        <h3>{props.status}</h3>
+                      </div>
+                    </p>
 
-                  <label>Amount</label>
-                  <input
-                    type="text"
-                    name="amount"
-                    className="form-control"
-                    placeholder="0.00"
-                  ></input>
+                    <label>{props.numberType} Number</label>
+                    <input
+                      type="text"
+                      name="phone"
+                      className="form-control"
+                      placeholder="+8801*********"
+                      onChange={handleInputChange}
+                    ></input>
 
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    className="form-control"
-                    placeholder="******"
-                  ></input>
-                </div>
+                    <label>Amount</label>
+                    <input
+                      type="text"
+                      name="amount"
+                      className="form-control"
+                      placeholder="0.00"
+                      onChange={handleInputChange}
+                    ></input>
 
-                <div class="card-footer">
-                  <button type="submit" className="btn btn-fill btn-primary">
-                    Add Money
-                  </button>
-                </div>
+                    <label>Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      className="form-control"
+                      placeholder="******"
+                      onChange={handleInputChange}
+                    ></input>
+                  </div>
+                  <div class="card-footer">
+                    <button type="submit" className="btn btn-fill btn-primary">
+                      Add Money
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

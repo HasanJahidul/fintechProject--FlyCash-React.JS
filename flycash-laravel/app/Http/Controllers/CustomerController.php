@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Officer;
 
 use App\Models\Customer;
+use App\Models\Campaign;
+
 
 use Validator;
 use App\Http\Requests\EditProfileRequest;
@@ -139,8 +141,14 @@ class CustomerController extends Controller
         return response()->json($Agent);
     }
     
-    
+   
+    public function ongoingCampaign()
+    {
 
+        $Campaign= DB::table('Campaigns')->get();
+        return response()->json($Campaign);
+       
+    }
 
 
 
