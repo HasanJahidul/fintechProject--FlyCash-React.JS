@@ -1,6 +1,7 @@
 import React from "react";
 import SideNav from "../layouts/sidebar/customersSidebar";
 import Navbar from "../layouts/navbars/CustomerNavbar";
+import { getUser, removeUserSession } from "../auth/connect/getSession";
 // reactstrap components
 import {
   Button,
@@ -17,6 +18,7 @@ import {
 } from "reactstrap";
 
 const profile = () => {
+  const user = getUser();
   return (
     <>
       <div className="main-panel ps">
@@ -32,112 +34,75 @@ const profile = () => {
                 <CardBody>
                   <Form>
                     <Row>
-                      <Col className="pr-md-1" md="5">
+                      <Col className="pr-md-1" md="4">
                         <FormGroup>
-                          <label>Company (disabled)</label>
+                          <label>Email address</label>
                           <Input
-                            defaultValue="JoyDev Code Inc."
+                            defaultValue={user.email}
                             disabled
                             placeholder="Company"
                             type="text"
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="px-md-1" md="3">
+                      <Col className="px-md-1" md="4">
                         <FormGroup>
-                          <label>Username</label>
+                          <label>Date Of Birth</label>
                           <Input
-                            defaultValue=""
-                            placeholder="Username"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="4">
-                        <FormGroup>
-                          <label htmlFor="exampleInputEmail1">
-                            Email address
-                          </label>
-                          <Input placeholder="joy@email.com" type="email" />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="pr-md-1" md="6">
-                        <FormGroup>
-                          <label>First Name</label>
-                          <Input
-                            defaultValue=""
-                            placeholder="Company"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
-                          <label>Last Name</label>
-                          <Input
-                            defaultValue=""
-                            placeholder="Last Name"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="12">
-                        <FormGroup>
-                          <label>Address</label>
-                          <Input
-                            defaultValue=""
-                            placeholder="Home Address"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="pr-md-1" md="4">
-                        <FormGroup>
-                          <label>City</label>
-                          <Input
-                            defaultValue=""
-                            placeholder="City"
+                            defaultValue={user.dob}
+                            placeholder={user.dob}
+                            disabled
                             type="text"
                           />
                         </FormGroup>
                       </Col>
                       <Col className="px-md-1" md="4">
                         <FormGroup>
-                          <label>Country</label>
+                          <label>Nid</label>
                           <Input
-                            defaultValue=""
-                            placeholder="Country"
+                            defaultValue={user.nid}
+                            disabled
+                            placeholder="Company"
                             type="text"
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="pl-md-1" md="4">
-                        <FormGroup>
-                          <label>Postal Code</label>
-                          <Input placeholder="ZIP Code" type="number" />
-                        </FormGroup>
-                      </Col>
+                      
                     </Row>
                     <Row>
-                      <Col md="8">
+                    <Col  className="pr-md-1" md="4">
                         <FormGroup>
-                          <label>About Me</label>
+                          <label>Name</label>
                           <Input
-                            cols="80"
-                            defaultValue=""
-                            placeholder="Here can be your description"
-                            rows="4"
-                            type="textarea"
+                          name="name"
+                            defaultValue={user.name}
+                            placeholder="Username"
+                            type="text"
                           />
                         </FormGroup>
                       </Col>
+                      <Col className="px-md-1" md="4">
+                        <FormGroup>
+                          <label htmlFor="exampleInputEmail1">
+                            Phone Number
+                          </label>
+                          <Input defaultValue={user.phone} placeholder="joy@email.com" type="email" />
+                        </FormGroup>
+                      </Col>
+                      <Col className="px-md-1" md="4">
+                        <FormGroup>
+                          <label>Account Type</label>
+                          <Input
+                            defaultValue={user.type}
+                            disabled
+                            placeholder="City"
+                            type="text"
+                          />
+                        </FormGroup>
+                      </Col>
+                     
                     </Row>
+                    
                   </Form>
                 </CardBody>
                 <CardFooter>
@@ -162,9 +127,9 @@ const profile = () => {
                         className="avatar"
                         src={require("../../black/img/anime6.png").default}
                       />
-                      <h5 className="title">Mike Andrew</h5>
+                      <h5 className="title">{user.name}</h5>
                     </a>
-                    <p className="description">Ceo/Co-Founder</p>
+                    <p className="description"> {user.type} Account </p>
                   </div>
                   <div className="card-description">
                     Do not be scared of the truth because we need to restart the
@@ -172,19 +137,6 @@ const profile = () => {
                     Kanye I love Rick Owens’ bed design but the back is...
                   </div>
                 </CardBody>
-                <CardFooter>
-                  <div className="button-container">
-                    <Button className="btn-icon btn-round" color="facebook">
-                      <i className="fab fa-facebook" />
-                    </Button>
-                    <Button className="btn-icon btn-round" color="twitter">
-                      <i className="fab fa-twitter" />
-                    </Button>
-                    <Button className="btn-icon btn-round" color="google">
-                      <i className="fab fa-google-plus" />
-                    </Button>
-                  </div>
-                </CardFooter>
               </Card>
             </Col>
           </Row>

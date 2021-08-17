@@ -11,13 +11,12 @@ import logo from "../../../black/img/flycash.png"
 
 const TransactionList = () => {
   const user = getUser();
-  let email = "Joy@gmail.com"
   let today = new Date();
   
 let date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+today.getFullYear();
   
   const getTransactionList = () => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
+    fetch("http://localhost:8000/api/customer/transactionlist/${user.email}").then(
       (response) => {
         response.json().then((result) => {
           setTransactionList(result);
