@@ -1,25 +1,28 @@
-import React from 'react';
-import ReactToPrint from 'react-to-print';
-import axios from 'axios'
+import React, { Component } from 'react'
+import "../../../App.css";
+import SideNav from "../../layouts/sidebar/OfficerSidebar";
+import Navbar from "../../layouts/navbars/OfficerNavbar";
 import { Link } from 'react-router-dom'
+import axios from 'axios';
+import ReactToPrint from 'react-to-print';
 
 export class ComponentToPrint extends React.PureComponent {
 
     state = {
-        agents: [],
+        customers: [],
         loding: true,
     }
 
     async componentDidMount() {
 
-        const res = await axios.get('http://localhost:8000/api/transaction-agent');
+        const res = await axios.get('http://localhost:8000/api/transaction-customer');
 
        // console.log(res);
 
         if(res.data.status === 200 ){
             
             this.setState({
-                agents: res.data.agents,
+                customers: res.data.customers,
                 loding: false,    
             });
         }
@@ -27,14 +30,15 @@ export class ComponentToPrint extends React.PureComponent {
 
 //======================================================================
 
-    render() {
-        var agent_transaction_table = "";
+    render(){
+
+        var customer_transaction_table = "";
 
         if(this.state.loding){
-            agent_transaction_table = <tr><td colSpan="8"><h2>loding...</h2></td></tr>
+            customer_transaction_table = <tr><td colSpan="8"><h2>loding...</h2></td></tr>
         }else{
-            agent_transaction_table = 
-                this.state.agents.map( (item)=> {
+            customer_transaction_table = 
+                this.state.customers.map( (item)=> {
                     return (
                         <tr key={item.id}>
                             <td>{item.id}</td>
@@ -48,21 +52,26 @@ export class ComponentToPrint extends React.PureComponent {
                     );
                 });
         }
-        
+
         return (
-            <div ClassName="container">
-                <div ClassName="row">
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Invoice pdf print
-                                   
-                                </h4>
-                            </div>
+            <div>
+            <div className="wrapper">
+            <SideNav />
+            <div className="main-panel ps" >
+                <Navbar />
+            <div className= "content">
+                <div class="row" style={{ right: "500px" }}>
+                <div class="col-md-12">
+                    <div class="card ">
+                        <div class="card-header">
+                            <h4>Invoice pdf print
+                                <Link to={'/transaction-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
+                            </h4>
+                        </div>
 
-                            <div className="card-body">
-
-                                <h2>Agent Transaction Data</h2>
+                        <div class="card-body">
+                            
+                        <h2>Transaction Data</h2>
                                 <table className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -77,20 +86,24 @@ export class ComponentToPrint extends React.PureComponent {
                                     </thead>
             
                                     <tbody>
-                                        {agent_transaction_table}
+                                        {customer_transaction_table}
                                     </tbody>
                                 </table>
-                                <Link to={'/transaction-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
-                            </div>
+
+                                <Link to={'/transaction-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
                         </div>
                     </div>
                 </div>
+                </div>
+            </div>
+            </div>
+            </div>
             </div>
         );
     }
 }
 
-  class Example extends React.PureComponent {
+class Example extends React.PureComponent {
     render() {
       return (
         <div>
@@ -99,10 +112,9 @@ export class ComponentToPrint extends React.PureComponent {
               // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
               // to the root node of the returned component as it will be overwritten.
               return (
-                
-                    // <a href="#">Print</a>;
-                    <Link to={ <a href="#">Print</a>} className="btn btn-primary">Print</Link>
-              );
+                // <a href="#">Print</a>;
+                <Link to={ <a href="#">Print</a>} className="btn btn-primary">Print</Link>
+          );
             }}
             content={() => this.componentRef}
           />
@@ -113,5 +125,3 @@ export class ComponentToPrint extends React.PureComponent {
   }
 
 export default Example;
-
-

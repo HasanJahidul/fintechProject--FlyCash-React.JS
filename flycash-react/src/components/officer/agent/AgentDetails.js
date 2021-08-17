@@ -1,62 +1,120 @@
-import React from 'react';
-import '../../../App.css';
-import cashinPNG from '../../../black/img/icons/cashin.png';
-import Footer from '../../layouts/footer';
-import NavBar from '../../layouts/navbars/CustomerNavbar';
-import Sidebar from '../../layouts/sidebar/customersSidebar';
+import React, { Component } from 'react'
+import "../../../App.css";
+import SideNav from "../../layouts/sidebar/OfficerSidebar";
+import Navbar from "../../layouts/navbars/OfficerNavbar";
+import { Link } from 'react-router-dom'
+import axios from 'axios';
 
-const addMoney = (props) => {
-    return (
-        
-        < div className ="wrapper">
-            <Sidebar/>
-            <div className="main-panel ps">
-                <NavBar/>
-                <div className = "content">
-                <div className="d-flex justify-content-center">
-          <div className="col-md-4">
-              <div className="card card-user">
-                  <div className="card-body">
-                      <p className="card-text">
-                          <div className="author">
-                              <div className="block block-one"></div>
-                              <div className="block block-two"></div>
-                              <div className="block block-three"></div>
-                              <div className="block block-four"></div>
-                              
-                              <a href="#">
-                                  <img className="avatar" src={props.imgpath} alt="sendmoney"></img>
-                                  </a>
-                                  <h3 >{props.status}</h3>
-                                  </div>
-                          
-                      </p>
-                      <label>{props.numberType} Number</label>
-                      <input type="text" name="phone" className="form-control" placeholder="+8801*********"></input>
-  
-                      <label>Amount</label>
-                      <input type="text" name="amount" className="form-control" placeholder="0.00"></input>
-                      
-                      <label>Password</label>
-                      <input type="password" name="password" className="form-control" placeholder="******"></input>
-                  </div>
-  
-                  <div class="card-footer">
-                          <button type="submit" className="btn btn-fill btn-primary">{props.status}</button>
-                      </div>
-                      
-                  </div>
-                      </div>
-              </div>
-        
+class AgentDeatils extends Component {
 
+    state = {
+        agents: [],
+        loding: true,
+    }
+
+    async componentDidMount() {
+
+        const res = await axios.get('http://localhost:8000/api/show-agent');
+
+        console.log(res);
+
+        if(res.data.status === 200 ){
+            
+            this.setState({
+                agents: res.data.agents,
+                loding: false,    
+            });
+        }
+    }
+
+//======================================================================
+
+    render(){
+        var agent_table = "";
+
+        if(this.state.loding){
+            agent_table = <tr><td colSpan="11"><h2>loding...</h2></td></tr>
+        }else{
+            agent_table = 
+                this.state.agents.map( (item)=> {
+                    return (
+                        <tr key={item.id}>
+                            <td>{item.id}</td>
+                            <td>{item.name}</td>
+                            <td>{item.email}</td>
+                            <td>{item.phone}</td>
+                            <td>{item.nid}</td>
+                            <td>{item.dob}</td>
+                            <td>{item.balance}</td>
+                            <td>{item.transaction_status}</td>
+                            <td>{item.type}</td>
+
+                            <td>
+                                <Link to={`details-agent/${item.id}`} className="btn btn-success btn-sm">View</Link>
+                            </td>
+                            <td>
+                                <Link to={`edit-agent/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
+                            </td>
+                        </tr>
+                    );
+                });
+        }
+
+
+        return (
+            <div>
+            <div className="wrapper">
+            <SideNav />
+            <div className="main-panel ps" >
+                <Navbar />
+            <div className= "content">
+                <div class="row" style={{ right: "500px" }}>
+                <div class="col-md-12">
+                    <div class="card ">
+                    <div class="card-header">
+                        <h4>Agent View Page
+                            
+                        </h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive-lg">
+
+                            <h2>Agent Data</h2>
+                                <table className="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>NID</th>
+                                            <th>DOB</th>
+                                            <th>Balance</th>
+                                            <th>TS</th>
+                                            <th>Type</th>
+                                            <th>View</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+            
+                                    <tbody>
+                                        {agent_table}
+                                    </tbody>
+                                </table>
+
+                            <Link to={'/officer-dashboard'} className="btn btn-primary btn-sm float-end">Back</Link>
+                            <Link to={'/transaction-agent'} className="btn btn-primary btn-sm float-end">All Transaction</Link>
+                        </div>
+                    </div>
+                    </div>
                 </div>
-                <Footer/>
+                </div>
             </div>
-          
-        </div>
-         
-    );
+            </div>
+            </div>
+            </div>
+        );
+    }
 };
-
-export default addMoney;
+export default AgentDeatils;

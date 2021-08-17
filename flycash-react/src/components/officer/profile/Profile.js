@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
+import "../../../App.css";
+import SideNav from "../../layouts/sidebar/OfficerSidebar";
+import Navbar from "../../layouts/navbars/OfficerNavbar";
 import { Link } from 'react-router-dom'
 import axios from 'axios';
+import swal from 'sweetalert';
 
-class ProfileEdit extends Component{
+class ProfileEdit extends Component {
 
     state = {
         profiles: [],
@@ -26,7 +30,6 @@ class ProfileEdit extends Component{
 
 //======================================================================
 
-
     render(){
 
         var officer_table = "";
@@ -35,44 +38,43 @@ class ProfileEdit extends Component{
             officer_table = <tr><td colSpan="9"><h2>loding...</h2></td></tr>
         }else{
             officer_table = 
-                this.state.profiles.map( (item)=> {
-                    return (
-                        <tr key={item.id}>
-                            <td>{item.name}</td>
-                            <td>{item.email}</td>
-                            <td>{item.phone}</td>
-                            <td>{item.nid}</td>
-                            <td>{item.dob}</td>
-                            <td>{item.type}</td>
+            this.state.profiles.map( (item)=> {
+                return (
+                    <tr key={item.id}>
+                        <td>{item.name}</td>
+                        <td>{item.email}</td>
+                        <td>{item.phone}</td>
+                        <td>{item.nid}</td>
+                        <td>{item.dob}</td>
+                        <td>{item.type}</td>
 
-                            <td>
-                                <Link to={`view-officer/${item.id}`} className="btn btn-success btn-sm">View</Link>
-                            </td>
-                            <td>
-                                <Link to={`edit-profile/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
-                            </td>
-                            <td>
-                                <Link to={`change-password/${item.id}`} className="btn btn-danger btn-sm">Change Password</Link>
-                            </td>
-                        </tr>
-                    );
-                });
+                        <td>
+                            <Link to={`view-officer/${item.id}`} className="btn btn-success btn-sm">View</Link>
+                        </td>
+                        <td>
+                            <Link to={`edit-profile/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
+                        </td>
+                        <td>
+                            <Link to={`change-password/${item.id}`} className="btn btn-danger btn-sm">Change Password</Link>
+                        </td>
+                    </tr>
+                );
+            });
         }
 
-        return(
-            <div ClassName="container">
-                <div ClassName="row">
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Officer View Page
-                                    <Link to={'/'} className="btn btn-primary btn-sm float-end">Back</Link>
-                                </h4>
-                            </div>
+        return (
+            <div>
+            <div className="wrapper">
+            <SideNav />
+            <div className="main-panel ps" >
+                <Navbar />
+            <div className= "content">
+                <div class="row" style={{ right: "500px" }}>
+                <div class="col-md-12">
+                    <div class="card ">
+                    <div class="card-header">
 
-                            <div className="card-body">
-
-                                <h2>Officer Data</h2>
+                    <h2>Officer Data</h2>
                                 <table className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -92,13 +94,16 @@ class ProfileEdit extends Component{
                                         {officer_table}
                                     </tbody>
                                 </table>
-                            </div>
+                            <Link to={'/officer-dashboard'} className="btn btn-primary btn-sm float-end">Back</Link>
                         </div>
                     </div>
                 </div>
+                </div>
+            </div>
+            </div>
+            </div>
             </div>
         );
     }
-}
-
+};
 export default ProfileEdit;

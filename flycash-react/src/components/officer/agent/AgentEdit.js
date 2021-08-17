@@ -1,10 +1,12 @@
-import axios from 'axios';
 import React, { Component } from 'react'
+import "../../../App.css";
+import SideNav from "../../layouts/sidebar/OfficerSidebar";
+import Navbar from "../../layouts/navbars/OfficerNavbar";
 import { Link } from 'react-router-dom'
-
+import axios from 'axios';
 import swal from 'sweetalert';
 
-class AgentEdit extends Component{
+class AgentEdit extends Component {
 
     state = {
         phone:'',
@@ -71,51 +73,61 @@ class AgentEdit extends Component{
               });
         }
     }
+//======================================================================
 
     render(){
-        return(
-            <div ClassName="main-container">
-                <div ClassName="row">
-                    <div className="col-md-6">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Edit Agent Page
-                                    <Link to={'/show-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
-                                </h4>
+
+        return (
+            <div>
+            <div className="wrapper">
+            <SideNav />
+            <div className="main-panel ps" >
+                <Navbar />
+            <div className= "content">
+                <div class="row" style={{ right: "500px" }}>
+                <div class="col-md-12">
+                    <div class="card ">
+                    <div class="card-header">
+
+                        <h4>Customer Edit Page</h4>
+                    </div>
+
+                        <div className="card-body">
+
+                           
+                        <form onSubmit={this.updateAgent}>
+
+                            <div className="form-group mb-3">
+                                <lebel>Phone</lebel>
+                                <input type="text" name="phone" value={this.state.phone} className="form-control"  onChange={this.handleInput}/>
+                            </div>
+                            <div className="form-group mb-3">
+                                <lebel>NID</lebel>
+                                <input type="text" name="nid" value={this.state.nid} className="form-control"  onChange={this.handleInput}/>
+                            </div>
+                            <div className="form-group mb-3">
+                                <lebel>DOB</lebel>
+                                <input type="text" name="dob" value={this.state.dob} className="form-control"  onChange={this.handleInput}/>
+                            </div>
+                            <div className="form-group mb-3">
+                                <lebel>Type</lebel>
+                                <input type="text" name="type" value={this.state.type} className="form-control"  onChange={this.handleInput}/>
                             </div>
 
-                            <div className="card-body">
-
-                                <form onSubmit={this.updateAgent}>
-
-                                    <div className="form-group mb-3">
-                                        <lebel>Phone</lebel>
-                                        <input type="text" name="phone" value={this.state.phone} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <lebel>NID</lebel>
-                                        <input type="text" name="nid" value={this.state.nid} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <lebel>DOB</lebel>
-                                        <input type="text" name="dob" value={this.state.dob} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <lebel>Type</lebel>
-                                        <input type="text" name="type" value={this.state.type} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-
-                                    <div className="form-group mb-3">
-                                        <button type="submit" id="updatebtn" className="btn btn-primary">Update</button>
-                                    </div>
-                                </form>
+                            <div className="form-group mb-3">
+                                <button type="submit" id="updatebtn"className="btn btn-primary btn-sm float-end">Update</button>
+                                <Link to={'/show-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
+                </div>
+            </div>
+            </div>
+            </div>
             </div>
         );
     }
-}
-
+};
 export default AgentEdit;

@@ -56,7 +56,7 @@ export class ComponentToPrint extends React.PureComponent {
                         <div className="card">
                             <div className="card-header">
                                 <h4>Invoice pdf print
-                                    <Link to={'/transaction-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
+                                   
                                 </h4>
                             </div>
 
@@ -80,6 +80,7 @@ export class ComponentToPrint extends React.PureComponent {
                                         {customer_transaction_table}
                                     </tbody>
                                 </table>
+                                <Link to={'/transaction-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
                             </div>
                         </div>
                     </div>

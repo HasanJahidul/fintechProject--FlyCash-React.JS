@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import "../../../App.css";
+import SideNav from "../../layouts/sidebar/OfficerSidebar";
+import Navbar from "../../layouts/navbars/OfficerNavbar";
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios';
 
-//import swal from 'sweetalert';
-
-class CustomerTransaction extends Component{
+class CustomerTransaction extends Component {
 
     state = {
         customers: [],
@@ -26,8 +27,40 @@ class CustomerTransaction extends Component{
         }
     }
 
-//======================================================================
+    blockList = async (e) =>{
+        e.preventDefault();
 
+        const customer_id = this.props.match.params.id;
+
+        //document.getElementById('updatebtn').disable = true;
+        //document.getElementById('updatebtn').innerText = 'Updating';
+
+        const res = await axios.post(`http://localhost:8000/api/block-list/${customer_id}`);
+        
+        if(res.data.status === 200){
+
+           // document.getElementById('updatebtn').disable = false;
+            //document.getElementById('updatebtn').innerText = 'Update';
+
+            if(res.data.updates.transaction_status=='blocked'){
+                var ts='Unblock';
+            }else if(res.data.updates.transaction_status=='unblocked'){
+                var ts='Block';
+            }
+
+            this.props.history.push('/show-customer');
+
+            // swal({
+            //     title: "Blocked!",
+            //     text: res.data.message,
+            //     icon: "success",
+            //     button: "OK!",
+            //   });
+        }
+    }
+
+    
+//======================================================================
 
     render(){
 
@@ -37,39 +70,42 @@ class CustomerTransaction extends Component{
             customer_transaction_table = <tr><td colSpan="8"><h2>loding...</h2></td></tr>
         }else{
             customer_transaction_table = 
-                this.state.customers.map( (item)=> {
-                    return (
-                        <tr key={item.id}>
-                            <td>{item.id}</td>
-                            <td>{item.email}</td>
-                            <td>{item.phone}</td>
-                            <td>{item.transaction_type}</td>
-                            <td>{item.amount}</td>
-                            <td>{item.balance}</td>
-                            <td>{item.date}</td>
+            this.state.customers.map( (item)=> {
+                return (
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.email}</td>
+                        <td>{item.phone}</td>
+                        <td>{item.transaction_type}</td>
+                        <td>{item.amount}</td>
+                        <td>{item.balance}</td>
+                        <td>{item.date}</td>
 
-                            <td>
-                                <Link to={`customer-invoice`} className="btn btn-success btn-sm">pdf</Link>
-                            </td>
-                        </tr>
-                    );
-                });
+                        <td>
+                            <Link to={`customer-invoice`} className="btn btn-success btn-sm">pdf</Link>
+                        </td>
+                    </tr>
+                );
+            });
         }
 
-        return(
-            <div ClassName="container">
-                <div ClassName="row">
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Customer All Transaction Page
-                                    <Link to={'/show-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
-                                </h4>
-                            </div>
+        return (
+            <div>
+            <div className="wrapper">
+            <SideNav />
+            <div className="main-panel ps" >
+                <Navbar />
+            <div className= "content">
+                <div class="row" style={{ right: "500px" }}>
+                <div class="col-md-12">
+                    <div class="card ">
+                        <div class="card-header">
+                            <h4>Customer All Transaction Page</h4>
+                        </div>
 
-                            <div className="card-body">
-
-                                <h2>Transaction Data</h2>
+                        <div class="card-body">
+                            
+                            <h2>Transaction Data</h2>
                                 <table className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -89,13 +125,17 @@ class CustomerTransaction extends Component{
                                         {customer_transaction_table}
                                     </tbody>
                                 </table>
-                            </div>
+
+                                <Link to={'/show-customer'} className="btn btn-primary btn-sm float-end">Back</Link>
                         </div>
                     </div>
                 </div>
+                </div>
+            </div>
+            </div>
+            </div>
             </div>
         );
     }
-}
-
+};
 export default CustomerTransaction;
