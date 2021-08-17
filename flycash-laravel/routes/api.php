@@ -13,7 +13,7 @@ Route::post('/users-login', 'LoginController@verify');
 //========================   CUSTOMER   ======================================
 
 
-Route::get('/customer/transactionlist','CustomerTransactionController@index');
+Route::get('/customer/transactionlist/{email}','CustomerTransactionController@index');
 
 
 Route::post('/transaction','CustomerTransactionController@makeTransaction');

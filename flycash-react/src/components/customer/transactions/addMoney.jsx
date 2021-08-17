@@ -1,26 +1,31 @@
-import React, { useEffect, useState } from "react";
+import axios from 'axios';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import "../../../App.css";
+import { setUserSession } from "../../auth/connect/getSession";
 import Footer from "../../layouts/footer";
 import NavBar from "../../layouts/navbars/CustomerNavbar";
 import Sidebar from "../../layouts/sidebar/customersSidebar";
-import { useHistory } from "react-router-dom";
-import axios from 'axios';
-import {setUserSession} from "../../auth/connect/getSession";
 
 const AddMoney = (props) => {
   //let history = useHistory();
 
     var email = "joy@gmail.com";
     var transaction_type = props.status;
-
+    // usestate = {
+    //   error:[]
+    // }
     const history = useHistory();
     const [transaction, setTransaction] = useState({
         
         phone:'',
         amount:'',
-        password:''
+        password:'',
+        error:[]
     });
     const [msg, setMsg] = useState(" ");
+    const [error, setError] = useState(" ");
+    //const [error, seterror] = useState(" ");
     const handleInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -38,28 +43,40 @@ const AddMoney = (props) => {
             if (res.data.status === 200) {
                 console.log(res.data.message);
                 setMsg(res.data.message);
-                setTransaction({ event_name: '',
-                phone:'',
-                amount:'',
-                password:'' })
                 
-                setTimeout(() => { history.push('/customer/transactionlist'); }, 3000);
-                 
-            }
-            else if (res.data.status === 240) {
-                setMsg(res.data.message);
+                console.log(res.data.data)
                 setTransaction({ transaction_type: '',
                 phone:'',
                 amount:'',
                 password:'' })
                 setUserSession(email,res.data.user_status);
+                
+                //setTimeout(() => { history.push('/customer/transactionlist'); }, 3000);
+                 
             }
-            else {
+            else if (res.data.status === 240) {
                 setMsg(res.data.message);
-                setTransaction({transaction_type: '',
+                console.log(res.data.data)
+                setTransaction({ transaction_type: '',
                 phone:'',
                 amount:'',
-                password:''})
+                password:'' })
+                //setUserSession(email,res.data.user_status);
+            }
+            else if (res.data.status === 422) {
+              setMsg(res.data.message);
+              console.log("hi");
+              setTransaction({ transaction_type: '',
+              phone:'',
+              amount:'',
+              password:'' })
+          }
+            else {
+              setError(res.data.error);
+              console.log(error);
+              // this.setState({
+              //   error:res.data.error,
+              // });
             }
             e.stopPropagation();
         
@@ -90,9 +107,9 @@ const AddMoney = (props) => {
                         ></img>
                       </a>
                       <h3>{transaction_type}</h3>
-                      <div class="alert alert-success" role="alert">
+                      <span  role="alert">
                             {msg}
-                        </div>
+                        </span>
                     </div>
                   </p>
                   <label>{props.numberType} Number</label>
@@ -104,7 +121,8 @@ const AddMoney = (props) => {
                     placeholder="+8801*********"
                    onChange={handleInputChange}
                   ></input>
-
+                  <span className="text-danger"> {error.phone}</span>
+                  <div>
                   <label>Amount</label>
                   <input
                     type="text"
@@ -113,8 +131,9 @@ const AddMoney = (props) => {
                     placeholder="0.00"
                     value={transaction.amount}
                    onChange={handleInputChange}
-                  ></input>
-
+                  />
+                  <span className="text-danger"> {error.amount}</span>
+                  </div>
                   <label>Password</label>
                   <input
                     type="password"
@@ -124,6 +143,7 @@ const AddMoney = (props) => {
                     value={transaction.password}
                    onChange={handleInputChange}
                   ></input>
+                   <span className="text-danger"> {error.password}</span>
                 </div>
 
                 <div className="card-footer">
