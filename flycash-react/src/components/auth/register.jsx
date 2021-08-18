@@ -49,7 +49,6 @@ const handleInputChange = (e) => {
     const dob =data.dob.toString();
     const type =data.type.toString();
     const res = await axios.post('http://localhost:8000/api/users-register', { name: name,email:email,password: password,dob:dob,password_confirmation:password_confirmation,phone:phone,nid:nid,type:type});
-    // { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email}
     if (res.data.status === 200) {
         console.log(res.data.message);
         setMsg(res.data.message);
@@ -124,7 +123,7 @@ const handleInputChange = (e) => {
                     </div>
                     <form onSubmit={register} class="form" method="post">
                       <div class="card-body">
-                        <div class="input-group">
+                        <div class="input-group mb-5">
                           <div class="input-group-prepend">
                             <div class="input-group-text">
                               <i class="tim-icons icon-single-02"></i>

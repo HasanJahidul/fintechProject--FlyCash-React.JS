@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../../../App.css";
+import logo from "../../../black/img/flycash.png";
+import { getUser } from "../../auth/connect/getSession";
 import Navbar from "../../layouts/navbars/CustomerNavbar";
 import SideNav from "../../layouts/sidebar/customersSidebar";
 import StatementsTableRow from "./StatementsTableRow";
-import { Link } from "react-router-dom";
-import moment from "moment";
 
-import { getUser, removeUserSession } from "../../auth/connect/getSession";
-import logo from "../../../black/img/flycash.png"
 
 const TransactionList = () => {
   const user = getUser();
@@ -15,18 +13,18 @@ const TransactionList = () => {
   
 let date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+today.getFullYear();
   
-  const getTransactionList = () => {
-    fetch("http://localhost:8000/api/customer/transactionlist/${user.email}").then(
-      (response) => {
-        response.json().then((result) => {
-          setTransactionList(result);
-        });
-      }
-    );
-  };
+  // const getTransactionList = () => {
+  //   fetch("http://localhost:8000/api/customer/transactionlist/${user.email}").then(
+  //     (response) => {
+  //       response.json().then((result) => {
+  //         setTransactionList(result);
+  //       });
+  //     }
+  //   );
+  // };
   const [transList, setTransactionList] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8000/api/customer/transactionlist").then(
+    fetch(`http://localhost:8000/api/customer/transactionlist/${user.email}`).then(
       (response) => {
         response.json().then((result) => {
           setTransactionList(result);

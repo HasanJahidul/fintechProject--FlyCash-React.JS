@@ -29,24 +29,23 @@ class RegisterController extends Controller
        
         
         $validator = Validator::make($req->all(), [
-            // 'name' => 'required|min:3|max:30|alpha',
-            // 'email' => 'email:rfc,dns|required|min:10|max:50|',
-            // 'password'=> 'required|min:8|max:20',
-            // 'password_confirmation'=> 'required|min:8|max:20',
-             'name' => 'required',
+            'name' => 'required|min:3|max:30|alpha',
+            'email' => 'email:rfc,dns|required|min:10|max:50|',
+            'password'=> 'required|min:8|max:20',
+            'password_confirmation'=> 'required|min:8|max:20',
+            //  'name' => 'required',
             // 'email' => 'required',
             // 'password'=> 'required',
             // 'password_confirmation'=> 'required',
-            // 'phone' => 'required|min:11|numeric',
-            // 'nid' => 'required|min:10|numeric',
-            // 'dob' => 'required',
-            // 'type' => 'required',
+            'phone' => 'required|min:11|numeric',
+            'nid' => 'required|min:10|numeric',
+            'dob' => 'required',
+            'type' => 'required',
         ]);
 
             if ($validator->fails()) {
                 return response()->json([
                     'error'=> $validator->messages(),
-                    
                 ]);
             }else{
                 

@@ -183,7 +183,7 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="/customer/statement">
+                            <Link to="/customer/statement/:email">
                               <img src={statementPNG}></img>
                               <div className="picname">
                                 <h4>Statement</h4>

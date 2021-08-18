@@ -50,7 +50,7 @@ const Login  =() => {
             else if(data.type=="officer"){
                 setUserSession(data.email,data);
                 history.push('/officer-dashboard');
-            }       
+            }
         }).catch(error => {
             setLoging(false);
             //console.error('error-->>>',error);
