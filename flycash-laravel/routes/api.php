@@ -9,12 +9,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('/users-login', 'LoginController@verify');
+Route::post('/users-register', 'RegisterController@register');
 
 //========================   CUSTOMER   ======================================
 
 
 Route::get('/customer/transactionlist/{email}','CustomerTransactionController@index');
-
-
 Route::post('/transaction','CustomerTransactionController@makeTransaction');
 Route::get('/transaction1','CustomerTransactionController@index1');
+
+Route::post('/customer/profile','CustomerController@updateCustomer');

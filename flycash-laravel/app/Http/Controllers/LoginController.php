@@ -49,13 +49,16 @@ class LoginController extends Controller
     //     $this->middleware('guest')->except('logout');
     // }
 
-   
+    public function login(){
+        return view('auth.login');
+    }
 
     public function verify(LoginUserRequest $req){
 
         
-
-            
+            $status = Loginuser::where('email',$req->email)
+            ->where('password',$req->password)
+            ->first();
            
         if($status)
         { 
@@ -163,12 +166,12 @@ class LoginController extends Controller
             ]);
         }
 
-    }   
+            
 
         
         
+     }
 }
-
 /*public function Login(Request $request)
     {
 

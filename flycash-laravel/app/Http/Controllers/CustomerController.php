@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Officer;
+use App\Models\Customer;
 use Validator;
 use App\Http\Requests\EditProfileRequest;
 use Illuminate\Support\Facades\DB; //Import query builser 
@@ -28,26 +29,43 @@ class CustomerController extends Controller
     }
 // ============================ End Edit ====================================
 
-    public function update(Request $req, Officer $id)
+    public function updateCustomer(Request $req)
     {
-        $users = Officer::find($id);
-        
-        $users->name = $req->name;
-        // if($users->password != $req->password){
-        //     $users->password = $req->password;
-        // }
-        $users->phone = $req->phone;
-        $users->nid = $req->nid;
-        $users->dob = $req->dob;
-        $users->type = $req->type;
+        $validator = Validator::make($req->all(), [
+            'name' => 'required|min:3|max:30|alpha',
+            'phone' => 'required|min:11|numeric',
+        ]);
 
-        $users->save();
-        
-        // $results->save();
-        // return response()->json($results);
+            if ($validator->fails()) {
+                return response()->json([
+                    'error'=> $validator->errors(),
+                ]);
+            }else{
+                $customer= Customer::where('email',$req->email)
+                ->first();
+                $customer->phone = $req->phone;
+                $customer->name = $req->name;
+                $customer->save();
+                if($customer){
+                    $newData = Customer::where('email', $req->email)
+                    ->first();
+                    return response()->json([
+                        'status' => 200,
+                        'user_status' => $newData,
+                        'message' => "Profile Updated",
+                    ]);
+                }
+                else{
+                    return response()->json([
+                        'status' => 240,
+                        'message' => "Error",
+                    ]);
 
-        return redirect()->route('customer_show');
+                }
+            }
+       
     }
+
 
     // ============================ End Update ====================================
 
@@ -68,18 +86,7 @@ class CustomerController extends Controller
     }
 // ============================ End Destroy ====================================
 
-    public function editCustomer(){
-
-        return view('profile.edit');
-
-
-    }
-    public function editCustomerdone(){
-
-        return view('profile.edit');
-
-
-    }
+    
     public function changeCustomerPassword(){
 
         return view('pages.customer.profile.passwordChange');
@@ -88,7 +95,7 @@ class CustomerController extends Controller
 
         return view('pages.customer.profile.edit');
     }
-    public function changeCustomerPasswordDone(EditProfileRequest $req){
+    public function changeCustomerPasswod(Request $req){
 
         if ($req->session()->get('password')==$req-> old_password)
         {

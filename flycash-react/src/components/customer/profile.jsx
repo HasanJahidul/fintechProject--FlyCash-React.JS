@@ -1,24 +1,77 @@
-import React from "react";
-import SideNav from "../layouts/sidebar/customersSidebar";
-import Navbar from "../layouts/navbars/CustomerNavbar";
-import { getUser, removeUserSession } from "../auth/connect/getSession";
+
+import axios from 'axios';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 // reactstrap components
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   CardText,
-  Col,
-  Form,
-  FormGroup,
+  Col, FormGroup,
   Input,
-  Row,
+  Row
 } from "reactstrap";
+import { getUser, setUserSession } from "../auth/connect/getSession";
+import Navbar from "../layouts/navbars/CustomerNavbar";
+import SideNav from "../layouts/sidebar/customersSidebar";
 
-const profile = () => {
+const Profile = () => {
   const user = getUser();
+
+  const history = useHistory();
+  const [profile, setProfile] = useState({
+    phone: "",
+    name: "",
+  });
+  const [msg, setMsg] = useState(" ");
+  const [error, setError] = useState(" ");
+  //const [error, seterror] = useState(" ");
+  const handleInputChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setProfile({ ...profile, [name]: [value] });
+    console.log(name, value);
+  };
+  const updateProfile = async (e) => {
+    e.preventDefault();
+    const phone = profile.phone.toString();
+    const name = profile.name.toString();
+    const email = user.email.toString();
+    const res = await axios.post(
+      "http://localhost:8000/api/customer/profile",
+      {
+        name: name,
+        phone: phone,
+        email: email,
+      }
+    );
+    // { profile_type: profile_type,phone: phone,amount:amount,password:password,email:email}
+    if (res.data.status === 200) {
+      console.log(res.data.message);
+      setMsg(res.data.message);
+
+      console.log(res.data.data);
+      setProfile({ phone: "", name: "" });
+
+      setUserSession(res.data.user_status.email, res.data.user_status);
+
+      setTimeout(() => { history.push('/customer-profile'); }, 3000);
+    } else if (res.data.status === 240) {
+      setMsg(res.data.message);
+      console.log(res.data.data);
+      setProfile({
+        phone: "",
+        name: "",
+      });
+      //setUserSession(email,res.data.user_status);
+    } else {
+      setError(res.data.error);
+      console.log(error);
+    }
+    e.stopPropagation();
+  };
   return (
     <>
       <div className="main-panel ps">
@@ -27,12 +80,14 @@ const profile = () => {
         <div className="content">
           <Row>
             <Col md="8">
+           
               <Card>
+              <form onSubmit={updateProfile}>
                 <CardHeader>
                   <h5 className="title">Edit Profile</h5>
                 </CardHeader>
                 <CardBody>
-                  <Form>
+                  
                     <Row>
                       <Col className="pr-md-1" md="4">
                         <FormGroup>
@@ -67,27 +122,35 @@ const profile = () => {
                           />
                         </FormGroup>
                       </Col>
-                      
                     </Row>
                     <Row>
-                    <Col  className="pr-md-1" md="4">
+                      <Col className="pr-md-1" md="4">
                         <FormGroup>
                           <label>Name</label>
                           <Input
-                          name="name"
+                            name="name"
                             defaultValue={user.name}
-                            placeholder="Username"
+                            placeholder="Name"
                             type="text"
+                            onChange={handleInputChange}
                           />
                         </FormGroup>
+                        <span className="text-danger"> {error.name}</span>
                       </Col>
                       <Col className="px-md-1" md="4">
                         <FormGroup>
                           <label htmlFor="exampleInputEmail1">
                             Phone Number
                           </label>
-                          <Input defaultValue={user.phone} placeholder="joy@email.com" type="email" />
+                          <Input
+                           name="phone"
+                            defaultValue={user.phone}
+                            placeholder="Phone NUmber"
+                            type="text"
+                            onChange={handleInputChange}
+                          />
                         </FormGroup>
+                        <span className="text-danger"> {error.phone}</span>
                       </Col>
                       <Col className="px-md-1" md="4">
                         <FormGroup>
@@ -100,16 +163,15 @@ const profile = () => {
                           />
                         </FormGroup>
                       </Col>
-                     
                     </Row>
-                    
-                  </Form>
+                 
                 </CardBody>
                 <CardFooter>
-                  <Button className="btn-fill" color="primary" type="submit">
+                  <button className="btn btn-fill btn-primary" color="primary" type="submit">
                     Save
-                  </Button>
+                  </button>
                 </CardFooter>
+                </form>
               </Card>
             </Col>
             <Col md="4">
@@ -146,4 +208,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default Profile;

@@ -8,13 +8,6 @@ const PublicRoute = ({component: Component, ...rest}) => {
                 {...rest}
                 render={props =>{
                     return !getEmail() ? <Component {...props} />
-                    : <Redirect to={{ pathname: "/officer-dashboard"}}/>                
-                } }
-            />
-            <Route
-                {...rest}
-                render={props =>{
-                    return !getEmail() ? <Component {...props} />
                     : <Redirect to={{ pathname: "/customer-dashboard"}}/>                
                 } }
             />
