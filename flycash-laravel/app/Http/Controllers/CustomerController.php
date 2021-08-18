@@ -85,6 +85,7 @@ class CustomerController extends Controller
     public function view()
     {
         $customer= Customerstransaction::all(); //change Officer to (Customer)->tablename
+        //$customer = DB::table('customerstransactions')->where('email', '=', $email)->get();
 
         //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
 

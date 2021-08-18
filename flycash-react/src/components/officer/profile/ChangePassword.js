@@ -113,15 +113,12 @@ class ProfileEdit extends Component {
                                     <lebel>Re Password</lebel>
                                     <input type="text" name="re_password" value={this.state.re_password} className="form-control"  onChange={this.handleInput}/>
                                 </div>
-
-                                <div className="form-group mb-3">
-                                    <button type="submit" id="updatebtn" className="btn btn-primary btn-sm float-end">Save</button>
-                                    <Link to={'/view-profile'} className="btn btn-primary btn-sm float-end">Back</Link>
-                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
+                    <button type="submit" id="updatebtn" className="btn btn-primary btn-sm float-end">Save</button>
+                    <Link to={'/view-profile'} className="btn btn-primary btn-sm float-end">Back</Link>
                 </div>
             </div>
             </div>

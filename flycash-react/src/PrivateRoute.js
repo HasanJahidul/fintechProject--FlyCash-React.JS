@@ -12,13 +12,6 @@ const PrivateRoute = ({component: Component, ...rest}) => {
                     : <Redirect to={{ pathname: "/login", state:{from: props.location } }}/>                
                 } }
             />
-             {/* <Route
-                {...rest}
-                render={props =>{
-                    return getEmail() ? <Component {...props} />
-                    : <Redirect to={{ pathname: "/register", state:{from: props.location } }}/>                
-                } }
-            /> */}
         </>
     )
 }

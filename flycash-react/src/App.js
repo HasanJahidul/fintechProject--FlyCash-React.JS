@@ -35,7 +35,7 @@ import ChangePassword from './components/officer/profile/ChangePassword';
 import AgentInvoice from './components/officer/agent/AgentInvoice';
 import CustomerInvoice from './components/officer/customer/CustomerInvoice';
 
-import PublicRoute from './PublicRoute';
+import PublicRoute from './PublicRouteOfficer';
 import PrivateRoute from './PrivateRoute';
 
 //=======================End Officer Import File================================
@@ -125,7 +125,7 @@ function App() {
           <PrivateRoute path="/change-password/:id" component={ChangePassword}/>
 
           <PrivateRoute path="/agent-invoice" component={AgentInvoice}/>
-          <PrivateRoute path="/customer-invoice" component={CustomerInvoice}/>
+          <PrivateRoute path="/customer-invoice/" component={CustomerInvoice}/>
 
 {/* ===========================================End Officer Route======================================= */}
           

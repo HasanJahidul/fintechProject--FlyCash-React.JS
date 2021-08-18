@@ -76,7 +76,8 @@ const Login  =() => {
                                             <h1 align="center" className="card-title">Log in</h1>
                                         </div>
 
-                                        {error && <div className="error">{error}</div>}
+                                        {error && <div className="text-danger">{error}</div>}
+                                        {/* <span className="text-danger"> {error.email}</span> */}
                                         
                                         <div className="card-body">
                                             <div className="input-group">

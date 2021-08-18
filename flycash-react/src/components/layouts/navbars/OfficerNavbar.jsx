@@ -189,7 +189,7 @@ function CustomerNavbar(props) {
                   </NavLink>
                   <DropdownItem divider tag="li" />
                   <NavLink tag="li">
-                <Link to="/login"><DropdownItem className="nav-item">Log out</DropdownItem></Link>
+                    <DropdownItem className="nav-item" onClick={handleLogout} >Log out</DropdownItem>
                     
                   </NavLink>
                 </DropdownMenu>

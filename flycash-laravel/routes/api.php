@@ -9,6 +9,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('/users-login', 'LoginController@verify');
+Route::post('/users-register', 'RegisterController@register');
 
 //========================   CUSTOMER   ======================================
 
@@ -22,6 +23,7 @@ Route::get('/customer/transactionlist','CustomerTransactionController@index');
 
     //Route::post('/emp-register', [CustomerController::class, 'store']);
     Route::get('show-customer', 'CustomerController@show');
+    //Route::get('transaction-customer/{email}', 'CustomerController@view');
     Route::get('transaction-customer', 'CustomerController@view');
 
     Route::get('edit-customer/{id}', 'CustomerController@edit');

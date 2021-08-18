@@ -94,10 +94,10 @@ class ProfileEdit extends Component {
                                         {officer_table}
                                     </tbody>
                                 </table>
-                            <Link to={'/officer-dashboard'} className="btn btn-primary btn-sm float-end">Back</Link>
                         </div>
                     </div>
                 </div>
+                    <Link to={'/officer-dashboard'} className="btn btn-primary btn-sm float-end">Back</Link>
                 </div>
             </div>
             </div>

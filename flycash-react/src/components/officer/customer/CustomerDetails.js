@@ -9,9 +9,9 @@ import axios from 'axios';
 const CustomerDeatils = () => {
 
     const history = useHistory();
-    const [event, setEvent] = useState([]);
+    const [event, setCustomers] = useState([]);
     const [search, setSearch] = useState("");
-    const [isEvent, setIsEvent] = useState([]);
+    //const [isEvent, setIsEvent] = useState([]);
 
     const mount= async()=>{
 
@@ -19,26 +19,18 @@ const CustomerDeatils = () => {
 
         console.log(res.data);
 
-        var data = res.data.customers;
+        //var data = res.data.customers;
         
-        if (res.data.customers.status === 200) {
-            setEvent(res.data)
+        if (res.data.status === 200) {
+            setCustomers(res.data.customers)
         }
             
     }
-    // const deleteEvent = (e) => {
-    //     console.log("deleted");
-    //       setTimeout(() => { history.push('/org/EventList'); }, 1000);
-    // }
+
      useEffect(() => {
         mount();
         
      }, []);
-     
-    // const searchEvent = async (e) => {
-    //     e.preventDefault();
-    //     const res = await axios.get('http://localhost:8000/api/eventList');
-    // }
 
     return (
         <div>
@@ -123,13 +115,12 @@ const CustomerDeatils = () => {
                                     }
                                 </tbody>
                             </table>
-
-                            <Link to={'/officer-dashboard'} className="btn btn-primary btn-sm float-end">Back</Link>
-                            <Link to={'/transaction-customer'} className="btn btn-primary btn-sm float-end">All Transaction</Link>
                         </div>
-                    </div>
+                    </div> 
                     </div>
                 </div>
+                    <Link to={'/officer-dashboard'} className="btn btn-primary btn-sm float-end">Back</Link>
+                    <Link to={'/transaction-customer'} className="btn btn-primary btn-sm float-end">All Transaction</Link>
             </div>
         </div>
         </div>

@@ -39,12 +39,6 @@ class AgentTransaction extends Component {
             agent_transaction_table = 
             this.state.agents.map( (item)=> {
                 
-                // if(item.data.transaction_status=="blocked"){
-                //     <Link to={`agent-blocked/${item.id}`} className="btn btn-success btn-sm">Block</Link>
-                // }else{
-                //     <Link to={`agent-blocked/${item.id}`} className="btn btn-success btn-sm">Unblock</Link>
-                // }
-
                 return (
                     <tr key={item.id}>
                         <td>{item.id}</td>
@@ -102,10 +96,10 @@ class AgentTransaction extends Component {
                                         {agent_transaction_table}
                                     </tbody>
                                 </table>
-                                <Link to={'/show-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
                         </div>
                     </div>
                 </div>
+                    <Link to={'/show-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
                 </div>
             </div>
             </div>
