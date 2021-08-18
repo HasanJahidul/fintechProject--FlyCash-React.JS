@@ -33,10 +33,17 @@ import AdminRegister from "./components/admin/addComponent";
 import AdminAddMoney from "./components/admin/agent/addMoney";
 
 import BlockAgent from "./components/admin/agent/blockAgent";
+
+import AgentList from "./components/admin/agent/agentList";
+
 import BlockCustomer from "./components/admin/user/blockCustomer";
+import TransactionDetails from "./components/admin/user/transactionDetails";
+
 import BlockOfficer from "./components/admin/officer/blockOfficer";
+import OfficerList from "./components/admin/officer/officerList";
 
 import CustomerTransactionList from "./components/admin/user/customerTransactionList";
+import CustomerList from "./components/admin/user/customerList";
 
 function App() {
   //========================= CUSTOMER ===========================================
@@ -199,12 +206,32 @@ function App() {
             <BlockAgent />
           </Route>
 
+          <Route exact path="/admin-agentList">
+            <AgentList />
+          </Route>
+
+          <Route exact path="/admin-customerList">
+            <CustomerList />
+          </Route>
+
           <Route exact path="/admin-blockCustomer">
             <BlockCustomer />
           </Route>
 
+          <Route exact path="/admin-transactionDetails">
+            <TransactionDetails />
+          </Route>
+
+          <Route exact path="/admin-customerTransactionList">
+            <CustomerTransactionList />
+          </Route>
+
           <Route exact path="/admin-blockOfficer">
             <BlockOfficer />
+          </Route>
+
+          <Route exact path="/admin-officerList">
+            <OfficerList />
           </Route>
 
           <Route exact path="/admin-userTransactionList">

@@ -41,6 +41,7 @@ const AdminAddMoney = (props) => {
     // { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email}
     if (res.data.status === 200) {
       console.log(res.data.message);
+      alert(res.data.message);
       setMsg(res.data.message);
       setTransaction({ event_name: "", phone: "", amount: "", password: "" });
     } else if (res.data.status === 240) {
@@ -54,6 +55,7 @@ const AdminAddMoney = (props) => {
       //setUserSession(email,res.data.user_status);
     } else {
       setMsg(res.data.message);
+      alert(res.data.message);
       setTransaction({
         transaction_type: "",
         phone: "",

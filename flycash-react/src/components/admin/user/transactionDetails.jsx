@@ -6,7 +6,7 @@ import AdminsSidebar from "../../layouts/sidebar/adminsSidebar";
 // import TransactionTableRow from "./transactionListTable";
 import { Link } from "react-router-dom";
 
-const CustomerTransactionList = () => {
+const TransactionDetails = () => {
   const TransactionTableRow = ({ name, email, phone, nid }) => {
     return (
       <tbody>
@@ -46,7 +46,7 @@ const CustomerTransactionList = () => {
                   <div class="card-header">
                     <h1 class="card-title" align="center">
                       {" "}
-                      Customer Transaction Details
+                      Transaction
                     </h1>
                   </div>
                   <div class="card-body">
@@ -54,11 +54,12 @@ const CustomerTransactionList = () => {
                       <table class="table tablesorter " id="">
                         <thead class=" text-primary">
                           <tr>
-                            <th>name</th>
                             <th>Email</th>
                             <th>Phone </th>
-                            <th>Nid</th>
-                            <th>Action</th>
+                            <th>Transaction Type</th>
+                            <th>Amount</th>
+
+                            <th>Balance</th>
                           </tr>
                         </thead>
 
@@ -78,4 +79,4 @@ const CustomerTransactionList = () => {
     </div>
   );
 };
-export default CustomerTransactionList;
+export default TransactionDetails;

@@ -7,7 +7,8 @@ use App\Models\Officer;
 
 use App\Models\Customer;
 use App\Models\Campaign;
-use App\Models\Agentstransactions;
+use App\Models\Agentstransaction;
+use App\Models\Customerstransaction;
 
 
 
@@ -15,6 +16,7 @@ use Validator;
 use App\Http\Requests\EditProfileRequest;
 use App\Models\Admin;
 use App\Models\Agent;
+
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -52,6 +54,15 @@ class AdminController extends Controller
 
     }
 
+   
+    
+    
+        
+        
+        
+
+       
+       
     public function agentAddMoney(Request $req){
 
         $validity_status = Admin::where('email', $req->email)
@@ -61,52 +72,47 @@ class AdminController extends Controller
             $checkAgent = Agent::where('phone', $req->phone)
             ->first();
             $balance=$checkAgent->balance;
-            if($checkAgent){
-                $newbalance= $balance+ $req->amount;
-                $balance=$newbalance;
-                $checkAgent->balance=$balance;
-               $checkAgent->save();
-
-               $transaction = new Agentstransactions();
-               $transaction->phone = $req->phone;
-               $transaction->email = $req->email;
-               $transaction->transaction_type = $req->transaction_type;
-               $transaction->amount = $req->amount;
-               $transaction->balance = $balance;
-               $transaction->date = now();
-               $transaction->save();
-               if ($transaction) {
-                
+            $newbalance= $balance+ $req->amount;
+            $balance=$newbalance;
+            $checkAgent->balance=$balance;
+            $checkAgent->save();
+            
+            // $transaction = new Customerstransaction();
+            // $transaction->phone = $req->phone;
+            // $transaction->email = $req->email;
+            // $transaction->transaction_type = $req->transaction_type;
+            // $transaction->amount = $req->amount;
+            // $transaction->balance = $balance;
+            // $transaction->date = now();
+            // $transaction->save();
+            if ($checkAgent) {
                 return response()->json([
-                    'status' => 240,
+                    'status' => 200,
                     'message' => "Transaction Successfull"
                 ]);
+
+            }else{
+                return response()->json([
+                    'status' => 240,
+                    'message' => "Transaction unsuccessfull"
+                ]);
+                
+            }
+            return response()->json([
+                'status' => 240,
+                'message' => "error"
+            ]);
+
+                
 
             } else {
 
                 return response()->json([
                     'status' => 240,
-                    'message' => "Transaction Unuccessfull",
+                    'message' => "Incorrect password",
                 ]);
 
             }
-
-            }else{
-                return response()->json([
-                    'status' => 240,
-                    'message' => "server error "
-                ]);
-            }
-
-
-        }else{
-            return response()->json([
-                'status' => 240,
-                'message' => "password invalid",
-
-            ]);
-        }
-
     }
 
    

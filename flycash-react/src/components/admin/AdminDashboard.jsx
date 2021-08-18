@@ -184,7 +184,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link to="/admin-blockCustomer">
+                          <Link to="/admin-customerList">
                             <img src={userListPNG}></img>
                             <div className="picname">
                               <h4>Customer List</h4>
@@ -290,6 +290,21 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
+                          <Link to="/admin-agentList">
+                            <img src={userListPNG}></img>
+                            <div className="picname">
+                              <h4>Agent List</h4>
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                    <div className="font-icon-detail">
+                      <div className="d-flex justify-content-center">
+                        <div className="pic">
                           <Link href="{{ route('user-list') }}">
                             <img src={chatAgentPNG}></img>
                             <div className="picname">
@@ -371,6 +386,21 @@ function AdminDashboard() {
                             <img src={editOfficerPNG}></img>
                             <div className="picname">
                               <h4>Edit Officer</h4>
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                    <div className="font-icon-detail">
+                      <div className="d-flex justify-content-center">
+                        <div className="pic">
+                          <Link to="/admin-officerList">
+                            <img src={userListPNG}></img>
+                            <div className="picname">
+                              <h4>Officer List</h4>
                             </div>
                           </Link>
                         </div>

@@ -3,9 +3,28 @@ import "../../../App.css";
 import Footer from "../../layouts/footer";
 import NavBar from "../../layouts/navbars/CustomerNavbar";
 import AdminsSidebar from "../../layouts/sidebar/adminsSidebar";
-import TableRow from "../TableRow";
+// import TableRow from "../TableRow";
+import { Link } from "react-router-dom";
 
 const BlockAgent = () => {
+  const TableRow = ({ name, email, phone, nid }) => {
+    return (
+      <tbody>
+        <tr>
+          <th>{name}</th>
+          <th>{email}</th>
+          <th>{phone}</th>
+          <th>{nid}</th>
+          <th className="btn btn-fill btn-primary">
+            <Link to="/customer-dashboard">
+              <i className="tim-icons icon-chart-pie-36"></i>
+              <p>Block</p>
+            </Link>
+          </th>
+        </tr>
+      </tbody>
+    );
+  };
   const [agentList, setAllAgent] = useState([]);
   useEffect(() => {
     fetch("http://localhost:8000/api/admin/agentList").then((response) => {
@@ -36,12 +55,12 @@ const BlockAgent = () => {
                       <table class="table tablesorter " id="">
                         <thead class=" text-primary">
                           <tr>
-                            <th class="text-center">name</th>
-                            <th class="text-center">Email</th>
+                            <th>name</th>
+                            <th>Email</th>
 
-                            <th class="text-center">Phone </th>
-                            <th class="text-center">Nid</th>
-                            <th class="text-center">Action</th>
+                            <th>Phone </th>
+                            <th>Nid</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
 
