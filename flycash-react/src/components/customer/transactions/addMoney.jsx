@@ -74,9 +74,6 @@ const AddMoney = (props) => {
             else {
               setError(res.data.error);
               console.log(error);
-              // this.setState({
-              //   error:res.data.error,
-              // });
             }
             e.stopPropagation();
         

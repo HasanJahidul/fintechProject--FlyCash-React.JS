@@ -24,14 +24,108 @@ class RegisterController extends Controller
     |
     */
 
-    public function register()
+    public function register(Request $req)
     {
-        return view('auth.register');
+       
+        
+        $validator = Validator::make($req->all(), [
+            // 'name' => 'required|min:3|max:30|alpha',
+            // 'email' => 'email:rfc,dns|required|min:10|max:50|',
+            // 'password'=> 'required|min:8|max:20',
+            // 'password_confirmation'=> 'required|min:8|max:20',
+             'name' => 'required',
+            // 'email' => 'required',
+            // 'password'=> 'required',
+            // 'password_confirmation'=> 'required',
+            // 'phone' => 'required|min:11|numeric',
+            // 'nid' => 'required|min:10|numeric',
+            // 'dob' => 'required',
+            // 'type' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'=> $validator->messages(),
+                 
+            ]);
+        }else{
+            
+        if ($req-> password == $req-> password_confirmation){
+            $checkUser = Loginuser::where('email',$req->email)
+            ->first();
+            $checkNid = Loginuser::where('nid',$req->nid)
+            ->first();
+            $checkPhone = Loginuser::where('phone',$req->phone)
+            ->first();
+            if($checkUser)
+            {
+               
+                return response()->json([
+                    'status' => 240,
+                    'message' =>'User already Exist!',
+    
+                ]);
+            }elseif($checkNid){
+              
+                return response()->json([
+                    'status' => 240,
+                    'message' =>'An Account Already registered with this nid !',
+    
+                ]);
+            }elseif($checkPhone)
+            {   
+               
+                return response()->json([
+                    'status' => 240,
+                    'message' =>'An Account Already registered with this Phone Number !',
+    
+                ]);
+
+            }else{
+                return response()->json([
+                'status' => 200,
+                'message' => " Successfull",
+    
+            ]);
+
+            }
+            
+
+        }else{
+            //********************************woriking**************************** */
+            return response()->json([
+                'status' => 240,
+                'message' => "Password and Confirm Passowrd Does Not match!",
+
+            ]);
+        }
+    }
+
+        // if ($req-> password == $req-> password_confirmation){
+        //     return response()->json([
+        //         'status' => 200,
+        //         'message' => "Transaction Successfull",
+    
+        //     ]);
+
+        // }else{
+        //     return response()->json([
+        //                 'status' => 240,
+        //                 'message' => "Password and Confirm Passowrd Does Not match!",
+        
+        //             ]);
+                
+                
+        // }
+        // return response()->json([
+        //     'status' => 200,
+        //     'message' => "Transaction Successfull",
+
+        // ]);
+       
     }
     
-        // public function verify(A $req){
-        //     echo 'registration Complete';
-        // }
+        
         public function insert(RegisterRequest $req){
             if ($req-> password == $req-> password_confirmation)
             {
@@ -71,7 +165,7 @@ class RegisterController extends Controller
                             $customer->name = $req->name;
                             $customer->email = $req->email;
                             $customer->password = $req->password;
-                            $customer->transaction_status = 1;
+                            $customer->transaction_status = "unblocked";
                             $customer->phone = $req->phone;
                             $customer->nid = $req->nid;
                             $customer->dob = $req->dob;
@@ -116,7 +210,7 @@ class RegisterController extends Controller
                         $agent->name = $req->name;
                         $agent->email = $req->email;
                         $agent->password = $req->password;
-                        $agent->transaction_status = 1;
+                        $agent->transaction_status = "unblocked";
                         $agent->phone = $req->phone;
                         $agent->nid = $req->nid;
                         $agent->dob = $req->dob;

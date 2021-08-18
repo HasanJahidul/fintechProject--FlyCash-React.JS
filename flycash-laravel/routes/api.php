@@ -9,6 +9,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('/users-login', 'LoginController@verify');
+Route::post('/users-register', 'RegisterController@register');
 
 //========================   CUSTOMER   ======================================
 
