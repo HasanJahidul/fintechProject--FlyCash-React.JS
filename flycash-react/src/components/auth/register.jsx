@@ -49,6 +49,7 @@ const handleInputChange = (e) => {
     const dob =data.dob.toString();
     const type =data.type.toString();
     const res = await axios.post('http://localhost:8000/api/users-register', { name: name,email:email,password: password,dob:dob,password_confirmation:password_confirmation,phone:phone,nid:nid,type:type});
+
     if (res.data.status === 200) {
         console.log(res.data.message);
         setMsg(res.data.message);
@@ -104,10 +105,10 @@ const handleInputChange = (e) => {
 
 }
   return (
-    <>
+    <div className="perfect-scrollbar-on">
     <ScrollToTopOnMount />
       <GuestNav />
-      <div className="wrapper ">
+      <div className="wrapper wrapper-full-page ">
         <div className="full-page register-page">
           <div className="content">
             <div className=" container">
@@ -123,7 +124,7 @@ const handleInputChange = (e) => {
                     </div>
                     <form onSubmit={register} class="form" method="post">
                       <div class="card-body">
-                        <div class="input-group mb-5">
+                        <div class="input-group">
                           <div class="input-group-prepend">
                             <div class="input-group-text">
                               <i class="tim-icons icon-single-02"></i>
@@ -299,7 +300,7 @@ const handleInputChange = (e) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

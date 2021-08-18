@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "../../../App.css";
-import { setUserSession } from "../../auth/connect/getSession";
+import {getUser, setUserSession } from "../../auth/connect/getSession";
 import Footer from "../../layouts/footer";
 import NavBar from "../../layouts/navbars/CustomerNavbar";
 import Sidebar from "../../layouts/sidebar/customersSidebar";
@@ -10,18 +10,16 @@ import Sidebar from "../../layouts/sidebar/customersSidebar";
 const AddMoney = (props) => {
   //let history = useHistory();
 
-    var email = "joy@gmail.com";
+    
+    const user = getUser();
     var transaction_type = props.status;
-    // usestate = {
-    //   error:[]
-    // }
+   
     const history = useHistory();
     const [transaction, setTransaction] = useState({
         
         phone:'',
         amount:'',
         password:'',
-        error:[]
     });
     const [msg, setMsg] = useState(" ");
     const [error, setError] = useState(" ");
@@ -38,6 +36,7 @@ const AddMoney = (props) => {
             const phone =transaction.phone.toString();
             const amount =transaction.amount.toString();
             const password =transaction.password.toString();
+            const email =user.email.toString();
             const res = await axios.post('http://localhost:8000/api/transaction', { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email});
             // { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email}
             if (res.data.status === 200) {
@@ -62,16 +61,7 @@ const AddMoney = (props) => {
                 amount:'',
                 password:'' })
                 //setUserSession(email,res.data.user_status);
-            }
-            else if (res.data.status === 422) {
-              setMsg(res.data.message);
-              console.log("hi");
-              setTransaction({ transaction_type: '',
-              phone:'',
-              amount:'',
-              password:'' })
-          }
-            else {
+            }else {
               setError(res.data.error);
               console.log(error);
             }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
+//use Validator;
+
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Loginuser;
 use App\Models\Customer;
@@ -45,7 +47,7 @@ class RegisterController extends Controller
 
             if ($validator->fails()) {
                 return response()->json([
-                    'error'=> $validator->messages(),
+                    'error'=> $validator->errors(),
                 ]);
             }else{
                 

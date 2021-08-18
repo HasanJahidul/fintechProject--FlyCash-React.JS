@@ -15,7 +15,7 @@ Route::post('/users-register', 'RegisterController@register');
 
 
 Route::get('/customer/transactionlist/{email}','CustomerTransactionController@index');
-
-
 Route::post('/transaction','CustomerTransactionController@makeTransaction');
 Route::get('/transaction1','CustomerTransactionController@index1');
+
+Route::post('/customer/profile','CustomerController@updateCustomer');

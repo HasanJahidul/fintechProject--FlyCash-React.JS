@@ -13,7 +13,7 @@ import Login from "./components/auth/login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/customer/Dashboard";
 import Password from "./components/customer/Password";
-import Profile from "./components/customer/profile";
+import Profile from "./components/customer/Profile";
 import Addmoney from "./components/customer/transactions/addMoney";
 import Donate from "./components/customer/transactions/Donate";
 import TransactionList from "./components/customer/transactions/transactionlist";
@@ -39,7 +39,7 @@ function App() {
           </Route>
 
           <PublicRoute exact path="/" component={Welcome} />
-          <PublicRoute path="/register" component={Register} />
+          <PublicRoute path="/register" component={Register} page="register"/>
           <PublicRoute path="/login" component={Login} />
 
           <PrivateRoute
