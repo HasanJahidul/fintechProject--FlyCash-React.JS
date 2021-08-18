@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState,useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import logo from "../../black/img/flycash.png";
 import Footer from "../layouts/footer";
@@ -64,7 +64,7 @@ const handleInputChange = (e) => {
           type:'', 
          })
       
-        //setTimeout(() => { history.push('/login'); }, 2000);
+        setTimeout(() => { history.push('/login'); }, 2000);
          
     }
     else if (res.data.status === 240) {
@@ -99,7 +99,7 @@ const handleInputChange = (e) => {
     else {
       setError(res.data.error);
       console.log(error);
-      console.log(res.data.data);
+      console.log(res.data.message);
     }
     e.stopPropagation();
 
@@ -118,7 +118,7 @@ const handleInputChange = (e) => {
                     <div class="card-header">
                       <img src={logo} alt=""></img>
                       <h1 align="center" class="card-title">
-                        {msg}
+                        {/* {msg} */}
                         Registration
                       </h1>
                     </div>
