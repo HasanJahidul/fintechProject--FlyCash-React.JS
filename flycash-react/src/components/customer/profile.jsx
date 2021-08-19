@@ -1,7 +1,8 @@
-
-import axios from 'axios';
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState} from "react";
+import  Dropzone   from "react-dropzone";
 import { useHistory } from "react-router-dom";
+import Image from "./transactions/Image"
 // reactstrap components
 import {
   Card,
@@ -9,22 +10,30 @@ import {
   CardFooter,
   CardHeader,
   CardText,
-  Col, FormGroup,
+  Col,
+  FormGroup,
   Input,
-  Row
+  Row,
 } from "reactstrap";
 import { getUser, setUserSession } from "../auth/connect/getSession";
 import Navbar from "../layouts/navbars/CustomerNavbar";
 import SideNav from "../layouts/sidebar/customersSidebar";
+import Notification from "../layouts/notification/Notification";
 
 const Profile = () => {
   const user = getUser();
-
+ 
   const history = useHistory();
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
   const [profile, setProfile] = useState({
     phone: "",
     name: "",
   });
+  
   const [msg, setMsg] = useState(" ");
   const [error, setError] = useState(" ");
   //const [error, seterror] = useState(" ");
@@ -39,17 +48,19 @@ const Profile = () => {
     const phone = profile.phone.toString();
     const name = profile.name.toString();
     const email = user.email.toString();
-    const res = await axios.post(
-      "http://localhost:8000/api/customer/profile",
-      {
-        name: name,
-        phone: phone,
-        email: email,
-      }
-    );
+    const res = await axios.post("http://localhost:8000/api/customer/profile", {
+      name: name,
+      phone: phone,
+      email: email,
+    });
     // { profile_type: profile_type,phone: phone,amount:amount,password:password,email:email}
     if (res.data.status === 200) {
-      console.log(res.data.message);
+      setNotify({
+        isOpen: true,
+        messages: res.data.message,
+        type: "success",
+      });
+
       setMsg(res.data.message);
 
       console.log(res.data.data);
@@ -57,13 +68,18 @@ const Profile = () => {
 
       setUserSession(res.data.user_status.email, res.data.user_status);
 
-      setTimeout(() => { history.push('/customer-profile'); }, 3000);
+      //setTimeout(() => { history.push('/customer-profile'); }, 3000);
     } else if (res.data.status === 240) {
       setMsg(res.data.message);
-      console.log(res.data.data);
+      //console.log(res.data.data);
       setProfile({
         phone: "",
         name: "",
+      });
+      setNotify({
+        isOpen: true,
+        messages: res.data.message,
+        type: "error",
       });
       //setUserSession(email,res.data.user_status);
     } else {
@@ -77,17 +93,16 @@ const Profile = () => {
       <div className="main-panel ps">
         <SideNav />
         <Navbar />
+
         <div className="content">
           <Row>
             <Col md="8">
-           
               <Card>
-              <form onSubmit={updateProfile}>
-                <CardHeader>
-                  <h5 className="title">Edit Profile</h5>
-                </CardHeader>
-                <CardBody>
-                  
+                <form onSubmit={updateProfile}>
+                  <CardHeader>
+                    <h5 className="title">Edit Profile</h5>
+                  </CardHeader>
+                  <CardBody>
                     <Row>
                       <Col className="pr-md-1" md="4">
                         <FormGroup>
@@ -143,7 +158,7 @@ const Profile = () => {
                             Phone Number
                           </label>
                           <Input
-                           name="phone"
+                            name="phone"
                             defaultValue={user.phone}
                             placeholder="Phone NUmber"
                             type="text"
@@ -164,13 +179,16 @@ const Profile = () => {
                         </FormGroup>
                       </Col>
                     </Row>
-                 
-                </CardBody>
-                <CardFooter>
-                  <button className="btn btn-fill btn-primary" color="primary" type="submit">
-                    Save
-                  </button>
-                </CardFooter>
+                  </CardBody>
+                  <CardFooter>
+                    <button
+                      className="btn btn-fill btn-primary"
+                      color="primary"
+                      type="submit"
+                    >
+                      Save
+                    </button>
+                  </CardFooter>
                 </form>
               </Card>
             </Col>
@@ -178,7 +196,7 @@ const Profile = () => {
               <Card className="card-user">
                 <CardBody>
                   <CardText />
-                  <div className="author">
+                  <div className="author form-group">
                     <div className="block block-one" />
                     <div className="block block-two" />
                     <div className="block block-three" />
@@ -193,6 +211,26 @@ const Profile = () => {
                     </a>
                     <p className="description"> {user.type} Account </p>
                   </div>
+                  {/* <div className="dp btn btn-primary btn-simple"> Change Profile Picture
+                  <input type="file" name="dp" className="btn btn-primary btn-simple" aria-invalid="false"/>
+                 
+                  </div> */}
+                  {/* <Dropzone
+                    onDrop={(acceptedFiles) => console.log(acceptedFiles)}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <section>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <p>
+                            Drag 'n' drop some files here, or click to select
+                            files
+                          </p>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone> */}
+                  <Image/>
                   <div className="card-description">
                     Do not be scared of the truth because we need to restart the
                     human foundation in truth And I love you like Kanye loves
@@ -204,6 +242,7 @@ const Profile = () => {
           </Row>
         </div>
       </div>
+      <Notification notify={notify} setNotify={setNotify} />
     </>
   );
 };

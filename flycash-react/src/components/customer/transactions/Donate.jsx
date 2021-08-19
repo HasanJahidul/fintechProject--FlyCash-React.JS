@@ -20,6 +20,11 @@ const [transaction, setTransaction] = useState({
     amount:'',
     password:''
 });
+const [notify, setNotify] = useState({
+  isOpen: false,
+  message: "",
+  type: "",
+});
 const [msg, setMsg] = useState(" ");
 const handleInputChange = (e) => {
     const name = e.target.name;
@@ -42,6 +47,11 @@ const handleInputChange = (e) => {
             phone:'',
             amount:'',
             password:'' })
+            setNotify({
+              isOpen: true,
+              messages: res.data.message,
+              type: "success",
+            });
             
             setTimeout(() => { history.push('/customer/transactionlist'); }, 3000);
              
@@ -53,6 +63,11 @@ const handleInputChange = (e) => {
             amount:'',
             password:'' })
             setUserSession(email,res.data.user_status);
+            setNotify({
+              isOpen: true,
+              messages: res.data.message,
+              type: "error",
+            });
         }
         else {
             setMsg(res.data.message);

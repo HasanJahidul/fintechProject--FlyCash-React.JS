@@ -1,21 +1,14 @@
 import axios from 'axios';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import logo from "../../black/img/flycash.png";
 import Footer from "../layouts/footer";
 import GuestNav from "../layouts/navbars/guestNav";
+import Popup from '../layouts/notification/Popup';
 
 const Register = () => {
 
-  function ScrollToTopOnMount() {
-    useEffect(() => {
-      window.scrollTo(0,0);
-    }, []);
-  
-    return null;
-  }
-
-  window.scrollTo(0, 0)
+  const [confirmDialog,setConfirmDialog]=useState({isOpen:false,title:'',subTitle:''})
   const history = useHistory();
   const [msg, setMsg] = useState(" ");
   const [error, setError] = useState(" ");
@@ -80,6 +73,12 @@ const handleInputChange = (e) => {
         dob:'',
         type:'',  
       })
+      setConfirmDialog({
+        isOpen:true, 
+        title:"Registration Error",
+        subTitle:res.data.message
+
+      })
       
     }
     else if (res.data.status === 422) {
@@ -105,8 +104,8 @@ const handleInputChange = (e) => {
 
 }
   return (
+    <>
     <div className="perfect-scrollbar-on">
-    <ScrollToTopOnMount />
       <GuestNav />
       <div className="wrapper wrapper-full-page ">
         <div className="full-page register-page">
@@ -301,6 +300,11 @@ const handleInputChange = (e) => {
         </div>
       </div>
     </div>
+    <Popup 
+    confirmDialog={confirmDialog}
+    setConfirmDialog={setConfirmDialog}
+    />
+    </>
   );
 };
 

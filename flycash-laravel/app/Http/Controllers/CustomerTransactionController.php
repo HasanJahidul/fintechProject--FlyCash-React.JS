@@ -81,7 +81,7 @@ class CustomerTransactionController extends Controller
                         $customer = Customer::where('email', $email)
                             ->first();
                         return response()->json([
-                            'status' => 240,
+                            'status' => 200,
                             'user_status' => $customer,
                             'message' => "Transaction Successfull",
 
@@ -119,7 +119,7 @@ class CustomerTransactionController extends Controller
                         $customer = Customer::where('email', $email)
                             ->first();
                         return response()->json([
-                            'status' => 240,
+                            'status' => 200,
                             'user_status' => $customer,
                             'message' => "Transaction Successfull",
 
@@ -145,7 +145,7 @@ class CustomerTransactionController extends Controller
             }else {
 
                 return response()->json([
-                    'status' => 500,
+                    'status' => 240,
                     'message' => "password missmatch",
                 ]);
 

@@ -18715,7 +18715,7 @@ textarea.form-control {
   padding: 0 12px;
 }
 
-.form-group input[type="file"] {
+.dp input[type="file"] {
   opacity: 0;
   position: absolute;
   top: 0;
@@ -19982,6 +19982,14 @@ textarea.form-control {
   background-color: transparent;
   position: relative;
 }
+.fileinput .btn {
+  vertical-align: middle;
+}
+.btn-file {
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+}
 .card-user .card-body {
   min-height: 240px;
 }
@@ -20078,11 +20086,21 @@ select.form-control option {
 .details {
   display: none;
 }
+.notify {
+  padding-top: 29px;
+  padding-right: 99px;
+}
+.popup th,
+h3,
+h4 {
+  color: black !important;
+}
+
 @media print {
   .sidebar {
     display: none;
   }
-  .hideb{
+  .hideb {
     display: none;
   }
   .main-panel .content {
@@ -20118,7 +20136,7 @@ select.form-control option {
     margin-left: 30px;
     display: block;
   }
-  .pdf table tr th{
+  .pdf table tr th {
     border-collapse: collapse;
     border-style: solid black;
     border-bottom: 2px solid black;
@@ -20130,7 +20148,7 @@ select.form-control option {
     padding: 0.5rem;
     text-align: center;
   }
-  .card-title{
+  .card-title {
     text-align: center;
   }
 }
