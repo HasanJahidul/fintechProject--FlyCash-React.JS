@@ -26,11 +26,19 @@ const CustomerDeatils = () => {
         }
             
     }
-
+    // const deleteCustomers = (e) => {
+    //     console.log("deleted");
+    //       setTimeout(() => { history.push('/customer/customersList'); }, 1000);
+    // }
      useEffect(() => {
         mount();
         
      }, []);
+     
+    // const searchEvent = async (e) => {
+    //     e.preventDefault();
+    //     const res = await axios.get('http://localhost:8000/api/customerstList');
+    // }
 
     return (
         <div>
@@ -115,12 +123,13 @@ const CustomerDeatils = () => {
                                     }
                                 </tbody>
                             </table>
+
+                            <Link to={'/officer-dashboard'} className="btn btn-primary btn-sm float-end">Back</Link>
+                            <Link to={'/transaction-customer'} className="btn btn-primary btn-sm float-end">All Transaction</Link>
                         </div>
-                    </div> 
+                    </div>
                     </div>
                 </div>
-                    <Link to={'/officer-dashboard'} className="btn btn-primary btn-sm float-end">Back</Link>
-                    <Link to={'/transaction-customer'} className="btn btn-primary btn-sm float-end">All Transaction</Link>
             </div>
         </div>
         </div>

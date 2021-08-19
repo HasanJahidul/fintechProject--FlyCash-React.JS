@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import "../../../App.css";
+import SideNav from "../../layouts/sidebar/OfficerSidebar";
+import Navbar from "../../layouts/navbars/OfficerNavbar";
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios';
 
-//import swal from 'sweetalert';
-
-class AgentTransaction extends Component{
+class AgentTransaction extends Component {
 
     state = {
         agents: [],
@@ -28,7 +29,6 @@ class AgentTransaction extends Component{
 
 //======================================================================
 
-
     render(){
 
         var agent_transaction_table = "";
@@ -37,50 +37,47 @@ class AgentTransaction extends Component{
             agent_transaction_table = <tr><td colSpan="8"><h2>loding...</h2></td></tr>
         }else{
             agent_transaction_table = 
-                this.state.agents.map( (item)=> {
-                    
-                    // if(item.data.transaction_status=="blocked"){
-                    //     <Link to={`agent-blocked/${item.id}`} className="btn btn-success btn-sm">Block</Link>
-                    // }else{
-                    //     <Link to={`agent-blocked/${item.id}`} className="btn btn-success btn-sm">Unblock</Link>
-                    // }
+            this.state.agents.map( (item)=> {
+                
+                if(item.transaction_status==='blocked'){
+                    var check='Unblocked';
+                }
 
-                    return (
-                        <tr key={item.id}>
-                            <td>{item.id}</td>
-                            <td>{item.email}</td>
-                            <td>{item.phone}</td>
-                            <td>{item.transaction_type}</td>
-                            <td>{item.amount}</td>
-                            <td>{item.balance}</td>
-                            <td>{item.date}</td>
-
-                            <td>
-                                <Link to={`agent-invoice`} className="btn btn-success btn-sm">pdf</Link>
-                            </td>
-                            <td>
-                                
-                                
-                            </td>
-                        </tr>
-                    );
-                });
+                return (
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.email}</td>
+                        <td>{item.phone}</td>
+                        <td>{item.transaction_type}</td>
+                        <td>{item.amount}</td>
+                        <td>{item.balance}</td>
+                        <td>{item.date}</td>
+        
+                        <td>
+                            <Link to={`agent-invoice`} className="btn btn-success btn-sm">pdf</Link>
+                        </td>
+                    </tr>
+                );
+            });
         }
-
-        return(
-            <div ClassName="container">
-                <div ClassName="row">
-                    <div className="col-md-12">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Agent All Transaction Page
-                                    <Link to={'/show-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
-                                </h4>
-                            </div>
-
-                            <div className="card-body">
-
-                                <h2>Transaction Data</h2>
+        return (
+            <div>
+            <div className="wrapper">
+            <SideNav />
+            <div className="main-panel ps" >
+                <Navbar />
+            <div className= "content">
+                <div class="row" style={{ right: "500px" }}>
+                <div class="col-md-12">
+                    <div class="card ">
+                        <div class="card-header">
+                            <h4>Agent All Transaction Page</h4>
+                        </div>
+                        <Link to={'/show-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
+                       
+                        <div class="card-body">
+                            
+                        <h2>Transaction Data</h2>
                                 <table className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -92,7 +89,6 @@ class AgentTransaction extends Component{
                                             <th>Balance</th>
                                             <th>Date</th>
                                             <th>Print</th>
-                                            <th>Status</th>
                                         </tr>
                                     </thead>
             
@@ -100,13 +96,16 @@ class AgentTransaction extends Component{
                                         {agent_transaction_table}
                                     </tbody>
                                 </table>
-                            </div>
                         </div>
                     </div>
                 </div>
+                <Link to={'/agent-blocklist'} className="btn btn-primary btn-sm float-end">Block List</Link>
+                </div>
+            </div>
+            </div>
+            </div>
             </div>
         );
     }
-}
-
+};
 export default AgentTransaction;

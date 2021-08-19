@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Officer;
+use App\Models\Agentstransactions;
+use App\Models\Agent;
 use Illuminate\Support\Facades\DB; //Import query builser 
 
 use Illuminate\Http\Request;
@@ -10,59 +12,118 @@ class AgentController extends Controller
 {
     public function index()
     {
-        $users= Officer::all(); //change Officer to (Agent)->tablename
+        $agent= Agent::all(); //change Officer to (Agent)->tablename
 
         //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
 
-        return view('pages.officer.agent.index')->with('users', $users);
+        return response()->json([
+            'status' => 200,
+            'agents' => $agent
+        ]);
     }
     // ============================ End Insert ====================================
 
     public function edit($id){
 
-        $users= Officer::find($id);
+        $agent= Agent::find($id);
 
-        return view('pages.officer.agent.edit')->with('user', $users);
+        if ($agent) {
+            return response()->json([
+                'status' => 200,
+                'agents' => $agent,
+            ]);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => 'No agent Id Found',
+            ]);
+        }
     }
 // ============================ End Edit ====================================
 
-    public function update(Request $req, Officer $id)
+    public function update(Request $req,$id)
     {
-        $users = Officer::find($id);
+        $agent = Agent::find($id);
         
-        $users->name = $req->name;
-        // if($users->password != $req->password){
-        //     $users->password = $req->password;
-        // }
-        $users->phone = $req->phone;
-        $users->nid = $req->nid;
-        $users->dob = $req->dob;
-        $users->type = $req->type;
+        $agent->phone = $req->input('phone');
+        $agent->nid = $req->input('nid');
+        $agent->dob = $req->input('dob');
+        $agent->type = $req->input('type');
 
-        $users->save();
-        
-        // $results->save();
-        // return response()->json($results);
+        $agent->update();
 
-        return redirect()->route('agent_index');
+        return response()->json([
+            'status' => 200,
+            'message' => 'Agent Update Successfully',
+        ]);
     }
 
-    // ============================ End Update ====================================
+//===========================Officer get transaction for customer=================================
 
-    public function delete($id){
-  
-        $users = Officer::find($id); //change model name
-        
-        return view('pages.officer.agent.delete')->with('user', $users);
-    }
-// ============================ End Delete ====================================
+    public function view()
+    {
+        $agent= Agentstransactions::all(); //change Officer to (Customer)->tablename
 
-    public function destroy($id){
+        //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
 
-        $users = Officer::find($id);
-        $users->delete();
-
-         return redirect()->route('agent_delete');
+        return response()->json([
+            'status' => 200,
+            'agents' => $agent
+        ]);
     }
 // ============================ End Destroy ====================================
+
+    //===============Block & Unblock Part====================
+
+    public function agentblocked($id)
+    {
+        //dd($email);
+        $update =  DB::table('agents')
+        ->where('id', $id)
+        ->update([
+            'transaction_status' => 'blocked',
+        ]);
+    
+        if ($update)
+        {
+            return response()->json([
+                'status' => 200,
+                'updates' => $update,
+                'message' =>"Agent Transaction Blocked",
+            ]);
+
+        }else{
+            return response()->json([
+                'message' => 'Not updated'
+            ]);
+        }
+    }
+
+    public function agentunblocked($id)
+    {
+        
+        //dd($email);
+        $update =  DB::table('agents')
+        ->where('id', $id)
+        ->update([
+            'transaction_status' => 'unblocked',
+        ]);
+    
+        if ($update)
+        {
+            return response()->json([
+                'status' => 200,
+                'updates' => $update,
+                'message' =>"Agent Transaction Unblocked",
+            ]);
+
+        }else{
+            return response()->json([
+                'message' => 'Not updated',
+            ]);
+        }
+    }
+    
+//=======================End Officer Part========================
+
 }

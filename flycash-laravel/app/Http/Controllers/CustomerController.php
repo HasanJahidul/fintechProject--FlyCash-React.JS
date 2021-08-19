@@ -11,22 +11,7 @@ use Illuminate\Support\Facades\DB; //Import query builser
 
 class CustomerController extends Controller
 {
-    public function show()
-    {
-        $users= Officer::all(); //change Officer to (Customer)->tablename
-
-        //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
-
-        return view('pages.officer.customer.show')->with('users', $users);
-    }
-    // ============================ End Insert ====================================
-
-    public function edit($id){
-
-        $users= Officer::find($id);
-
-        return view('pages.officer.customer.edit')->with('user', $users);
-    }
+    
 // ============================ End Edit ====================================
 
     public function updateCustomer(Request $req)
@@ -65,58 +50,119 @@ class CustomerController extends Controller
             }
        
     }
+    //******************************Officer function************************* */
+    public function show()
+    {
+        $customer= Customer::all(); //change Officer to (Customer)->tablename
 
+        //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
 
-    // ============================ End Update ====================================
+        return response()->json([
+            'status' => 200,
+            'customers' => $customer
+        ]);
+    }
+    // ============================ End Insert ====================================
 
-    public function delete($id){
-  
-        $users = Officer::find($id); //change model name
+    public function edit($id){
+
+        $customer= Customer::find($id);
+
+        if ($customer) {
+            return response()->json([
+                'status' => 200,
+                'customers' => $customer,
+            ]);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => 'No customer Id Found',
+            ]);
+        }
+    }
+// ============================ End Edit ====================================
+
+    public function update(Request $req, $id)
+    {
+        $customer = Customer::find($id);
         
-        return view('pages.officer.customer.delete')->with('user', $users);
+        $customer->phone = $req->input('phone');
+        $customer->nid = $req->input('nid');
+        $customer->dob = $req->input('dob');
+        $customer->type = $req->input('type');
+
+        $customer->update();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Customer Update Successfully',
+        ]);
     }
-// ============================ End Delete ====================================
 
-    public function destroy($id){
 
-        $users = Officer::find($id);
-        $users->delete();
+//===========================Officer get transaction for customer=================================
 
-         return redirect()->route('customer_delete');
+    public function view()
+    {
+        $customer= Customerstransaction::all(); //change Officer to (Customer)->tablename
+        //$customer = DB::table('customerstransactions')->where('email', '=', $email)->get();
+
+        //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
+
+        return response()->json([
+            'status' => 200,
+            'customers' => $customer
+        ]);
     }
-// ============================ End Destroy ====================================
 
+//===============Block & Unblock Part====================
+
+    public function userblocked($id)
+    {
+        //dd($email);
+        $update =  DB::table('customers')
+        ->where('id', $id)
+        ->update([
+            'transaction_status' => 'blocked',
+        ]);
     
-    public function changeCustomerPassword(){
-
-        return view('pages.customer.profile.passwordChange');
-    }
-    public function editCustomerProfile(){
-
-        return view('pages.customer.profile.edit');
-    }
-    public function changeCustomerPasswod(Request $req){
-
-        if ($req->session()->get('password')==$req-> old_password)
+        if ($update)
         {
-            if ($req->password== $req->password_confirmation)
-            {
-                dd($req);
-                $email=$req->session()->get('email');
-                $customer = Customer::where('email',$email)
-                ->first();
-                $customer->password = $req->password;
-                $customer->save();
-                return back()->with('msg','Password Changed') ;
-
-            }else{
-                return back()->with('msg','New password and confirm password does not match') ;
-            }
+            return response()->json([
+                'status' => 200,
+                'updates' => $update,
+                'message' =>"Customer Transaction Blocked",
+            ]);
 
         }else{
-            return back()->with('msg','Current Password does not match') ;
-                    
+            return response()->json([
+                'message' => 'Not updated'
+            ]);
         }
+    }
 
+    public function userunblocked($id)
+    {
+        
+        //dd($email);
+        $update =  DB::table('customers')
+        ->where('id', $id)
+        ->update([
+            'transaction_status' => 'unblocked',
+        ]);
+    
+        if ($update)
+        {
+            return response()->json([
+                'status' => 200,
+                'updates' => $update,
+                'message' =>"Customer Transaction Unblocked",
+            ]);
+
+        }else{
+            return response()->json([
+                'message' => 'Not updated',
+            ]);
+        }
     }
 }

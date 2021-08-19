@@ -18,12 +18,30 @@ import Addmoney from "./components/customer/transactions/addMoney";
 import Donate from "./components/customer/transactions/Donate";
 import TransactionList from "./components/customer/transactions/transactionlist";
 import ErrorPage from "./components/Error404";
+import Welcome from "./components/welcome"
 //=======================Start Officer Import File==============================
-import OfficerDashboard from "./components/officer/OfficerDashboard";
-import Welcome from "./components/welcome";
-import PrivateRoute from "./PrivateRoute";
-import PublicRoute from "./PublicRoute";
 
+import OfficerDashboard from './components/officer/OfficerDashboard';
+
+import CustomerDetails from './components/officer/customer/CustomerDetails';
+import CustomerEdit from './components/officer/customer/CustomerEdit';
+import CustomerTransaction from './components/officer/customer/CustomerTransaction';
+import CustomerBlockList from './components/officer/customer/CustomerBlockList';
+
+import AgentDetails from './components/officer/agent/AgentDetails';
+import AgentEdit from './components/officer/agent/AgentEdit';
+import AgentTransaction from './components/officer/agent/AgentTransaction';
+import AgentBlockList from './components/officer/agent/AgentBlockList';
+
+import OfficerProfile from './components/officer/profile/Profile';
+import ProfileEdit from './components/officer/profile/ProfileEdit';
+import ChangePassword from './components/officer/profile/ChangePassword';
+
+import AgentInvoice from './components/officer/agent/AgentInvoice';
+import CustomerInvoice from './components/officer/customer/CustomerInvoice';
+
+import PublicRoute from './PublicRouteOfficer';
+import PrivateRoute from './PrivateRoute';
 
 //=======================End Officer Import File================================
 
@@ -148,6 +166,29 @@ function App() {
             path="/officer-dashboard"
             component={OfficerDashboard}
           />
+          {/* ===========================================Start Officer Route======================================= */}
+
+          <PrivateRoute path="/officer-dashboard" component={OfficerDashboard}/> 
+
+          <PrivateRoute path="/show-customer" component={CustomerDetails}/> 
+          <PrivateRoute path="/edit-customer/:id" component={CustomerEdit}/>
+          <PrivateRoute path="/transaction-customer" component={CustomerTransaction}/>
+          <PrivateRoute path="/customer-blocklist" component={CustomerBlockList}/>
+
+          <PrivateRoute path="/show-agent" component={AgentDetails}/>
+          <PrivateRoute path="/edit-agent/:id" component={AgentEdit}/>
+          <PrivateRoute path="/transaction-agent" component={AgentTransaction}/>
+          <PrivateRoute path="/agent-blocklist" component={AgentBlockList}/>
+
+          <PrivateRoute path="/view-profile" component={OfficerProfile}/>
+          <PrivateRoute path="/edit-profile/:id" component={ProfileEdit}/>
+
+          <PrivateRoute path="/change-password/:id" component={ChangePassword}/>
+
+          <PrivateRoute path="/agent-invoice" component={AgentInvoice}/>
+          <PrivateRoute path="/customer-invoice/" component={CustomerInvoice}/>
+
+{/* ===========================================End Officer Route======================================= */}
 
           {/* ===========================================End Officer Route======================================= */}
 
