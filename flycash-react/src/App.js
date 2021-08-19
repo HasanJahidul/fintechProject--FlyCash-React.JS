@@ -24,6 +24,28 @@ import Welcome from "./components/welcome";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 
+<<<<<<< HEAD
+=======
+import OfficerDashboard from './components/officer/OfficerDashboard';
+
+import CustomerDetails from './components/officer/customer/CustomerDetails';
+import CustomerEdit from './components/officer/customer/CustomerEdit';
+import CustomerTransaction from './components/officer/customer/CustomerTransaction';
+
+import AgentDetails from './components/officer/agent/AgentDetails';
+import AgentEdit from './components/officer/agent/AgentEdit';
+import AgentTransaction from './components/officer/agent/AgentTransaction';
+
+import Profile from './components/officer/profile/Profile';
+import ProfileEdit from './components/officer/profile/ProfileEdit';
+import ChangePassword from './components/officer/profile/ChangePassword';
+
+import AgentInvoice from './components/officer/agent/AgentInvoice';
+import CustomerInvoice from './components/officer/customer/CustomerInvoice';
+
+import PublicRoute from './PublicRouteOfficer';
+import PrivateRoute from './PrivateRoute';
+>>>>>>> officer
 
 //=======================End Officer Import File================================
 
@@ -38,6 +60,7 @@ function App() {
             <TransactionList />
           </Route>
 
+<<<<<<< HEAD
           <PublicRoute exact path="/" component={Welcome} />
           <PublicRoute path="/register" component={Register} page="register"/>
           <PublicRoute path="/login" component={Login} />
@@ -47,6 +70,13 @@ function App() {
             path="/customer-dashboard"
             component={Dashboard}
           />
+=======
+          <Route exact path="/" component={Welcome}/>
+          <PublicRoute exact path="/register" component={Register}/>
+          <PublicRoute exact path="/login" component={Login}/>
+
+          <PrivateRoute path="/customer-dashboard" component={Dashboard}/>
+>>>>>>> officer
 
           <Route exact path="/customer-profile">
             <Profile />
@@ -143,11 +173,31 @@ function App() {
 
           {/* ===========================================Start Officer Route======================================= */}
 
+<<<<<<< HEAD
           <PrivateRoute
             exact
             path="/officer-dashboard"
             component={OfficerDashboard}
           />
+=======
+          <PrivateRoute path="/officer-dashboard" component={OfficerDashboard}/> 
+
+          <PrivateRoute path="/show-customer" component={CustomerDetails}/> 
+          <PrivateRoute path="/edit-customer/:id" component={CustomerEdit}/>
+          <PrivateRoute path="/transaction-customer" component={CustomerTransaction}/>
+
+          <PrivateRoute path="/show-agent" component={AgentDetails}/>
+          <PrivateRoute path="/edit-agent/:id" component={AgentEdit}/>
+          <PrivateRoute path="/transaction-agent" component={AgentTransaction}/>
+
+          <PrivateRoute path="/view-profile" component={Profile}/>
+          <PrivateRoute path="/edit-profile/:id" component={ProfileEdit}/>
+
+          <PrivateRoute path="/change-password/:id" component={ChangePassword}/>
+
+          <PrivateRoute path="/agent-invoice" component={AgentInvoice}/>
+          <PrivateRoute path="/customer-invoice/" component={CustomerInvoice}/>
+>>>>>>> officer
 
           {/* ===========================================End Officer Route======================================= */}
 

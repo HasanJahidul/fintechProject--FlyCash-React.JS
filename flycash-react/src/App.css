@@ -20086,6 +20086,7 @@ select.form-control option {
 .details {
   display: none;
 }
+<<<<<<< HEAD
 .notify {
   padding-top: 29px;
   padding-right: 99px;
@@ -20096,11 +20097,17 @@ h4 {
   color: black !important;
 }
 
+=======
+>>>>>>> officer
 @media print {
   .sidebar {
     display: none;
   }
+<<<<<<< HEAD
   .hideb {
+=======
+  .hideb{
+>>>>>>> officer
     display: none;
   }
   .main-panel .content {
@@ -20129,14 +20136,22 @@ h4 {
   }
   .pdf th,
   h3,
+<<<<<<< HEAD
   h4 {
+=======
+  h4,td {
+>>>>>>> officer
     color: black !important;
   }
   .details {
     margin-left: 30px;
     display: block;
   }
+<<<<<<< HEAD
   .pdf table tr th {
+=======
+  .pdf table tr th{
+>>>>>>> officer
     border-collapse: collapse;
     border-style: solid black;
     border-bottom: 2px solid black;
@@ -20148,7 +20163,11 @@ h4 {
     padding: 0.5rem;
     text-align: center;
   }
+<<<<<<< HEAD
   .card-title {
+=======
+  .card-title{
+>>>>>>> officer
     text-align: center;
   }
 }

@@ -15,31 +15,45 @@ Route::post('/users-register', 'RegisterController@register');
 
     Route::post('/transaction','CustomerTransactionController@makeTransaction');
 
-
-Route::get('/customer/transactionlist/{email}','CustomerTransactionController@index');
-
-Route::get('/transaction1','CustomerTransactionController@index1');
-
-Route::post('/customer/profile','CustomerController@updateCustomer');
-
-//===================================================   Admin   ===========================================================
+Route::get('/customer/transactionlist','CustomerTransactionController@index');
 
 
-Route::get('/admin/customerList','AdminController@getAllCustomer');	
-Route::get('/admin/edit-customer/{email}', 'AdminController@edit');
-Route::put('/admin/update-customer/{email}', 'AdminController@update');
+//========================================Officer Router =======================================
 
+//========================Customer Route================================================
 
+    //Route::post('/emp-register', [CustomerController::class, 'store']);
+    Route::get('show-customer', 'CustomerController@show');
+    //Route::get('transaction-customer/{email}', 'CustomerController@view');
+    Route::get('transaction-customer', 'CustomerController@view');
 
-Route::get('/admin/officerList','AdminController@getAllOfficer');	
-Route::get('/admin/ongoingCampaign','AdminController@ongoingCampaign');
-Route::get('/admin/agentList','AdminController@getAllAgent');
-Route::post('/admin/addComponent','AdminController@adminRegister');
+    Route::get('edit-customer/{id}', 'CustomerController@edit');
+    Route::put('update-customer/{id}', 'CustomerController@update');
 
+    Route::put('block-list/{id}', 'CustomerController@userblocked');
+    Route::put('block-list/{id}', 'CustomerController@userunblocked');
 
+    // Route::delete('delete-customer/{id}', [CustomerController::class, 'destroy']);
 
+//===========================Agent Route================================
 
+    Route::get('show-agent', 'AgentController@index');
+    Route::get('transaction-agent', 'AgentController@view');
 
-Route::post('/admin/addCampaign','AdminController@addCampaign');
+    Route::get('edit-agent/{id}', 'AgentController@edit');
+    Route::put('update-agent/{id}', 'AgentController@update');
 
-Route::post('/addmoneytoagent','AdminController@agentAddMoney');
+    Route::get('agent-blockeduser/{id}', 'AgentTransactionController@agentblocked');
+	Route::get('agent-unblockuser/{id}', 'AgentTransactionController@agentblocked');
+
+//======================Profile Router======================
+
+    Route::get('edit-password/{id}', 'PassController@editPassword');
+    Route::post('update-password/{id}', 'PassController@updatePassword');
+
+    Route::get('view-profile', 'ProfileController@index');
+
+    Route::get('edit-profile/{id}', 'ProfileController@edit');
+    Route::put('update-profile/{id}', 'ProfileController@update');
+
+//=====================================End Officer Router =======================================
