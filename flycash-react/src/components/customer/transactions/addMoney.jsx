@@ -6,6 +6,7 @@ import {getUser, setUserSession } from "../../auth/connect/getSession";
 import Footer from "../../layouts/footer";
 import NavBar from "../../layouts/navbars/CustomerNavbar";
 import Sidebar from "../../layouts/sidebar/customersSidebar";
+import Notification from '../../layouts/notification/Notification';
 
 const AddMoney = (props) => {
   //let history = useHistory();
@@ -20,6 +21,11 @@ const AddMoney = (props) => {
         phone:'',
         amount:'',
         password:'',
+    });
+    const [notify, setNotify] = useState({
+      isOpen: false,
+      message: "",
+      type: "",
     });
     const [msg, setMsg] = useState(" ");
     const [error, setError] = useState(" ");
@@ -40,15 +46,20 @@ const AddMoney = (props) => {
             const res = await axios.post('http://localhost:8000/api/transaction', { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email});
             // { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email}
             if (res.data.status === 200) {
+             
                 console.log(res.data.message);
-                setMsg(res.data.message);
-                
                 console.log(res.data.data)
                 setTransaction({ transaction_type: '',
                 phone:'',
                 amount:'',
                 password:'' })
                 setUserSession(email,res.data.user_status);
+                setNotify({
+                  isOpen: true,
+                  messages: res.data.message,
+                  type: "alert alert-success alert-dismissible fade show",
+                });
+                setTimeout(() => { setMsg(res.data.message); }, 3000);
                 
                 //setTimeout(() => { history.push('/customer/transactionlist'); }, 3000);
                  
@@ -61,6 +72,11 @@ const AddMoney = (props) => {
                 amount:'',
                 password:'' })
                 //setUserSession(email,res.data.user_status);
+                setNotify({
+                  isOpen: true,
+                  messages: res.data.message,
+                  type: "alert alert-danger alert-dismissible fade show",
+                });
             }else {
               setError(res.data.error);
               console.log(error);
@@ -69,6 +85,7 @@ const AddMoney = (props) => {
         
         }
   return (
+    <>
     <div className="wrapper">
       <Sidebar />
       <div className="main-panel ps">
@@ -148,6 +165,8 @@ const AddMoney = (props) => {
         <Footer />
       </div>
     </div>
+     <Notification notify={notify} setNotify={setNotify} />
+     </>
   );
 };
 
