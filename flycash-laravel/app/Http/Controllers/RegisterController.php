@@ -30,17 +30,17 @@ class RegisterController extends Controller
         
         $validator = Validator::make($req->all(), [
             'name' => 'required|min:3|max:30|alpha',
-            'email' => 'email:rfc,dns|required|min:10|max:50|',
-            'password'=> 'required|min:8|max:20',
-            'password_confirmation'=> 'required|min:8|max:20',
-            //  'name' => 'required',
-            // 'email' => 'required',
-            // 'password'=> 'required',
-            // 'password_confirmation'=> 'required',
-            'phone' => 'required|min:11|numeric',
-            'nid' => 'required|min:10|numeric',
-            'dob' => 'required',
-            'type' => 'required',
+            // 'email' => 'email:rfc,dns|required|min:10|max:50|',
+            // 'password'=> 'required|min:8|max:20',
+            // 'password_confirmation'=> 'required|min:8|max:20',
+            // //  'name' => 'required',
+            // // 'email' => 'required',
+            // // 'password'=> 'required',
+            // // 'password_confirmation'=> 'required',
+            // 'phone' => 'required|min:11|numeric',
+            // 'nid' => 'required|min:10|numeric',
+            // 'dob' => 'required',
+            // 'type' => 'required',
         ]);
 
             if ($validator->fails()) {
@@ -193,86 +193,8 @@ class RegisterController extends Controller
     }
     
         
-        public function insert(RegisterRequest $req){
-            if ($req-> password == $req-> password_confirmation)
-            {
-                $checkUser = Loginuser::where('email',$req->email)
-                ->first();
-                $checkNid = Loginuser::where('nid',$req->nid)
-                ->first();
-                $checkPhone = Loginuser::where('phone',$req->phone)
-                ->first();
-                //dd($req);
-                if($checkUser)
-                {
-                    $req->session()->flash('msg', 'User already Exist!');
-                    return redirect('/register');
-                }elseif($checkNid){
-                    $req->session()->flash('msg', 'An Account Already registered with this nid !');
-                    return redirect('/register');
-                }elseif($checkPhone)
-                {   
-                    $req->session()->flash('msg', 'An Account Already registered with this Phone Number !');
-                    return redirect('/register');
-
-                }else{
-
-                    $loginuser = new Loginuser;
-                    $loginuser->email = $req->email;
-                    $loginuser->password = $req->password;
-                    $loginuser->type = $req->type;
-                    $loginuser->phone = $req->phone;
-                    $loginuser->nid = $req->nid;
-                    $loginuser->save();
-
-
-                        if ($req->type =="customer"){
-
-                            $customer = new Customer;
-                            $customer->name = $req->name;
-                            $customer->email = $req->email;
-                            $customer->password = $req->password;
-                            $customer->transaction_status = "unblocked";
-                            $customer->phone = $req->phone;
-                            $customer->nid = $req->nid;
-                            $customer->dob = $req->dob;
-                            $customer->type = $req->type;
-                            //$user->user_type = "active";
-                            $customer->balance = 20;
-                            $customer->save();
-                
-                            
-                            return redirect('/login');
-
-                        }elseif ($req->type =="admin"){
-
-                           
-                            $admin = new Admin;
-            
-                            $admin->profit = 0;
-                            $admin->name = $req->name;
-                            $admin->email = $req->email;
-                            $admin->password = $req->password;
-                        
-                            $admin->phone = $req->phone;
-                            $admin->nid = $req->nid;
-                            $admin->dob = $req->dob;
-                            $admin->type = $req->type;
-                            //$user->user_type = "active";
-                            $admin->save();
-                
-                          
-                            return redirect('/login');
-
-
-
-
-                    }elseif($req->type =="agent"){
-
-
-                        
-                        $agent = new Agent;
         
+<<<<<<< HEAD
                         $agent->balance = 10;
                         $agent->name = $req->name;
                         $agent->email = $req->email;
@@ -311,3 +233,6 @@ class RegisterController extends Controller
             
         }
 }
+=======
+}
+>>>>>>> customer

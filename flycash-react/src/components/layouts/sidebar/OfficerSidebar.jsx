@@ -50,12 +50,21 @@ const CustomersSidebar = () => {
             </div>
           </li>
 
+<<<<<<< HEAD
           {/* <li>
             <Link to="#">
               <i className="tim-icons icon-single-02"></i>
               <p>Profile</p>
             </Link>
           </li> */}
+=======
+          <li>
+            <Link to="/view-profile">
+              <i className="tim-icons icon-single-02"></i>
+              <p>Profile</p>
+            </Link>
+          </li>
+>>>>>>> customer
           {/* <li>
             <Link to="#-">
               <i className="tim-icons icon-notes"></i>

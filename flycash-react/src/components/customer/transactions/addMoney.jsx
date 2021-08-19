@@ -28,6 +28,7 @@ const AddMoney = (props) => {
       type: "",
     });
     const [msg, setMsg] = useState(" ");
+    const [cls, setCls] = useState("");
     const [error, setError] = useState(" ");
     //const [error, seterror] = useState(" ");
     const handleInputChange = (e) => {
@@ -53,6 +54,7 @@ const AddMoney = (props) => {
                 phone:'',
                 amount:'',
                 password:'' })
+                setCls("alert alert-success alert-dismissible fade show");
                 setUserSession(email,res.data.user_status);
                 setNotify({
                   isOpen: true,
@@ -72,6 +74,7 @@ const AddMoney = (props) => {
                 amount:'',
                 password:'' })
                 //setUserSession(email,res.data.user_status);
+                setCls("alert alert-danger alert-dismissible fade show");
                 setNotify({
                   isOpen: true,
                   messages: res.data.message,
@@ -111,7 +114,7 @@ const AddMoney = (props) => {
                         ></img>
                       </a>
                       <h3>{transaction_type}</h3>
-                      <span  role="alert">
+                      <span  className={cls}>
                             {msg}
                         </span>
                     </div>

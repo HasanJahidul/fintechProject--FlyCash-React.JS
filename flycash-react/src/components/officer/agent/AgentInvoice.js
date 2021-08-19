@@ -1,11 +1,11 @@
+import axios from 'axios';
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../../../App.css";
 import logo from "../../../black/img/flycash.png";
 import { getUser } from "../../auth/connect/getSession";
 import Navbar from "../../layouts/navbars/OfficerNavbar";
 import SideNav from "../../layouts/sidebar/OfficerSidebar";
-import axios from 'axios';
-import { useHistory, Link } from "react-router-dom";
 
 
 const TransactionList = () => {
@@ -28,8 +28,7 @@ const TransactionList = () => {
         
         if (res.data.status === 200) {
             setCustomersTransaction(res.data.agents)
-        }
-            
+        }  
     }
 
      useEffect(() => {

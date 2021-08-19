@@ -89,9 +89,9 @@ class AgentEdit extends Component {
                     <div class="card ">
                     <div class="card-header">
 
-                        <h4>Customer Edit Page</h4>
+                        <h4>Agent Edit Page</h4>
                     </div>
-
+                    <Link to={'/show-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
                         <div className="card-body">
 
                            
@@ -113,12 +113,11 @@ class AgentEdit extends Component {
                                 <lebel>Type</lebel>
                                 <input type="text" name="type" value={this.state.type} className="form-control"  onChange={this.handleInput}/>
                             </div>
+                            <button type="submit" id="updatebtn"className="btn btn-primary btn-sm float-end">Update</button>
                             </form>
                         </div>
                     </div>
                 </div>
-                    <button type="submit" id="updatebtn"className="btn btn-primary btn-sm float-end">Update</button>
-                    <Link to={'/show-agent'} className="btn btn-primary btn-sm float-end">Back</Link>
                 </div>
             </div>
             </div>

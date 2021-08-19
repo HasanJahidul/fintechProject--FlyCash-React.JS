@@ -40,7 +40,7 @@ function OfficerDashboard() {
                             <div className="col-sm-6 text-left">
                             <h2 className="card-title">DASHBOARD</h2>
                             <h4 className="card-title">Welcome to communication officer</h4>
-                            <h5>{user.id}</h5>
+                            <h5>{user.email}</h5>
                             <input type="button" value="Logout" onClick={handleLogout}/>
                             </div>
                         </div>

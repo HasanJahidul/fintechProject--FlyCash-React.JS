@@ -5,13 +5,17 @@ import "../../../App.css";
 import SideNav from "../../layouts/sidebar/OfficerSidebar";
 import Navbar from "../../layouts/navbars/OfficerNavbar";
 import axios from 'axios';
+import swal from 'sweetalert';
+import { getUser } from "../../auth/connect/getSession";
 
 const AgentDeatils = () => {
+
+    const user = getUser();
 
     const history = useHistory();
     const [event, setAgents] = useState([]);
     const [search, setSearch] = useState("");
-    //const [isAgents, setAgents] = useState([]);
+    const [block, setAgentsBlock] = useState([]);
 
     const mount= async()=>{
 
@@ -23,22 +27,37 @@ const AgentDeatils = () => {
         
         if (res.data.status === 200) {
             setAgents(res.data.agents)
-        }
             
+        }   
     }
-    // const deleteAgents = (e) => {
-    //     console.log("deleted");
-    //       setTimeout(() => { history.push('/agent/agentsList'); }, 1000);
+
+
+    // const agentsBlock= async()=>{
+
+    //     const res = await axios.get(`http://localhost:8000/api/agent-blockuser`);
+
+    //     console.log(res.data);
+
+    //     //var data = res.data.agents;
+        
+    //     if (res.data.status === 200) {
+    //         setAgentsBlock(res.data.updates)
+
+    //         swal({
+    //             title: "Updated!",
+    //             text: res.data.message,
+    //             icon: "success",
+    //             button: "OK!",
+    //           });
+    //     }
     // }
+
+
      useEffect(() => {
         mount();
+        //agentsBlock();
         
      }, []);
-     
-    // const searchAgents = async (e) => {
-    //     e.preventDefault();
-    //     const res = await axios.get('http://localhost:8000/api/agentList');
-    // }
 
     return (
         <div>
@@ -78,6 +97,7 @@ const AgentDeatils = () => {
                                         <th>Type</th>
                                         <th>View</th>
                                         <th>Edit</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
         
@@ -93,6 +113,12 @@ const AgentDeatils = () => {
                                             }
 
                                             }).map((e) => {
+                                            
+                                            if(e.transaction_status==='unblocked'){
+                                                var check='Blocked';
+                                            }else if(e.transaction_status==='blocked'){
+                                                var check='Unblocked';
+                                            }
 
                                             return (
                                                 <tr key={e.id} >
@@ -106,16 +132,15 @@ const AgentDeatils = () => {
                                                     <td>{e.transaction_status}</td>
                                                     <td>{e.type}</td>
 
-                                                    {/* <td>
-                                                        {e.eventType === 2 ? 'Normal Event' : `${e.targetMoney}$`}
-                                                        </td>
-                                                    <td>{e.eventType ===1 ? 'Normal Event' : 'Volunteer Event'}</td> */}
-
                                                     <td>
                                                         <Link to={`details-agent/${e.id}`} className="btn btn-success btn-sm">View</Link>
                                                     </td>
                                                     <td>
                                                         <Link to={`edit-agent/${e.id}`} className="btn btn-success btn-sm">Edit</Link>
+                                                    </td>
+                                                    <td>
+                                                        <Link to={`${e.id}`} className="btn btn-success btn-sm"> {check}</Link>
+                                                        {/* {check} */}
                                                     </td>
                                                 </tr>
                                             );
