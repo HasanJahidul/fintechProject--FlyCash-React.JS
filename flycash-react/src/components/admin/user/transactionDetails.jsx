@@ -1,80 +1,78 @@
 import React, { useEffect, useState } from "react";
 import "../../../App.css";
-import Footer from "../../layouts/footer";
-import NavBar from "../../layouts/navbars/CustomerNavbar";
+import AdminNavbar from "../../layouts/navbars/AdminNavbar";
 import AdminsSidebar from "../../layouts/sidebar/adminsSidebar";
-// import TransactionTableRow from "./transactionListTable";
-import { Link } from "react-router-dom";
+// import logo from "../../../black/img/flycash.png";
 
 const TransactionDetails = () => {
-  const TransactionTableRow = ({ name, email, phone, nid }) => {
+  const TableRow = ({ phone, transaction_type, date, amount, balance }) => {
     return (
       <tbody>
         <tr>
-          <th>{name}</th>
-          <th>{email}</th>
           <th>{phone}</th>
-          <th>{nid}</th>
-          <th className="btn btn-fill btn-primary" align="center">
-            <Link to="/admin-TransactionDetails">
-              <i className="tim-icons icon-chart-pie-36"></i>
-              <p>Transaction Details</p>
-            </Link>
-          </th>
+          <th>{transaction_type}</th>
+          <th>{amount}</th>
+          <th>{balance}</th>
+          <th>{date}</th>
         </tr>
       </tbody>
     );
   };
-  const [customerList, setAllCustomer] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:8000/api/admin/customerList").then((response) => {
-      response.json().then((result) => {
-        setAllCustomer(result);
-      });
-    });
-  }, []);
+  // const user = getUser();
+  // let today = new Date();
+
+  // let date =
+  //   today.getDate() +
+  //   "-" +
+  //   parseInt(today.getMonth() + 1) +
+  //   "-" +
+  //   today.getFullYear();
+
+  // const [transList, setTransactionList] = useState([]);
+  // useEffect(() => {
+  //   fetch("http://localhost:8000/api/agent/AgentTransactionlist").then(
+  //     (response) => {
+  //       response.json().then((result) => {
+  //         setTransactionList(result);
+  //       });
+  //     }
+  //   );
+  // }, []);
   return (
-    <div>
-      <div className="wrapper">
-        <AdminsSidebar />
-        <div className="main-panel ps">
-          <NavBar />
-          <div className="content">
-            <div class="row" style={{ right: "500px" }}>
-              <div class="col-md-12">
-                <div class="card ">
-                  <div class="card-header">
-                    <h1 class="card-title" align="center">
-                      {" "}
-                      Transaction
-                    </h1>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive-lg">
-                      <table class="table tablesorter " id="">
-                        <thead class=" text-primary">
-                          <tr>
-                            <th>Email</th>
-                            <th>Phone </th>
-                            <th>Transaction Type</th>
-                            <th>Amount</th>
+    <div className="pdf">
+      <AdminsSidebar />
+      <div className="main-panel ps">
+        <AdminNavbar />
+        <div className="content">
+          <div class="row" style={{ right: "500px" }}>
+            <div class="col-md-12">
+              <div class="card ">
+                <div class="card-header">
+                  <h3 class="card-title"> Translation List</h3>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive-lg">
+                    <table class="table tablesorter " id="">
+                      <thead class=" text-primary">
+                        <tr>
+                          <th>Account Number</th>
+                          <th>Transaction Type</th>
+                          <th>Transaction Amount</th>
+                          <th>Current Balance</th>
+                          <th>Date</th>
+                        </tr>
+                      </thead>
 
-                            <th>Balance</th>
-                          </tr>
-                        </thead>
-
-                        {customerList.map((u) => {
-                          return <TransactionTableRow key={u.id} {...u} />;
-                        })}
-                      </table>
-                    </div>
+                      {/* {transList.map((u) => {
+                        return <TableRow key={u.id} {...u} />;
+                      })} */}
+                    </table>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     </div>
   );

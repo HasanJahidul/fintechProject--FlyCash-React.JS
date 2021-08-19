@@ -1,22 +1,38 @@
 //import "../../../black/css/black-dashboard.css";
 // import "../../App.css";
+import React from "react";
+import { useState, useEffect } from "react";
+import { useHistory, Link } from "react-router-dom";
+import { Button } from "reactstrap";
+import axios from "axios";
 
-import { Link } from "react-router-dom";
-
-const TableRow = ({ name, email, phone, nid }) => {
+const TableRow = ({ name, email, phone, nid, transaction_status }) => {
+  var buttonName = "";
+  if (transaction_status == "blocked") {
+    buttonName = "Unblock";
+  } else {
+    buttonName = "Block";
+  }
   return (
     <tbody>
       <tr>
         <th>{name}</th>
         <th>{email}</th>
-        <th className="text-center">{phone}</th>
-        <th className="text-center">{nid}</th>
-        <th className="btn btn-fill btn-primary">
-          <Link to="/customer-dashboard">
-            <i className="tim-icons icon-chart-pie-36"></i>
-            <p>Details</p>
-          </Link>
-        </th>
+        <th>{phone}</th>
+        <th>{nid}</th>
+        <td>
+          <Link
+            to={`/admin-editCustomer/${email}`}
+            className="btn btn-success btn-sm"
+          >
+            Edit
+          </Link>{" "}
+        </td>
+        <td>
+          <button className="btn btn-primary btn-sm float-end">
+            {buttonName}
+          </button>
+        </td>
       </tr>
     </tbody>
   );

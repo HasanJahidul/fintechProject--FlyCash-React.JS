@@ -27,7 +27,7 @@ const BlockCustomer = () => {
                   <div class="card-header">
                     <h1 class="card-title" align="center">
                       {" "}
-                      Customer List
+                      Customer Action{" "}
                     </h1>
                   </div>
                   <div class="card-body">
@@ -35,11 +35,11 @@ const BlockCustomer = () => {
                       <table class="table tablesorter " id="">
                         <thead class=" text-primary">
                           <tr>
-                            <th class="text-center">name</th>
-                            <th class="text-center">Email</th>
-                            <th class="text-center">Phone </th>
-                            <th class="text-center">Nid</th>
-                            <th class="text-center">Action</th>
+                            <th>name</th>
+                            <th>Email</th>
+                            <th>Phone </th>
+                            <th>Nid</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
 

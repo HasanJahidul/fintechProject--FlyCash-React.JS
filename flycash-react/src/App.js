@@ -11,8 +11,8 @@ import paymentPNG from "./black/img/icons/payment.png";
 import rechargePNG from "./black/img/icons/recharge.png";
 import sendPNG from "./black/img/icons/sendmoney.png";
 import donatePNG from "./black/img/icons/donate.png";
-import Login from "./components/auth/login";
-import Register from "./components/auth/register";
+// import Login from "./components/auth/login";
+// import Register from "./components/auth/register";
 import Dashboard from "./components/customer/Dashboard";
 import Password from "./components/customer/Password";
 import Profile from "./components/customer/profile";
@@ -44,6 +44,7 @@ import OfficerList from "./components/admin/officer/officerList";
 
 import CustomerTransactionList from "./components/admin/user/customerTransactionList";
 import CustomerList from "./components/admin/user/customerList";
+import CustomerEdit from "./components/admin/user/editCustomer";
 
 function App() {
   //========================= CUSTOMER ===========================================
@@ -77,12 +78,12 @@ function App() {
           <Route exact path="/">
             <Welcome />
           </Route>
-          <Route exact path="/register">
+          {/* <Route exact path="/register">
             <Register />
           </Route>
           <Route exact path="/login">
             <Login />
-          </Route>
+          </Route> */}
           <Route exact path="/customer-dashboard">
             <Dashboard />
           </Route>
@@ -218,6 +219,10 @@ function App() {
             <BlockCustomer />
           </Route>
 
+          <Route exact path="/admin-editCustomer/:email">
+            <CustomerEdit />
+          </Route>
+
           <Route exact path="/admin-transactionDetails">
             <TransactionDetails />
           </Route>
@@ -234,18 +239,18 @@ function App() {
             <OfficerList />
           </Route>
 
-          <Route exact path="/admin-userTransactionList">
+          <Route exact path="/admin-customerTransactionList">
             <CustomerTransactionList />
           </Route>
 
           <Route
             exact
-            path="/admin-addUser"
+            path="/admin-addCustomer"
             children={
               <AdminRegister
                 status="Add Customer"
-                type="User"
-                buttonName="Add User"
+                type="customer"
+                buttonName="Add Customer"
               />
             }
           ></Route>
@@ -256,7 +261,7 @@ function App() {
             children={
               <AdminRegister
                 status="Add Agent"
-                type="Agent"
+                type="agent"
                 buttonName="Add Agent"
               />
             }
@@ -268,7 +273,7 @@ function App() {
             children={
               <AdminRegister
                 status="Add Officer"
-                type="Officer"
+                type="officer"
                 buttonName="Add Officer"
               />
             }

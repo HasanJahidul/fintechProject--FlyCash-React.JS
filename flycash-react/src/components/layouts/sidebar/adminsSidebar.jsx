@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-//import "../../../black/css/black-dashboard.css";
 import "../../../App.css";
 import logo from "../../../black/img/flycash.png";
 
@@ -11,51 +10,51 @@ const AdminsSidebar = () => {
       <div className="sidebar-wrapper ps ps--active-y">
         <div className="logo">
           <img src={logo} alt=""></img>
-          <Link to="/customer-dashboard" className="simple-text logo-normal">
+          <Link to="/admin-dashboard" className="simple-text logo-normal">
             Dashboard
           </Link>
         </div>
 
         <ul className="nav">
           <li>
-            <Link to="{{ route('customer_home'">
+            <Link to="/admin-dashboard">
               <i className="tim-icons icon-chart-pie-36"></i>
-              <p>Dashboard</p>
+              <p>Features</p>
             </Link>
           </li>
           <li>
             <div className="collapse show">
               <ul className="nav pl-4">
                 <li>
-                  <Link to="/customer/add-money">
+                  <Link to="/admin-addCustomer">
                     <i className="tim-icons icon-coins"></i>
 
-                    <p>Add User</p>
+                    <p>Add Customer</p>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/customer/send-money">
+                  <Link to="/admin-addCampaign">
                     <i className="tim-icons icon-send"></i>
                     <p>Add Campaign</p>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/customer/cash-out">
+                  <Link to="/admin-agentList">
                     <i className="tim-icons icon-money-coins"></i>
-                    <p>Add Officer</p>
+                    <p>Agent List</p>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/customer/payment">
+                  <Link to="/admin-addMoney">
                     <i className="tim-icons icon-credit-card"></i>
                     <p>Add Money</p>
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/customer/mobile-recharge">
+                  <Link to="/admin-customerTransactionList">
                     <i className="tim-icons icon-mobile"></i>
-                    <p>Chat</p>
+                    <p>TransactionList</p>
                   </Link>
                 </li>
                 <li>

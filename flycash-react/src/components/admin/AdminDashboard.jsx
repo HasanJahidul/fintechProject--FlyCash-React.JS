@@ -139,7 +139,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link to="/admin-addUser">
+                          <Link to="/admin-addCustomer">
                             <img src={addUserPNG}></img>
                             <div className="picname">
                               <h4>Add Customer</h4>
@@ -214,7 +214,7 @@ function AdminDashboard() {
                     <div className="font-icon-detail">
                       <div className="d-flex justify-content-center">
                         <div className="pic">
-                          <Link href="{{ route('discount-code') }}">
+                          <Link to="/admin-customerTransactionList">
                             <img src={transactionHistoyPNG}></img>
                             <div className="picname">
                               <h4>Transaction List</h4>
