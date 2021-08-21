@@ -37,20 +37,24 @@ const Login  =() => {
             if(data.type=="customer"){
              
 <<<<<<< HEAD
+<<<<<<< HEAD
                 setUserSession(data.email,data);
 =======
                  setUserSession(data.email,data);
 >>>>>>> officer
+=======
+                 setUserSession(data.email,data);
+>>>>>>> customer
                 history.push('/customer-dashboard');
             }
             // else if(response.data.agents.type=="#"){
             //     setUserSession(response.data.token, response.data.user);
             //     history.push('#');
             // }
-            // else if(response.data.admins.type=="#"){
-            //     setUserSession(response.data.token, response.data.user);
-            //     history.push('#');
-            // }
+            else if(data.type=="admin"){
+                setUserSession(data.email,data);
+                history.push('/customer-dashboard');
+            }
             else if(data.type=="officer"){
                 setUserSession(data.email,data);
                 history.push('/officer-dashboard');

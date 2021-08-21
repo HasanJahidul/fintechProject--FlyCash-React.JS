@@ -45,10 +45,14 @@ class CustomerController extends Controller
     }
 =======
     
+<<<<<<< HEAD
 >>>>>>> customer
 // ============================ End Edit ====================================
 
     public function update(Request $req, $id)
+=======
+    public function updateCustomer(Request $req)
+>>>>>>> customer
     {
         $customer = Customer::find($id);
         
@@ -74,6 +78,77 @@ class CustomerController extends Controller
         
         return view('pages.officer.customer.delete')->with('user', $users);
 =======
+            if ($validator->fails()) {
+                return response()->json([
+                    'error'=> $validator->errors(),
+                ]);
+            }else{
+                $customer= Customer::where('email',$req->email)
+                ->first();
+                $customer->phone = $req->phone;
+                $customer->name = $req->name;
+                $customer->save();
+                if($customer){
+                    $newData = Customer::where('email', $req->email)
+                    ->first();
+                    return response()->json([
+                        'status' => 200,
+                        'user_status' => $newData,
+                        'message' => "Profile Updated",
+                    ]);
+                }
+                else{
+                    return response()->json([
+                        'status' => 240,
+                        'message' => "Error",
+                    ]);
+
+                }
+            }
+       
+    }
+    public function upload(Request $req)
+    {
+        //$customer= Customer::all(); //change Officer to (Customer)->tablename
+        //$customer = DB::table('customerstransactions')->where('email', '=', $email)->get();
+
+        //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
+
+        // return response()->json([
+        //     'status' => 200,
+        //     'customers' => $req->data
+        // ]);
+        //$newName= $random().'.'.$req->data->getClientOriginalExtension();
+        //$newName=$req->file('data')->getClientOriginalName();
+    //     $fielnames = $request->input('name');
+    //   $email = $request->input('email');
+    //   $filepath = $request->file('file')->store('products');
+       
+    //   $upload=DB::table('image')->insert([
+    //         'name' =>  $fielnames ,
+    //         'img_path' => $filepath,
+    //         'email'=> $email
+    //       ]); 
+    //       if($upload)
+    //       {
+    //         return response()->json($upload);
+
+    //       }else{
+    //         return response()->json($upload);
+    //       }
+          return response()->json($upload);
+    }
+// ============================ End Edit ====================================
+
+    public function update(Request $req, $id)
+    {
+        $customer = Customer::find($id);
+        
+        $customer->phone = $req->input('phone');
+        $customer->nid = $req->input('nid');
+        $customer->dob = $req->input('dob');
+        $customer->type = $req->input('type');
+
             if ($validator->fails()) {
                 return response()->json([
                     'error'=> $validator->errors(),
@@ -141,6 +216,7 @@ class CustomerController extends Controller
     }
 // ============================ End Edit ====================================
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 //===========================Officer get transaction for customer=================================
 
@@ -241,6 +317,9 @@ class CustomerController extends Controller
         ]);
     }
 
+=======
+  
+>>>>>>> customer
 
 //===========================Officer get transaction for customer=================================
 
