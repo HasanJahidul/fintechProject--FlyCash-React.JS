@@ -1,6 +1,9 @@
-import React from "react";
-import SideNav from "../layouts/sidebar/agentsSidebar";
-import Navbar from "../layouts/navbars/AgentNavbar";
+import React, { useState} from "react";
+import { useHistory } from "react-router-dom";
+import AgentSideNav from "../layouts/sidebar/agentsSidebar";
+import AgentNavbar from "../layouts/navbars/AgentNavbar";
+import { getUser, setUserSession } from "../auth/connect/getSession";
+import axios from "axios";
 // reactstrap components
 import {
   Button,
@@ -17,17 +20,86 @@ import {
 } from "reactstrap";
 
 const AgentProfile = () => {
+  const user = getUser();
+
+  const history = useHistory();
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+  const [profile, setProfile] = useState({
+    phone: "",
+    name: "",
+  });
+  
+  const [msg, setMsg] = useState(" ");
+  const [error, setError] = useState(" ");
+  //const [error, seterror] = useState(" ");
+  const handleInputChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setProfile({ ...profile, [name]: [value] });
+    console.log(name, value);
+  };
+  const updateAgentProfile = async (e) => {
+    e.preventDefault();
+    const phone = profile.phone.toString();
+    const name = profile.name.toString();
+    const email = user.email.toString();
+    const res = await axios.post("http://localhost:8000/api/agent/AgentProfile", {
+      name: name,
+      phone: phone,
+      email: email,
+    });
+    // { profile_type: profile_type,phone: phone,amount:amount,password:password,email:email}
+    if (res.data.status === 200) {
+      setNotify({
+        isOpen: true,
+        messages: res.data.message,
+        type: "success",
+      });
+
+      setMsg(res.data.message);
+
+      console.log(res.data.data);
+      setProfile({ phone: "", name: "" });
+
+      setUserSession(res.data.user_status.email, res.data.user_status);
+
+      //setTimeout(() => { history.push('/customer-profile'); }, 3000);
+    } else if (res.data.status === 240) {
+      setMsg(res.data.message);
+      //console.log(res.data.data);
+      setProfile({
+        phone: "",
+        name: "",
+      });
+      setNotify({
+        isOpen: true,
+        messages: res.data.message,
+        type: "error",
+      });
+      //setUserSession(email,res.data.user_status);
+    } else {
+      setError(res.data.error);
+      console.log(error);
+    }
+    e.stopPropagation();
+  };
   return (
     <>
       <div className="main-panel ps">
-        <SideNav />
-        <Navbar />
+        <AgentSideNav />
+        <AgentNavbar />
         <div className="content">
           <Row>
             <Col md="8">
               <Card>
+              <form onSubmit={updateAgentProfile}>
                 <CardHeader>
                   <h2 className="title">Edit Profile</h2>
+                  <spam role="alert">{msg}</spam>
                 </CardHeader>
                 <CardBody>
                   <Form>
@@ -37,24 +109,14 @@ const AgentProfile = () => {
                         <FormGroup>
                           <label>Name</label>
                           <Input
-                            defaultValue="Md. Sabbir Hossain Borno"
-                            placeholder="Enter Your Name"
+                            name="name"
+                            defaultValue={user.name}
+                            placeholder="Name"
                             type="text"
+                            onChange={handleInputChange}
                           />
                         </FormGroup>
-                      </Col>
-                    </Row>
-
-                    <Row>
-                      <Col className="pr-md-1" md="5">
-                        <FormGroup>
-                          <label>Email</label>
-                          <Input
-                            defaultValue="Borno@gmail.com"
-                            placeholder="Enter Your Email"
-                            type="email"
-                          />
-                        </FormGroup>
+                        <span className="text-danger"> {error.name}</span>
                       </Col>
                     </Row>
 
@@ -63,11 +125,14 @@ const AgentProfile = () => {
                         <FormGroup>
                           <label>Mobile Number</label>
                           <Input
-                            defaultValue="+8801716653557"
-                            placeholder="Enter Your Mobile Number"
+                            name="phone"
+                            defaultValue={user.phone}
+                            placeholder="Phone NUmber"
                             type="text"
+                            onChange={handleInputChange}
                           />
                         </FormGroup>
+                        <span className="text-danger"> {error.phone}</span>
                       </Col>
                     </Row>
                     
@@ -81,6 +146,7 @@ const AgentProfile = () => {
                     Save
                   </Button>
                 </CardFooter>
+                </form>
               </Card>
             </Col>
             <Col md="4">
@@ -96,9 +162,9 @@ const AgentProfile = () => {
                       <img
                         alt="..."
                         className="avatar"
-                        src={require("../../black/img/anime6.png").default}
+                        src={require("../../black/img/agent/anime6.png").default}
                       />
-                      <h4 className="title">Md, Sabbir Hossain Borno</h4>
+                      <h4 className="title">{user.name}</h4>
                     </a>
                     <h3 className="description">Agent</h3>
                   </div>
@@ -108,7 +174,7 @@ const AgentProfile = () => {
                   </div>
                 </CardBody>
                 <CardFooter>
-                  <div className="button-container">
+                  {/* <div className="button-container">
                     <Button className="btn-icon btn-round" color="facebook">
                       <i className="fab fa-facebook" />
                     </Button>
@@ -118,7 +184,7 @@ const AgentProfile = () => {
                     <Button className="btn-icon btn-round" color="google">
                       <i className="fab fa-google-plus" />
                     </Button>
-                  </div>
+                  </div> */}
                 </CardFooter>
               </Card>
             </Col>

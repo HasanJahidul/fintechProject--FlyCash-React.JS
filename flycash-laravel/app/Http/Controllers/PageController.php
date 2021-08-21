@@ -4,17 +4,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Customerstransaction;
 use App\Models\Customer;
+use App\Models\Agentstransaction;
+use App\Models\Agent;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class PageController extends Controller
 {
-    /**
-     * Display icons page
-     *
-     * @return \Illuminate\View\View
-     */
     public function icons()
     {
         return view('pages.customer.icons');

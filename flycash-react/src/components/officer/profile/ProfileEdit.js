@@ -1,10 +1,12 @@
-import axios from 'axios';
 import React, { Component } from 'react'
+import "../../../App.css";
+import SideNav from "../../layouts/sidebar/OfficerSidebar";
+import Navbar from "../../layouts/navbars/OfficerNavbar";
 import { Link } from 'react-router-dom'
-
+import axios from 'axios';
 import swal from 'sweetalert';
 
-class ProfileEdit extends Component{
+class ProfileEdit extends Component {
 
     state = {
         name:'',
@@ -76,58 +78,78 @@ class ProfileEdit extends Component{
         }
     }
 
+//======================================================================
+
     render(){
-        return(
-            <div ClassName="main-container">
-                <div ClassName="row">
-                    <div className="col-md-6">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Edit Officer Page
-                                    <Link to={'/view-profile'} className="btn btn-primary btn-sm float-end">Back</Link>
-                                </h4>
-                            </div>
 
-                            <div className="card-body">
+        return (
+            <div>
+            <div className="wrapper">
+            <SideNav />
+            <div className="main-panel ps" >
+                <Navbar />
+            <div className= "content">
+                <div class="row" style={{ right: "500px" }}>
+                <div class="col-md-12">
+                    <div class="card ">
+                    <div class="card-header">
 
-                                <form onSubmit={this.updateOfficer}>
+                        <h4>Officer Edit Page</h4>
+<<<<<<< HEAD
+                    </div>
 
-                                    <div className="form-group mb-3">
-                                        <lebel>Name</lebel>
-                                        <input type="text" name="name" value={this.state.name} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <lebel>Email</lebel>
-                                        <input type="text" name="email" value={this.state.email} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <lebel>Phone</lebel>
-                                        <input type="text" name="phone" value={this.state.phone} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <lebel>NID</lebel>
-                                        <input type="text" name="nid" value={this.state.nid} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <lebel>DOB</lebel>
-                                        <input type="text" name="dob" value={this.state.dob} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <lebel>Type</lebel>
-                                        <input type="text" name="type" value={this.state.type} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
+=======
+                    </div>  
+                    <Link to={'/view-profile'} className="btn btn-primary btn-sm float-end">Back</Link>
+>>>>>>> customer
+                        <div className="card-body">
 
-                                    <div className="form-group mb-3">
-                                        <button type="submit" id="updatebtn" className="btn btn-primary">Update</button>
-                                    </div>
-                                </form>
-                            </div>
+                            <form onSubmit={this.updateOfficer}>
+
+                                <div className="form-group mb-3">
+                                    <lebel>Name</lebel>
+                                    <input type="text" name="name" value={this.state.name} className="form-control"  onChange={this.handleInput}/>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <lebel>Email</lebel>
+                                    <input type="text" name="email" value={this.state.email} className="form-control"  onChange={this.handleInput}/>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <lebel>Phone</lebel>
+                                    <input type="text" name="phone" value={this.state.phone} className="form-control"  onChange={this.handleInput}/>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <lebel>NID</lebel>
+                                    <input type="text" name="nid" value={this.state.nid} className="form-control"  onChange={this.handleInput}/>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <lebel>DOB</lebel>
+                                    <input type="text" name="dob" value={this.state.dob} className="form-control"  onChange={this.handleInput}/>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <lebel>Type</lebel>
+                                    <input type="text" name="type" value={this.state.type} className="form-control"  onChange={this.handleInput}/>
+                                </div>
+<<<<<<< HEAD
+=======
+                                <button type="submit" id="updatebtn" className="btn btn-primary btn-sm float-end">Update</button>
+>>>>>>> customer
+                            </form>
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+                    <button type="submit" id="updatebtn" className="btn btn-primary btn-sm float-end">Update</button>
+                    <Link to={'/view-profile'} className="btn btn-primary btn-sm float-end">Back</Link>
+=======
+                    
+>>>>>>> customer
+                </div>
+            </div>
+            </div>
+            </div>
             </div>
         );
     }
-}
-
+};
 export default ProfileEdit;

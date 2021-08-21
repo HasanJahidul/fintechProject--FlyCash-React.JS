@@ -17,6 +17,9 @@ import { getUser, removeUserSession } from "../auth/connect/getSession";
 
 
 function AgentDashboard() {
+
+  const user = getUser();
+
   return (
     
       
@@ -34,7 +37,9 @@ function AgentDashboard() {
                   <div className="row">
                     <div className="col-sm-6 text-left">
                       <h2 className="card-title">DASHBOARD</h2>
-                      <h4 className="card-title">Balance : 5000</h4>
+                      <h4 className="card-title">Balance : {user.balance} TK</h4>
+                      <h4 className="card-title">Profit : {user.profit} TK</h4>
+                      {/* {user.balance} */}
                     </div>
                   </div>
                 </div>
@@ -89,7 +94,7 @@ function AgentDashboard() {
                           <Link to="/agent-agentadduser">
                               <img src={adduserAGN}></img>
                               <div className="picname">
-                                <h4>ADD USER</h4>
+                                <h4>ADD CUSTOMER</h4>
                               </div>
                             </Link>
                           </div>

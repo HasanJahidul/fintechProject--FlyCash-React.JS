@@ -66,7 +66,7 @@ return (
                     <img
                         alt="..."
                         className="avatar"
-                        src={require("../../black/img/anime6.png").default}
+                        src={require("../../black/img/agent/anime6.png").default}
                     />
                     <h4 className="title">Md, Sabbir Hossain Borno</h4>
                     </a>
@@ -78,7 +78,7 @@ return (
                 </div>
                 </CardBody>
                 <CardFooter>
-                <div className="button-container">
+                {/* <div className="button-container">
                     <Button className="btn-icon btn-round" color="facebook">
                     <i className="fab fa-facebook" />
                     </Button>
@@ -88,7 +88,7 @@ return (
                     <Button className="btn-icon btn-round" color="google">
                     <i className="fab fa-google-plus" />
                     </Button>
-                </div>
+                </div> */}
                 </CardFooter>
             </Card>
             </Col>

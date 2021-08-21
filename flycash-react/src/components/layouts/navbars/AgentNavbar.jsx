@@ -22,7 +22,17 @@ import {
   UncontrolledDropdown,
 } from "reactstrap";
 
+import { useHistory } from "react-router-dom";
+import { removeUserSession } from "../../auth/connect/getSession";
+
 function AgentNavbar(props) {
+
+  let history = useHistory();
+  const handleLogout = () => {
+  removeUserSession();
+  history.push('/login');
+  }
+
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
@@ -99,31 +109,45 @@ function AgentNavbar(props) {
                   <p className="d-lg-none">Notifications</p>
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
+                <Link to="/agent/agent-transactionlist">
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
-                      Mike John responded to your email
+                      500 Tk Mobile Recharge Done. 
                     </DropdownItem>
                   </NavLink>
+                  </Link>
+
+                  <Link to="/agent/agent-transactionlist">
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
-                      You have 5 more tasks
+                      Payment Tk 500 To Electric Bill Is Successful.
                     </DropdownItem>
                   </NavLink>
+                  </Link>
+
+                  <Link to="/agent/agent-transactionlist">
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
-                      Your friend Michael is in town
+                      You Have Received 500 Tk From Flycash.
                     </DropdownItem>
                   </NavLink>
+                  </Link>
+
+                  <Link to="/agent/agent-transactionlist">
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
-                      Another notification
+                      Cash In Tk 500 From 01716653557 Successful.
                     </DropdownItem>
                   </NavLink>
+                  </Link>
+
+                  <Link to="/agent/agent-transactionlist">
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
-                      Another one
+                    Payment Tk 500 To Water Bill Is Successful.
                     </DropdownItem>
                   </NavLink>
+                  </Link>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <UncontrolledDropdown nav>
@@ -136,7 +160,7 @@ function AgentNavbar(props) {
                   <div className="photo">
                     <img
                       alt="..."
-                      src={require("../../../black/img/anime3.png").default}
+                      src={require("../../../black/img/agent/anime3.png").default}
                     />
                   </div>
                   <b className="caret d-none d-lg-block d-xl-block" />
@@ -157,7 +181,7 @@ function AgentNavbar(props) {
                   </NavLink>
                   <DropdownItem divider tag="li" />
                   <NavLink tag="li">
-                    <DropdownItem className="nav-item">Log out</DropdownItem>
+                    <DropdownItem className="nav-item" onClick={handleLogout} >Log out</DropdownItem>
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>

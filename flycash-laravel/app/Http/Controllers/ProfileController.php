@@ -1,69 +1,54 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Officer;
+use Illuminate\Support\Facades\DB; //Import query builser 
 
-use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\ProfileRequest;
-use App\Http\Requests\PasswordRequest;
-
-use App\Models\Customer;
-
-use App\Http\Requests\EditProfileRequest;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    /**
-     * Show the form for editing the profile.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit(Officer $profile)
+    public function index()
     {
-        $users= Officer::find($profile);
+        $profile= Officer::all(); 
 
-        return view('pages.officer.profile.edit')->with('user', $users);
+        return response()->json([
+            'status' => 200,
+            'profiles' => $profile
+        ]);
     }
+    // ============================ End Insert ====================================
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Officer  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $req, Officer $profile)
+    public function edit($id){
+
+        $profile= Officer::find($id);
+
+        return response()->json([
+            'status' => 200,
+            'profiles' => $profile,
+        ]);
+    }
+// ============================ End Edit ====================================
+
+    public function update(Request $req,$id)
     {
-        $users = Officer::find($profile);
+        $profile = Officer::find($id);
         
-        // $file = $req->file('image');
-        // $imageName=time().".".$file->extension();
-        // $file->move(public_path('upload'),$imageName);
+        $profile->name = $req->input('name');
+        $profile->email = $req->input('email');
+        $profile->phone = $req->input('phone');
+        $profile->nid = $req->input('nid');
+        $profile->dob = $req->input('dob');
+        $profile->type = $req->input('type');
 
-        $users->name = $req->name;
-        // if($users->password != $req->password){
-        //     $users->password = $req->password;
-        // }
-        $users->email = $req->email;
-        $users->phone = $req->phone;
-        $users->nid = $req->nid;
-        $users->dob = $req->dob;
-        $users->type = $req->type;
-        // $users->image = $imageName;
-        $users->save();
+        $profile->update();
 
-        return back()->whit('update','Profile updated successfully');
+        return response()->json([
+            'status' => 200,
+            'message' => 'Profile Update Successfully',
+        ]);
     }
 
-    /**
-     * Change the password
-     *
-     * @param  \App\Http\Requests\PasswordRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function password(PasswordRequest $request)
-    {
-        auth()->user()->update(['password' => Hash::make($request->get('password'))]);
+// ============================ End Update ====================================
 
-        return back()->withPasswordStatus(__('Password successfully updated.'));
-    }
 }

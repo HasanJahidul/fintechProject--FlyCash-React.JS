@@ -2,30 +2,17 @@ import React, { useEffect, useState } from "react";
 import "../../../App.css";
 import AgentNavbar from "../../layouts/navbars/AgentNavbar";
 import AgentSideNav from "../../layouts/sidebar/agentsSidebar";
+import { getUser } from "../../auth/connect/getSession";
 import AgentStatementsTableRow from "./AgentStatementsTableRow";
 import logo from "../../../black/img/flycash.png";
-import { Link } from "react-router-dom";
-import moment from "moment";
 
-import { getUser, removeUserSession } from "../../auth/connect/getSession";
 
 const AgentTransactionList = () => {
   const user = getUser();
-  let email = "Joy@gmail.com"
   let today = new Date();
 
   let date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+today.getFullYear();
 
-  
-  const getTransactionList = () => {
-    fetch("http://localhost:8000/api/agent/AgentTransactionlist").then(
-      (response) => {
-        response.json().then((result) => {
-          setTransactionList(result);
-        });
-      }
-    );
-  };
   const [transList, setTransactionList] = useState([]);
   useEffect(() => {
     fetch("http://localhost:8000/api/agent/AgentTransactionlist").then(
@@ -79,6 +66,7 @@ const AgentTransactionList = () => {
                         <th>Transaction Type</th>
                         <th class="text-center">Transaction Amount</th>
                         <th class="text-center hideb">Current Balance</th>
+                        <th class="text-center hideb">Total Profit</th>
                         <th class="text-center">Date</th>
                       </tr>
                     </thead>

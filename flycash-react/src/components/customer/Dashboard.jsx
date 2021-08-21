@@ -15,7 +15,14 @@ import cashoutPNG from "../../black/img/icons/cashout.png";
 import campaignPNG from "../../black/img/icons/campaign.png";
 import comingsoonPNG from "../../black/img/icons/comingsoon.png";
 
+import { useHistory } from "react-router-dom";
+import { getUser, removeUserSession } from "../auth/connect/getSession";
+
 function Dashboard() {
+  const user = getUser();
+
+ 
+
   return (
     
       
@@ -33,7 +40,7 @@ function Dashboard() {
                   <div className="row">
                     <div className="col-sm-6 text-left">
                       <h2 className="card-title">DASHBOARD</h2>
-                      <h4 className="card-title">Balance :5000</h4>
+                      <h4 className="card-title">Balance :{user.balance}</h4>
                     </div>
                   </div>
                 </div>
@@ -176,7 +183,7 @@ function Dashboard() {
                       <div className="font-icon-detail">
                         <div className="d-flex justify-content-center">
                           <div className="pic">
-                            <Link to="/customer/statement">
+                            <Link to="/customer/statement/:email">
                               <img src={statementPNG}></img>
                               <div className="picname">
                                 <h4>Statement</h4>

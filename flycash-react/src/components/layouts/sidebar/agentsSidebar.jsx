@@ -67,9 +67,9 @@ const AgentsSidebar = () => {
           </li>
 
           <li>
-            <Link to="/agent-dashboard">
+            <Link to="/agent-campaign">
               <i className="tim-icons icon-chat-33"></i>
-              <p>CHAT</p>
+              <p>CAMPAIGN</p>
             </Link>
           </li>
 

@@ -5,11 +5,65 @@ import AgentNavbar from "../../layouts/navbars/AgentNavbar";
 import AgentSideNav from "../../layouts/sidebar/agentsSidebar";
 import { useHistory } from "react-router-dom";
 
+import axios from 'axios';
+import {setUserSession} from "../../auth/connect/getSession";
+
 
 
 const AgentAddmoneyCard = (props) => {
+
+    var email = "Borno@gmail.com";
+    var transaction_type = props.status;
     
   let history = useHistory();
+  const [transaction, setTransaction] = useState({
+        
+    phone:'',
+    amount:'',
+    password:''
+});
+const [msg, setMsg] = useState(" ");
+const handleInputChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setTransaction({  ...transaction,[name]: [value]})
+    console.log(name, value);
+    
+}
+    const agentTransaction = async (e) => {
+        e.preventDefault();
+        const phone =transaction.phone.toString();
+        const amount =transaction.amount.toString();
+        const password =transaction.password.toString();
+        const res = await axios.post('http://localhost:8000/api/transaction', { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email});
+        // { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email}
+        if (res.data.status === 200) {
+            console.log(res.data.message);
+            setMsg(res.data.message);
+            setTransaction({ event_name: '',
+            phone:'',
+            amount:'',
+            password:'' })
+
+        }
+        else if (res.data.status === 240) {
+            setMsg(res.data.message);
+            setTransaction({ transaction_type: '',
+            phone:'',
+            amount:'',
+            password:'' })
+            setUserSession(email,res.data.user_status);
+        }
+        else {
+            setMsg(res.data.message);
+            setTransaction({transaction_type: '',
+            phone:'',
+            amount:'',
+            password:''})
+        }
+        e.stopPropagation();
+    
+    }
     return (
         <div className="wrapper">
       <AgentSideNav />
@@ -19,6 +73,7 @@ const AgentAddmoneyCard = (props) => {
           <div className="d-flex justify-content-center">
             <div className="col-md-4">
               <div className="card card-user">
+              <form onSubmit={agentTransaction} >
                 <div className="card-body">
                   <p className="card-text">
                     <div className="author">
@@ -34,17 +89,20 @@ const AgentAddmoneyCard = (props) => {
                           alt="paybill"
                         ></img>
                       </a>
-                      <h3>{props.status}</h3>
+                      <h3>{transaction_type}</h3>
+                      <spam role="alert">
+                            {msg}
+                        </spam>
                     </div>
                     
                   </p>
-                  <form
+                  {/* <form
                     onSubmit={(event) => {
                       event.preventDefault();
                       AgentAddmoneyCard();
                       history.push("/customer/statement");
                     }}
-                  ></form>
+                  ></form> */}
                   
                   <label>Card Number</label>
                   <input
@@ -52,13 +110,17 @@ const AgentAddmoneyCard = (props) => {
                     name="cardNumber"
                     className="form-control"
                     placeholder="587496585841"
+                    value={transaction.cardNumber}
+                    onChange={handleInputChange}
                   ></input>
                   <label>Valid Till</label> 
                   <input
                     type="text"
-                    name="billNumber"
+                    name="validTill"
                     className="form-control"
                     placeholder="21/25"
+                    value={transaction.validTill}
+                   onChange={handleInputChange}
                   ></input>
 
                   <label>CVC/CCV</label> 
@@ -67,6 +129,8 @@ const AgentAddmoneyCard = (props) => {
                     name="ccvNumber"
                     className="form-control"
                     placeholder="656"
+                    value={transaction.ccvNumber}
+                   onChange={handleInputChange}
                   ></input>
                   
                   <label>Amount</label>
@@ -75,15 +139,18 @@ const AgentAddmoneyCard = (props) => {
                     name="amount"
                     className="form-control"
                     placeholder="0.00"
+                    value={transaction.amount}
+                   onChange={handleInputChange}
                   ></input>
 
-                  <label>{props.numberType}</label>
-                  
-                            <input
+                  <label>{props.numberType} Number</label>
+                  <input
                     type="text"
-                    name="mobileNumber"
+                    name="phone"
                     className="form-control"
+                    value={transaction.phone}
                     placeholder="+8801*********"
+                   onChange={handleInputChange}
                   ></input>
 
                   <label>Password</label>
@@ -92,6 +159,8 @@ const AgentAddmoneyCard = (props) => {
                     name="password"
                     className="form-control"
                     placeholder="******"
+                    value={transaction.password}
+                   onChange={handleInputChange}
                   ></input>
                 </div>
 
@@ -100,6 +169,7 @@ const AgentAddmoneyCard = (props) => {
                     {props.buttonName}
                   </button>
                 </div>
+                </form>
               </div>
             </div>
           </div>

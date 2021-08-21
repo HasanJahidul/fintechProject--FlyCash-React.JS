@@ -1,7 +1,7 @@
 //import "../../../black/css/black-dashboard.css";
 import '../../../App.css';
 
-const AgentStatementsTableRow = ({phone,transaction_type,date,amount,balance})=>{
+const AgentStatementsTableRow = ({phone,transaction_type,date,amount,balance,profit})=>{
   
     return (
 
@@ -12,6 +12,7 @@ const AgentStatementsTableRow = ({phone,transaction_type,date,amount,balance})=>
             <th>{transaction_type}</th>
             <th className="text-center">{amount}</th>
             <th className="text-center hideb">{balance}</th>
+            <th className="text-center hideb">{profit}</th>
             <th className="text-center">{date}</th>
           </tr>
           

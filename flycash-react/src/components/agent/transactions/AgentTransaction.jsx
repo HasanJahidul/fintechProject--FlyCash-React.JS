@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useState } from "react";
 import "../../../App.css";
 // import Footer from "../../layouts/footer";
 import AgentNavbar from "../../layouts/navbars/AgentNavbar";
@@ -10,15 +11,18 @@ import {setUserSession} from "../../auth/connect/getSession";
 
 const AgentTransaction = (props) => {
     var email = "Borno@gmail.com";
+    var transaction_type = props.status;
 
     const history = useHistory();
     const [transaction, setTransaction] = useState({
         
         phone:'',
         amount:'',
-        password:''
+        password:'',
+        error:[]
     });
     const [msg, setMsg] = useState(" ");
+    const [error, setError] = useState(" ");
     const handleInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -26,42 +30,48 @@ const AgentTransaction = (props) => {
         console.log(name, value);
         
     }
-        const AgentTransactionProcces = async (e) => {
+        const agentTransaction = async (e) => {
             e.preventDefault();
             const phone =transaction.phone.toString();
             const amount =transaction.amount.toString();
             const password =transaction.password.toString();
-            const res = await axios.post('http://localhost:8000/api/AgentTransactionProcces', { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email});
+            const res = await axios.post('http://localhost:8000/api/transaction', { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email});
             // { transaction_type: transaction_type,phone: phone,amount:amount,password:password,email:email}
             if (res.data.status === 200) {
                 console.log(res.data.message);
                 setMsg(res.data.message);
-                setTransaction({ event_name: '',
-                phone:'',
-                amount:'',
-                password:'' })
-                
-                setTimeout(() => { history.push('/agent/AgentTransactionList'); }, 3000);
-                 
-            }
-            else if (res.data.status === 240) {
-                setMsg(res.data.message);
+                console.log(res.data.data)
                 setTransaction({ transaction_type: '',
                 phone:'',
                 amount:'',
                 password:'' })
                 setUserSession(email,res.data.user_status);
+
             }
-            else {
-                setMsg(res.data.message);
-                setTransaction({transaction_type: '',
+            else if (res.data.status === 240) {
+              setMsg(res.data.message);
+              console.log(res.data.data)
+                setTransaction({ transaction_type: '',
                 phone:'',
                 amount:'',
-                password:''})
+                password:'' })
             }
-            e.stopPropagation();
-        
-        }
+                
+                else if (res.data.status === 422) {
+                  setMsg(res.data.message);
+                  console.log("hi");
+                  setTransaction({ transaction_type: '',
+                  phone:'',
+                  amount:'',
+                  password:'' })
+              }
+                else {
+                  setError(res.data.error);
+                  console.log(error);
+                }
+                e.stopPropagation();
+            
+            }
 
   // let history = useHistory();
   // const addmoney = () => {
@@ -123,6 +133,7 @@ const AgentTransaction = (props) => {
           <div className="d-flex justify-content-center">
             <div className="col-md-4">
               <div className="card card-user">
+              <form onSubmit={agentTransaction} >
                 <div className="card-body">
                   <p className="card-text">
                     <div className="author">
@@ -139,9 +150,7 @@ const AgentTransaction = (props) => {
                         ></img>
                       </a>
                       <h3>{transaction_type}</h3>
-                      <div class="alert alert-success" role="alert">
-                            {msg}
-                        </div>
+                      <spam role="alert">{msg}</spam>
                     </div>
                   </p>
                   <label>{props.numberType} Number</label>
@@ -180,6 +189,7 @@ const AgentTransaction = (props) => {
                     {props.buttonName}
                   </button>
                 </div>
+                </form>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import SideNav from "../layouts/sidebar/agentsSidebar";
 import Navbar from "../layouts/navbars/AgentNavbar";
-
+import { getUser, removeUserSession } from "../auth/connect/getSession";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -19,6 +19,7 @@ import {
 } from "reactstrap";
 
 const AgentProfileView = () => {
+  const user = getUser();
   return (
     <>
       <div className="main-panel ps">
@@ -38,9 +39,10 @@ const AgentProfileView = () => {
                         <FormGroup>
                           <label>Name</label>
                           <Input
-                            defaultValue="MD. SABBIR HOSSAIN BORNO"
+                            name="name"
+                            defaultValue={user.name}
                             disabled
-                            placeholder="Name"
+                            placeholder="Username"
                             type="text"
                           />
                         </FormGroup>
@@ -52,7 +54,7 @@ const AgentProfileView = () => {
                         <FormGroup>
                           <label>Email</label>
                           <Input
-                            defaultValue="Borno@gmail.com"
+                            defaultValue={user.email}
                             disabled
                             placeholder="Email"
                             type="email"
@@ -66,7 +68,7 @@ const AgentProfileView = () => {
                         <FormGroup>
                           <label>Mobile Number</label>
                           <Input
-                            defaultValue="+8801716653557"
+                            defaultValue={user.phone}
                             disabled
                             placeholder="Number"
                             type="text"
@@ -80,7 +82,7 @@ const AgentProfileView = () => {
                         <FormGroup>
                           <label>NID Number</label>
                           <Input
-                            defaultValue="12587496583"
+                            defaultValue={user.nid}
                             disabled
                             placeholder="NID"
                             type="text"
@@ -94,7 +96,8 @@ const AgentProfileView = () => {
                         <FormGroup>
                           <label>Date Of Birth</label>
                           <Input
-                            defaultValue="12-02-1996"
+                            defaultValue={user.dob}
+                            placeholder={user.dob}
                             disabled
                             placeholder="DOB"
                             type="text"
@@ -125,9 +128,9 @@ const AgentProfileView = () => {
                       <img
                         alt="..."
                         className="avatar"
-                        src={require("../../black/img/anime6.png").default}
+                        src={require("../../black/img/agent/anime6.png").default}
                       />
-                      <h4 className="title">Md, Sabbir Hossain Borno</h4>
+                      <h4 className="title">{user.name}</h4>
                     </a>
                     <h3 className="description">Agent</h3>
                   </div>
@@ -137,7 +140,7 @@ const AgentProfileView = () => {
                   </div>
                 </CardBody>
                 <CardFooter>
-                  <div className="button-container">
+                  {/* <div className="button-container">
                     <Button className="btn-icon btn-round" color="facebook">
                       <i className="fab fa-facebook" />
                     </Button>
@@ -147,7 +150,7 @@ const AgentProfileView = () => {
                     <Button className="btn-icon btn-round" color="google">
                       <i className="fab fa-google-plus" />
                     </Button>
-                  </div>
+                  </div> */}
                 </CardFooter>
               </Card>
             </Col>

@@ -1,10 +1,12 @@
-import axios from 'axios';
 import React, { Component } from 'react'
+import "../../../App.css";
+import SideNav from "../../layouts/sidebar/OfficerSidebar";
+import Navbar from "../../layouts/navbars/OfficerNavbar";
 import { Link } from 'react-router-dom'
-
+import axios from 'axios';
 import swal from 'sweetalert';
 
-class ChangePassword extends Component{
+class ProfileEdit extends Component {
 
     state = {
         current_password:'',
@@ -18,6 +20,28 @@ class ChangePassword extends Component{
         });
     }
 
+    async componentDidMount(){
+
+        const officer_id = this.props.match.params.id;
+
+        const res = await axios.get(`http://localhost:8000/api/edit-password/${officer_id}`);
+
+        if(res.data.status === 200){
+            
+            //console.log(agent_id);
+           
+        }else{
+            swal({
+                title: "Warning!",
+                text: res.data.message,
+                icon: "warning",
+                button: "OK!",
+              });
+              
+            this.props.history.push('/change-password');  
+        }
+    }
+
     updatePassword = async (e) =>{
         e.preventDefault();
 
@@ -26,7 +50,7 @@ class ChangePassword extends Component{
         document.getElementById('updatebtn').disable = true;
         document.getElementById('updatebtn').innerText = 'Updating';
 
-        const res = await axios.post(`http://localhost:8000/api/update-profile/${officer_id}`, this.state);
+        const res = await axios.post(`http://localhost:8000/api/update-password/${officer_id}`, this.state);
         
         console.log(res);
 
@@ -43,7 +67,7 @@ class ChangePassword extends Component{
                 icon: "success",
                 button: "OK!",
               });
-        }else{
+        }else if(res.data.status === 420){
             swal({
                 title: "Warning!",
                 text: res.data.message,
@@ -51,51 +75,67 @@ class ChangePassword extends Component{
                 button: "OK!",
                 });
                 
-            //this.props.history.push('/view-profile');  
+            this.props.history.push('/view-profile');  
         }
     }
 
+//======================================================================
+
     render(){
-        return(
-            <div ClassName="main-container">
-                <div ClassName="row">
-                    <div className="col-md-6">
-                        <div className="card">
-                            <div className="card-header">
 
-                                <h4>Officer Change Password
-                                    <Link to={'/'} className="btn btn-primary btn-sm float-end">Back</Link>
-                                </h4>
-                            </div>
+        return (
+            <div>
+            <div className="wrapper">
+            <SideNav />
+            <div className="main-panel ps" >
+                <Navbar />
+            <div className= "content">
+                <div class="row" style={{ right: "500px" }}>
+                <div class="col-md-12">
+                    <div class="card ">
+                    <div class="card-header">
 
-                            <div className="card-body">
+                        <h4>Officer Change Password</h4>
+                    </div>
+<<<<<<< HEAD
 
-                                <form onSubmit={this.updatePassword}>
+=======
+                    <Link to={'/view-profile'} className="btn btn-primary btn-sm float-end">Back</Link>
+>>>>>>> customer
+                        <div className="card-body">
 
-                                    <div className="form-group mb-3">
-                                        <lebel>Current Password</lebel>
-                                        <input type="text" name="current_password" value={this.state.current_password} className="form-control" onChange={this.handleInput}/>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <lebel>New Password</lebel>
-                                        <input type="text" name="new_password" value={this.state.new_password} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-                                    <div className="form-group mb-3">
-                                        <lebel>Re Password</lebel>
-                                        <input type="text" name="re_password" value={this.state.re_password} className="form-control"  onChange={this.handleInput}/>
-                                    </div>
-                                    
-                                    <div className="form-group mb-3">
-                                        <button type="submit" id="updatebtn" className="btn btn-primary">Save</button>
-                                    </div>
-                                </form>
-                            </div>
+                            <form onSubmit={this.updatePassword}>
+                                <div className="form-group mb-3">
+                                    <lebel>Current Password</lebel>
+                                    <input type="text" name="current_password" value={this.state.current_password} className="form-control" onChange={this.handleInput}/>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <lebel>New Password</lebel>
+                                    <input type="text" name="new_password" value={this.state.new_password} className="form-control"  onChange={this.handleInput}/>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <lebel>Re Password</lebel>
+                                    <input type="text" name="re_password" value={this.state.re_password} className="form-control"  onChange={this.handleInput}/>
+                                </div>
+<<<<<<< HEAD
+=======
+                                <button type="submit" id="updatebtn" className="btn btn-primary btn-sm float-end">Save</button>
+>>>>>>> customer
+                            </form>
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+                    <button type="submit" id="updatebtn" className="btn btn-primary btn-sm float-end">Save</button>
+                    <Link to={'/view-profile'} className="btn btn-primary btn-sm float-end">Back</Link>
+=======
+>>>>>>> customer
+                </div>
+            </div>
+            </div>
+            </div>
             </div>
         );
     }
-}
-
-export default ChangePassword;
+};
+export default ProfileEdit;
