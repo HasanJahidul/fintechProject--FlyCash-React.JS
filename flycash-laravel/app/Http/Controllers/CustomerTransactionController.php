@@ -20,7 +20,15 @@ class CustomerTransactionController extends Controller
         //$email = 'joy@gmail.com';
         $customer = DB::table('customerstransactions')->where('email', '=', $email)->get();
 
-        return response()->json($customer);
+         return response()->json($customer);
+        // $customer= Customer::all(); //change Officer to (Customer)->tablename
+
+        //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
+
+        // return response()->json([
+        //     'status' => 200,
+        //     'list' => $customer
+        // ]);
     }
     public function test(Request $req)
     {

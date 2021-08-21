@@ -31,18 +31,18 @@ class RegisterController extends Controller
        
         
         $validator = Validator::make($req->all(), [
-            'name' => 'required|min:3|max:30|alpha',
-            // 'email' => 'email:rfc,dns|required|min:10|max:50|',
-            // 'password'=> 'required|min:8|max:20',
-            // 'password_confirmation'=> 'required|min:8|max:20',
-            // //  'name' => 'required',
-            // // 'email' => 'required',
-            // // 'password'=> 'required',
-            // // 'password_confirmation'=> 'required',
-            // 'phone' => 'required|min:11|numeric',
-            // 'nid' => 'required|min:10|numeric',
-            // 'dob' => 'required',
-            // 'type' => 'required',
+            'name' => 'required|min:3|max:30',
+            'email' => 'email:rfc,dns|required|min:10|max:50|',
+            'password'=> 'required|min:8|max:20',
+            'password_confirmation'=> 'required|min:8|max:20',
+            //  'name' => 'required',
+            // 'email' => 'required',
+            // 'password'=> 'required',
+            // 'password_confirmation'=> 'required',
+            'phone' => 'required|min:11|numeric',
+            'nid' => 'required|min:10|numeric',
+            'dob' => 'required',
+            'type' => 'required',
         ]);
 
             if ($validator->fails()) {
@@ -193,7 +193,35 @@ class RegisterController extends Controller
             }
         } 
     }
-    
+    public function hi(Request $req){
+        $validator = Validator::make($req->all(), [
+            'name' => 'required|min:3|max:30|alpha',
+            // 'email' => 'email:rfc,dns|required|min:10|max:50|',
+            // 'password'=> 'required|min:8|max:20',
+            // 'password_confirmation'=> 'required|min:8|max:20',
+            // //  'name' => 'required',
+            // // 'email' => 'required',
+            // // 'password'=> 'required',
+            // // 'password_confirmation'=> 'required',
+            // 'phone' => 'required|min:11|numeric',
+            // 'nid' => 'required|min:10|numeric',
+            // 'dob' => 'required',
+            // 'type' => 'required',
+        ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error'=> $validator->errors(),
+                ]);
+            }else{
+                return response()->json([
+                    'status' => 240,
+                    'message' => "hi",
+
+                ]);
+            }
+
+    }
         
         
 }

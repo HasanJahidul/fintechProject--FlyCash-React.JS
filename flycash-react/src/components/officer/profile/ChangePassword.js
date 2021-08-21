@@ -75,7 +75,7 @@ class ProfileEdit extends Component {
                 button: "OK!",
                 });
                 
-            //this.props.history.push('/view-profile');  
+            this.props.history.push('/view-profile');  
         }
     }
 

@@ -360,6 +360,7 @@ progress {
   -webkit-appearance: none;
 }
 
+
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
@@ -19722,7 +19723,7 @@ textarea.form-control {
   .has-success.input-group-focus
   .input-group-prepend
   .input-group-text {
-  border-color: #00bf9a;
+    border-color: #00bf9a;
 }
 .card.card-plain {
   background: transparent;
@@ -20086,21 +20087,12 @@ select.form-control option {
 .details {
   display: none;
 }
-.notify {
-  padding-top: 29px;
-  padding-right: 99px;
-}
-.popup th,
-h3,
-h4 {
-  color: black !important;
-}
 
 @media print {
   .sidebar {
     display: none;
   }
-  .hideb {
+  .hideb{
     display: none;
   }
   .main-panel .content {
@@ -20129,14 +20121,14 @@ h4 {
   }
   .pdf th,
   h3,
-  h4 {
+  h4,td {
     color: black !important;
   }
   .details {
     margin-left: 30px;
     display: block;
   }
-  .pdf table tr th {
+  .pdf table tr th{
     border-collapse: collapse;
     border-style: solid black;
     border-bottom: 2px solid black;
@@ -20148,7 +20140,7 @@ h4 {
     padding: 0.5rem;
     text-align: center;
   }
-  .card-title {
+  .card-title{
     text-align: center;
   }
 }

@@ -22,6 +22,8 @@ let date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+today.getFullY
   //     }
   //   );
   // };
+  
+  const [search, setSearch] = useState("");
   const [transList, setTransactionList] = useState([]);
   useEffect(() => {
     fetch(`http://localhost:8000/api/customer/transactionlist/${user.email}`).then(
@@ -63,6 +65,10 @@ let date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+today.getFullY
                 <h3 class="card-title"> Translation List</h3>
               </div>
               <div class="card-body">
+              <input className="hideb  btn-primary btn-simple input-group" type="text"
+                                placeholder="searching"
+                                onChange={e => {setSearch(e.target.value)}}
+                            />
                 <div class="table-responsive-lg">
                   <table class="table tablesorter " id="">
                     <thead class=" text-primary">
@@ -75,7 +81,25 @@ let date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+today.getFullY
                       </tr>
                     </thead>
 
-                    {transList.map((u) => {
+                    {transList.filter((val) => {
+                                            if (search == "") {
+                                                return val
+                                            }
+                                            else if (val.transaction_type.toLowerCase().includes(search.toLowerCase()))
+                                            {
+                                                return val
+                                            }else if (val.amount.toLowerCase().includes(search.toLowerCase()))
+                                            {
+                                                return val
+                                            }else if (val.date.toLowerCase().includes(search.toLowerCase()))
+                                            {
+                                                return val
+                                            }else if (val.phone.toLowerCase().includes(search.toLowerCase()))
+                                            {
+                                                return val
+                                            }
+
+                                            }).map((u) => {
                       return <StatementsTableRow key={u.id} {...u} />;
                     })}
                   </table>

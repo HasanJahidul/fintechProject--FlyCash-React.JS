@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import "../../../App.css";
-import SideNav from "../../layouts/sidebar/OfficerSidebar";
-import Navbar from "../../layouts/navbars/OfficerNavbar";
-import { Link } from 'react-router-dom'
 import axios from 'axios';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import "../../../App.css";
+import Navbar from "../../layouts/navbars/OfficerNavbar";
+import SideNav from "../../layouts/sidebar/OfficerSidebar";
 
 class AgentTransaction extends Component {
 

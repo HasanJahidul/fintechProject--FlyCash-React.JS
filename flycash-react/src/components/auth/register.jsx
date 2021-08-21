@@ -32,6 +32,7 @@ const handleInputChange = (e) => {
   
 }
   const register = async (e) => {
+    
     e.preventDefault();
     const name =data.name.toString();
     const email =data.email.toString();
@@ -41,7 +42,7 @@ const handleInputChange = (e) => {
     const nid =data.nid.toString();
     const dob =data.dob.toString();
     const type =data.type.toString();
-    const res = await axios.post('http://localhost:8000/api/users-register', { name: name,email:email,password: password,dob:dob,password_confirmation:password_confirmation,phone:phone,nid:nid,type:type});
+    const res = await axios.post('http://localhost:8000/api/register', { name: name,email:email,password: password,dob:dob,password_confirmation:password_confirmation,phone:phone,nid:nid,type:type});
 
     if (res.data.status === 200) {
         console.log(res.data.message);

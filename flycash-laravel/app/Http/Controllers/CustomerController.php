@@ -5,21 +5,92 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Officer;
 use App\Models\Customer;
+use App\Models\Customerstransaction;
 use Validator;
 use App\Http\Requests\EditProfileRequest;
 use Illuminate\Support\Facades\DB; //Import query builser 
 
+
 class CustomerController extends Controller
 {
     
-// ============================ End Edit ====================================
-
     public function updateCustomer(Request $req)
     {
         $validator = Validator::make($req->all(), [
             'name' => 'required|min:3|max:30|alpha',
             'phone' => 'required|min:11|numeric',
         ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error'=> $validator->errors(),
+                ]);
+            }else{
+                $customer= Customer::where('email',$req->email)
+                ->first();
+                $customer->phone = $req->phone;
+                $customer->name = $req->name;
+                $customer->save();
+                if($customer){
+                    $newData = Customer::where('email', $req->email)
+                    ->first();
+                    return response()->json([
+                        'status' => 200,
+                        'user_status' => $newData,
+                        'message' => "Profile Updated",
+                    ]);
+                }
+                else{
+                    return response()->json([
+                        'status' => 240,
+                        'message' => "Error",
+                    ]);
+
+                }
+            }
+       
+    }
+    public function upload(Request $req)
+    {
+        //$customer= Customer::all(); //change Officer to (Customer)->tablename
+        //$customer = DB::table('customerstransactions')->where('email', '=', $email)->get();
+
+        //$users = Officer::orderBy('id','DESC')->get(); //change Officer to (Agent)->tablename
+
+        // return response()->json([
+        //     'status' => 200,
+        //     'customers' => $req->data
+        // ]);
+        //$newName= $random().'.'.$req->data->getClientOriginalExtension();
+        //$newName=$req->file('data')->getClientOriginalName();
+    //     $fielnames = $request->input('name');
+    //   $email = $request->input('email');
+    //   $filepath = $request->file('file')->store('products');
+       
+    //   $upload=DB::table('image')->insert([
+    //         'name' =>  $fielnames ,
+    //         'img_path' => $filepath,
+    //         'email'=> $email
+    //       ]); 
+    //       if($upload)
+    //       {
+    //         return response()->json($upload);
+
+    //       }else{
+    //         return response()->json($upload);
+    //       }
+          return response()->json($upload);
+    }
+// ============================ End Edit ====================================
+
+    public function update(Request $req, $id)
+    {
+        $customer = Customer::find($id);
+        
+        $customer->phone = $req->input('phone');
+        $customer->nid = $req->input('nid');
+        $customer->dob = $req->input('dob');
+        $customer->type = $req->input('type');
 
             if ($validator->fails()) {
                 return response()->json([
@@ -82,23 +153,7 @@ class CustomerController extends Controller
     }
 // ============================ End Edit ====================================
 
-    public function update(Request $req, $id)
-    {
-        $customer = Customer::find($id);
-        
-        $customer->phone = $req->input('phone');
-        $customer->nid = $req->input('nid');
-        $customer->dob = $req->input('dob');
-        $customer->type = $req->input('type');
-
-        $customer->update();
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Customer Update Successfully',
-        ]);
-    }
-
+  
 
 //===========================Officer get transaction for customer=================================
 

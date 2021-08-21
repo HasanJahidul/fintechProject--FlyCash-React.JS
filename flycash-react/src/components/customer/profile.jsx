@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useState} from "react";
-import  Dropzone   from "react-dropzone";
+import React, { useCallback, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import { useHistory } from "react-router-dom";
-import Image from "./transactions/Image"
+//import Image from "./Image"
 // reactstrap components
 import {
   Card,
@@ -13,16 +13,47 @@ import {
   Col,
   FormGroup,
   Input,
-  Row,
+  Row
 } from "reactstrap";
 import { getUser, setUserSession } from "../auth/connect/getSession";
 import Navbar from "../layouts/navbars/CustomerNavbar";
-import SideNav from "../layouts/sidebar/customersSidebar";
 import Notification from "../layouts/notification/Notification";
+import SideNav from "../layouts/sidebar/customersSidebar";
+
 
 const Profile = () => {
+
+
+    const onDrop = useCallback(acceptedFiles => {
+      // Do something with the files
+      fileUploader(acceptedFiles);
+      //console.log(acceptedFiles);
+    }, []);
+
+    function fileUploader(files){
+      let formData = new FormData()
+      formData.append('uploadedFiles',files)
+      formData.append('email',user.email)
+      //console.log(formData);
+      axios.post('http://127.0.0.1:8000/api/customer/upload', {
+        data: formData,
+        email:user.email
+
+        }).then(response => {
+
+          console.log(response);
+        }).catch(error => {
+         
+          setError("Invalid File");
+      });
+      
+
+    }
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+
+
   const user = getUser();
- 
+
   const history = useHistory();
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -33,7 +64,7 @@ const Profile = () => {
     phone: "",
     name: "",
   });
-  
+
   const [msg, setMsg] = useState(" ");
   const [error, setError] = useState(" ");
   //const [error, seterror] = useState(" ");
@@ -210,27 +241,17 @@ const Profile = () => {
                       <h5 className="title">{user.name}</h5>
                     </a>
                     <p className="description"> {user.type} Account </p>
-                  </div>
-                  {/* <div className="dp btn btn-primary btn-simple"> Change Profile Picture
-                  <input type="file" name="dp" className="btn btn-primary btn-simple" aria-invalid="false"/>
-                 
-                  </div> */}
-                  {/* <Dropzone
-                    onDrop={(acceptedFiles) => console.log(acceptedFiles)}
-                  >
-                    {({ getRootProps, getInputProps }) => (
-                      <section>
-                        <div {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          <p>
-                            Drag 'n' drop some files here, or click to select
-                            files
-                          </p>
-                        </div>
-                      </section>
+                  </div >
+                  <div {...getRootProps()} className="dp btn btn-danger btn-simple">
+                    <input {...getInputProps()} />
+                    {isDragActive ? (
+                      <p>Drop the files here ...</p>
+                    ) : (
+                      <p>
+                        Drag 'n' drop some files here, or click to select files
+                      </p>
                     )}
-                  </Dropzone> */}
-                  <Image/>
+                  </div>
                   <div className="card-description">
                     Do not be scared of the truth because we need to restart the
                     human foundation in truth And I love you like Kanye loves
