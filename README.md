@@ -1,1 +1,1 @@
-# fintechProject--FlyCash-React.JS-
+# fintechProject--FlyCash-React.JS
